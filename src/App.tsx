@@ -147,8 +147,171 @@ export function App() {
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>('jason-1');
   const [drawerHistory, setDrawerHistory] = useState<DrawerHistoryItem[]>([]);
 
-  const getWorldById = (id: string) => worlds.find((w) => w.id === id);
-  const getVariantById = (id: string) => variants.find((v) => v.id === id);
+  // Chronological Episode Ranking (Anti-Spoiler "Onde Você Está?" System like dark.netflix.io)
+  const EPISODE_ORDER = [
+    'T1:E1', 'T1:E2', 'T1:E3', 'T1:E4', 'T1:E5', 'T1:E6', 'T1:E7', 'T1:E8', 'T1:E9',
+    'T2:E1', 'T2:E2', 'T2:E3', 'T2:E4', 'T2:E5', 'T2:E6', 'T2:E7', 'T2:E8', 'T2:E9', 'T2:E10'
+  ];
+
+  const getEpisodeRank = (epCode: string): number => {
+    const idx = EPISODE_ORDER.indexOf(epCode);
+    return idx === -1 ? 999 : idx;
+  };
+
+  // Canonical First Appearance & Death Episode per Variant (prevents future spoilers!)
+  const VARIANT_PROGRESSION: Record<string, { firstEp: string; deathEp?: string }> = {
+    // T1:E1 — Reality 01 & Abduction to Reality 02
+    'jason-1': { firstEp: 'T1:E1' },
+    'jason-2': { firstEp: 'T1:E1' },
+    'daniela-1': { firstEp: 'T1:E1' },
+    'charlie-1': { firstEp: 'T1:E1' },
+    'ryan-1': { firstEp: 'T1:E1' },
+    'amanda-2': { firstEp: 'T1:E1' },
+    'leighton-2': { firstEp: 'T1:E1' },
+    // T1:E2 — Trip of a Lifetime (Velocity Labs & Reality 01)
+    'ryan-2': { firstEp: 'T1:E2' },
+    'blair-2': { firstEp: 'T1:E2' },
+    'leighton-1': { firstEp: 'T1:E2' },
+    // T1:E3 — The Box
+    'blair-1': { firstEp: 'T1:E3' },
+    // T1:E4 — The Corridor (Snow World 15 & Velocity R3 World 6)
+    'jason-3': { firstEp: 'T1:E4', deathEp: 'T1:E4' },
+    'ryan-3': { firstEp: 'T1:E4', deathEp: 'T2:E4' }, // Alive in T1:E4..T2:E3, dies in T2:E4!
+    'leighton-6': { firstEp: 'T1:E4' },
+    // T1:E5 — Worldless (Wasp World 19 & Plague World 20)
+    'jason-4': { firstEp: 'T1:E5' },
+    'blair-19-dead': { firstEp: 'T1:E5', deathEp: 'T1:E5' },
+    // T1:E6 — Superposition
+    'jason-5': { firstEp: 'T1:E6' },
+    // T1:E7 — In the Fires of Dead Stars
+    'amanda-1': { firstEp: 'T1:E7' },
+    // T1:E8 — Jupiter (Mass Convergence of Jasons in Reality 01)
+    'jason-6': { firstEp: 'T1:E8', deathEp: 'T1:E8' },
+    'jason-7': { firstEp: 'T1:E8' },
+    // T1:E9 — Entanglement (Season 1 Finale)
+    'jason-8': { firstEp: 'T1:E9', deathEp: 'T1:E9' },
+    'jason-morgue-r1': { firstEp: 'T1:E9', deathEp: 'T1:E9' },
+    // T2:E1 — A Quiet Life (Season 2 Premiere)
+    'jason-13': { firstEp: 'T2:E1' },
+    'mitchel-1': { firstEp: 'T2:E1' },
+    'jason-stalker-29': { firstEp: 'T2:E1', deathEp: 'T2:E1' },
+    'amanda-j13': { firstEp: 'T2:E1', deathEp: 'T2:E1' },
+    // T2:E2 — A Perfect World (Low-Tech World 30)
+    'mitchel-2': { firstEp: 'T2:E2' },
+    // T2:E5 — Love and Be Loved (Ellie's House World 31)
+    'jason-24': { firstEp: 'T2:E5' },
+    'jason-30': { firstEp: 'T2:E5' },
+    'jason-nativo-31': { firstEp: 'T2:E5', deathEp: 'T2:E5' },
+    // T2:E7 & T2:E8 — The Pyramid & The Basic Oneness of Everything (Laurel's Sanctuary World 32)
+    'laurel-1': { firstEp: 'T2:E7' },
+    'jason-34': { firstEp: 'T2:E8' },
+    'amanda-7': { firstEp: 'T2:E8' },
+  };
+
+  // Maximum unlocked episode rank based on user selection
+  const maxUnlockedRank = useMemo(() => {
+    if (selectedEpisodeCode !== 'ALL') {
+      return getEpisodeRank(selectedEpisodeCode);
+    }
+    if (globalSeasonScope === '1') {
+      return getEpisodeRank('T1:E9');
+    }
+    return 999;
+  }, [selectedEpisodeCode, globalSeasonScope]);
+
+  // Visible variant IDs up to the selected episode/season
+  const unlockedVariantIds = useMemo(() => {
+    const set = new Set<string>();
+    variants.forEach((v) => {
+      const prog = VARIANT_PROGRESSION[v.id];
+      const firstRank = prog ? getEpisodeRank(prog.firstEp) : v.seasonIntroduced === 1 ? 0 : 9;
+      if (globalSeasonScope === '2' && selectedEpisodeCode === 'ALL') {
+        set.add(v.id);
+        return;
+      }
+      if (firstRank <= maxUnlockedRank) {
+        set.add(v.id);
+      }
+    });
+    return set;
+  }, [variants, maxUnlockedRank, globalSeasonScope, selectedEpisodeCode]);
+
+  const scopedWorlds = useMemo(() => {
+    return worlds
+      .filter((w) => {
+        if (selectedEpisodeCode !== 'ALL') {
+          // Show worlds that have already appeared up to and including the selected episode
+          const earliestEpRank = Math.min(...w.episodes.map(getEpisodeRank));
+          return earliestEpRank <= maxUnlockedRank;
+        }
+        if (globalSeasonScope === '1') {
+          return w.season === 1 || w.season === '1 & 2';
+        }
+        if (globalSeasonScope === '2') {
+          return w.season === 2 || w.season === '1 & 2';
+        }
+        return true;
+      })
+      .map((w) => ({
+        ...w,
+        // Hide future variants from visitors/residents lists of unlocked worlds
+        visitors: w.visitors.filter((id) => unlockedVariantIds.has(id)),
+        residents: w.residents.filter((id) => unlockedVariantIds.has(id)),
+      }));
+  }, [worlds, globalSeasonScope, selectedEpisodeCode, maxUnlockedRank, unlockedVariantIds]);
+
+  const unlockedWorldIds = useMemo(
+    () => new Set(scopedWorlds.map((w) => w.id)),
+    [scopedWorlds]
+  );
+
+  const scopedVariants = useMemo(() => {
+    return variants
+      .filter((v) => unlockedVariantIds.has(v.id))
+      .map((v) => {
+        const prog = VARIANT_PROGRESSION[v.id];
+        const deathRank = prog?.deathEp ? getEpisodeRank(prog.deathEp) : null;
+
+        // Prevent spoiling future deaths (e.g., ryan-3 is alive in T1:E4..T2:E3 and only dies in T2:E4)
+        const dynamicStatus =
+          v.status === 'Morto' && deathRank !== null && deathRank > maxUnlockedRank
+            ? ('Ativo / Em Jornada' as const)
+            : v.status;
+
+        // Filter visited worlds to only worlds unlocked up to the selected episode
+        const visitedUpToNow = v.worldsVisited.filter((wId) => unlockedWorldIds.has(wId));
+        const safeVisited =
+          visitedUpToNow.length > 0 ? visitedUpToNow : [v.originWorldId];
+        const dynamicCurrentWorldId = unlockedWorldIds.has(v.currentWorldId)
+          ? maxUnlockedRank < 999
+            ? safeVisited[safeVisited.length - 1]
+            : v.currentWorldId
+          : safeVisited[safeVisited.length - 1];
+
+        return {
+          ...v,
+          status: dynamicStatus,
+          worldsVisited: safeVisited,
+          currentWorldId: dynamicCurrentWorldId,
+        };
+      });
+  }, [variants, unlockedVariantIds, unlockedWorldIds, maxUnlockedRank]);
+
+  const scopedJourneys = useMemo(() => {
+    return JOURNEYS.filter((j) => {
+      if (selectedEpisodeCode !== 'ALL') {
+        return getEpisodeRank(j.episode) <= maxUnlockedRank;
+      }
+      if (globalSeasonScope === '1') return j.season === 1;
+      if (globalSeasonScope === '2') return j.season === 2;
+      return true;
+    });
+  }, [selectedEpisodeCode, globalSeasonScope, maxUnlockedRank]);
+
+  const getWorldById = (id: string) =>
+    scopedWorlds.find((w) => w.id === id) || worlds.find((w) => w.id === id);
+  const getVariantById = (id: string) =>
+    scopedVariants.find((v) => v.id === id) || variants.find((v) => v.id === id);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -164,25 +327,6 @@ export function App() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-
-  const scopedWorlds = useMemo(() => {
-    return worlds.filter((w) => {
-      const seasonMatch =
-        globalSeasonScope === 'ALL' ||
-        (globalSeasonScope === '1' && (w.season === 1 || w.season === '1 & 2')) ||
-        (globalSeasonScope === '2' && (w.season === 2 || w.season === '1 & 2'));
-      const epMatch =
-        selectedEpisodeCode === 'ALL' || w.episodes.includes(selectedEpisodeCode);
-      return seasonMatch && epMatch;
-    });
-  }, [worlds, globalSeasonScope, selectedEpisodeCode]);
-
-  const scopedVariants = useMemo(() => {
-    if (globalSeasonScope === '1') {
-      return variants.filter((v) => v.seasonIntroduced === 1);
-    }
-    return variants;
-  }, [variants, globalSeasonScope]);
 
   const filteredWorlds = useMemo(() => {
     return scopedWorlds.filter((w) => {
@@ -240,7 +384,7 @@ export function App() {
     const q = globalQuery.trim().toLowerCase();
     if (!q) return { matchedWorlds: [], matchedVariants: [] };
     return {
-      matchedWorlds: worlds
+      matchedWorlds: scopedWorlds
         .filter(
           (w) =>
             w.name.toLowerCase().includes(q) ||
@@ -248,7 +392,7 @@ export function App() {
             w.officialOrFanName.toLowerCase().includes(q)
         )
         .slice(0, 5),
-      matchedVariants: variants
+      matchedVariants: scopedVariants
         .filter(
           (v) =>
             v.designation.toLowerCase().includes(q) ||
@@ -257,7 +401,7 @@ export function App() {
         )
         .slice(0, 6),
     };
-  }, [globalQuery, worlds, variants]);
+  }, [globalQuery, scopedWorlds, scopedVariants]);
 
   const handleOpenWorldDetail = (worldId: string) => {
     if (selectedVariantId) {
@@ -827,9 +971,9 @@ export function App() {
           {/* ==================== CHAPTER IV: CORRIDOR TIMELINE ==================== */}
           {activeTab === 'CORRIDOR' && (
             <MultiverseGraph
-              worlds={worlds}
-              variants={variants}
-              journeys={JOURNEYS}
+              worlds={scopedWorlds}
+              variants={scopedVariants}
+              journeys={scopedJourneys}
               onSelectWorld={handleOpenWorldDetail}
               onSelectVariant={handleOpenVariantDetail}
             />

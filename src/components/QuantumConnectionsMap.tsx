@@ -758,12 +758,46 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
 
             <div className="flex flex-wrap items-center gap-1.5 bg-[#050609] p-1 border border-[#c89d54]/35">
               {[
-                { id: 'JASON', label: 'ÁRVORE DE JASON DESSEN (13)' },
-                { id: 'AMANDA', label: 'AMANDA LUCAS (4)' },
-                { id: 'RYAN', label: 'RYAN HOLDER (3)' },
-                { id: 'LEIGHTON', label: 'LEIGHTON VANCE (3)' },
-                { id: 'BLAIR', label: 'BLAIR CAPLAN (3)' },
-                { id: 'MACNAMARA', label: 'MACNAMARA, DANIELA, CHARLIE & LAUREL (5)' },
+                {
+                  id: 'JASON',
+                  label: `ÁRVORE DE JASON DESSEN (${
+                    variants.filter((v) => v.baseCharacter === 'Jason Dessen').length
+                  })`,
+                },
+                {
+                  id: 'AMANDA',
+                  label: `AMANDA LUCAS (${
+                    variants.filter((v) => v.baseCharacter === 'Amanda Lucas').length
+                  })`,
+                },
+                {
+                  id: 'RYAN',
+                  label: `RYAN HOLDER (${
+                    variants.filter((v) => v.baseCharacter === 'Ryan Holder').length
+                  })`,
+                },
+                {
+                  id: 'LEIGHTON',
+                  label: `LEIGHTON VANCE (${
+                    variants.filter((v) => v.baseCharacter === 'Leighton Vance').length
+                  })`,
+                },
+                {
+                  id: 'BLAIR',
+                  label: `BLAIR CAPLAN (${
+                    variants.filter((v) => v.baseCharacter === 'Blair Caplan').length
+                  })`,
+                },
+                {
+                  id: 'MACNAMARA',
+                  label: `MACNAMARA & FAMÍLIA (${
+                    variants.filter(
+                      (v) =>
+                        v.baseCharacter === 'Laurel & Agentes' ||
+                        v.baseCharacter === 'Daniela & Charlie'
+                    ).length
+                  })`,
+                },
               ].map((item) => (
                 <button
                   key={item.id}
@@ -795,7 +829,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                     JASON DESSEN (ANTES DA DIVISÃO)
                   </div>
                   <div className="text-[11px] text-stone-400 mt-0.5">
-                    Daniela descobre que está grávida (ou na linha do Mundo 31, o jovem Jason morre aos 16 anos).
+                    Daniela descobre que está grávida (ponto de divergência entre Reality 01 e Reality 02).
                   </div>
                 </div>
 
@@ -839,10 +873,10 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                           {v.designation}
                         </div>
                         <div className="text-[10px] font-mono text-sky-300 mt-0.5">
-                          REALITY 02 • CRIOU A CAIXA & A PIRÂMIDE
+                          REALITY 02 • CRIOU A CAIXA
                         </div>
                         <p className="text-[11px] text-stone-400 mt-1.5 leading-snug">
-                          Construiu a Caixa na Velocity Labs, ajudou Leighton na Pirâmide e bate à porta de J1 em T2:E7.
+                          Construiu a Caixa na Velocity Labs e sequestrou Jason 1 em Chicago.
                         </p>
                       </button>
                     );
@@ -883,7 +917,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                           REALITY 01 • PROTAGONISTA
                         </div>
                         <p className="text-[11px] text-stone-300 mt-1.5 leading-snug">
-                          Sequestrado por J2 e jogado na Caixa (T1:E3). <strong className="text-[#e6c885]">Todas as variantes abaixo nasceram dele!</strong>
+                          Sequestrado por J2 e jogado na Caixa. <strong className="text-[#e6c885]">Todas as variantes abaixo nasceram dele!</strong>
                         </p>
                       </button>
                     );
@@ -892,7 +926,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                   {/* TRUNK CONTINUES DOWN ONLY FROM JASON 1! */}
                   <div className="w-0.5 h-8 bg-[#c89d54]" />
                   <div className="px-3 py-1.5 bg-[#c89d54] text-[#030305] font-mono text-[10px] font-extrabold uppercase tracking-wider text-center shadow-lg">
-                    ▼ ENTRA NA CAIXA (T1:E3) E SE DIVIDE EM 70+ CÓPIAS ▼
+                    ▼ ENTRA NA CAIXA (T1:E3) E SE DIVIDE EM CÓPIAS ▼
                   </div>
                   <div className="w-0.5 h-8 bg-[#c89d54]" />
                 </div>
@@ -905,59 +939,83 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                   </div>
                   <div className="w-0.5 h-4 bg-emerald-400/60" />
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full max-w-[330px]">
-                    {['jason-5', 'jason-nativo-31'].map((id) => {
-                      const v = getVariant(id);
-                      if (!v) return null;
-                      const isDead = v.status === 'Morto';
-                      return (
-                        <button
-                          key={id}
-                          onClick={() => onSelectVariant(v.id)}
-                          className={`group p-3 bg-[#070d0b] border flex flex-col items-center text-center transition ${
-                            isDead
-                              ? 'border-rose-500/50 hover:border-rose-400'
-                              : 'border-emerald-400/50 hover:border-emerald-300'
-                          }`}
-                        >
-                          <div className="relative mb-2">
-                            <img
-                              src={v.avatarUrl}
-                              alt={v.designation}
-                              referrerPolicy="no-referrer"
-                              className={`w-12 h-12 rounded-full object-cover border-2 ${
-                                isDead ? 'border-rose-500 grayscale-[35%]' : 'border-emerald-400'
-                              }`}
-                            />
-                            <span
-                              className={`absolute -bottom-1 left-1/2 -translate-x-1/2 px-1.5 py-0.2 font-mono text-[9px] font-bold whitespace-nowrap ${
-                                isDead ? 'bg-rose-600 text-white' : 'bg-emerald-400 text-[#030305]'
-                              }`}
-                            >
-                              {v.badgeNumber}
-                            </span>
-                          </div>
-                          <div className="font-display text-xs text-white uppercase">
-                            {v.designation.split(' (')[0]}
-                          </div>
-                          <div
-                            className={`text-[9px] font-mono mt-0.5 ${
-                              isDead ? 'text-rose-300' : 'text-emerald-300'
+                  {!getVariant('jason-5') && !getVariant('jason-nativo-31') ? (
+                    <div className="p-4 bg-[#06080c] border border-white/10 text-center max-w-[260px]">
+                      <span className="text-[10px] font-mono uppercase text-stone-400 block">
+                        🔒 PROTEÇÃO ANTI-SPOILER
+                      </span>
+                      <p className="text-[11px] text-stone-500 mt-1">
+                        Jasons nativos de outros mundos são revelados a partir do Episódio T1:E6.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full max-w-[330px]">
+                      {['jason-5', 'jason-nativo-31'].map((id) => {
+                        const v = getVariant(id);
+                        if (!v) return null;
+                        const isDead = v.status === 'Morto';
+                        return (
+                          <button
+                            key={id}
+                            onClick={() => onSelectVariant(v.id)}
+                            className={`group p-3 bg-[#070d0b] border flex flex-col items-center text-center transition ${
+                              isDead
+                                ? 'border-rose-500/50 hover:border-rose-400'
+                                : 'border-emerald-400/50 hover:border-emerald-300'
                             }`}
                           >
-                            {isDead ? '💀 MORTO AOS 16 ANOS (W31)' : 'EM PAZ COM MAX (W27)'}
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
+                            <div className="relative mb-2">
+                              <img
+                                src={v.avatarUrl}
+                                alt={v.designation}
+                                referrerPolicy="no-referrer"
+                                className={`w-12 h-12 rounded-full object-cover border-2 ${
+                                  isDead ? 'border-rose-500 grayscale-[35%]' : 'border-emerald-400'
+                                }`}
+                              />
+                              <span
+                                className={`absolute -bottom-1 left-1/2 -translate-x-1/2 px-1.5 py-0.2 font-mono text-[9px] font-bold whitespace-nowrap ${
+                                  isDead ? 'bg-rose-600 text-white' : 'bg-emerald-400 text-[#030305]'
+                                }`}
+                              >
+                                {v.badgeNumber}
+                              </span>
+                            </div>
+                            <div className="font-display text-xs text-white uppercase">
+                              {v.designation.split(' (')[0]}
+                            </div>
+                            <div
+                              className={`text-[9px] font-mono mt-0.5 ${
+                                isDead ? 'text-rose-300' : 'text-emerald-300'
+                              }`}
+                            >
+                              {isDead ? '💀 MORTO AOS 16 ANOS (W31)' : 'EM PAZ COM MAX (W27)'}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* LEVEL 2: CHILDREN OF JASON 1 (4 CLEAR TREE FORKS FROM THE CENTER TRUNK) */}
-              <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 xl:gap-0 relative">
-                {/* Horizontal Tree Bar connecting the 4 child branches on xl */}
-                <div className="hidden xl:block absolute top-0 left-[12.5%] right-[12.5%] h-0.5 bg-[#c89d54]" />
+              {/* LEVEL 2: CHILDREN OF JASON 1 */}
+              {!getVariant('jason-3') &&
+              !getVariant('jason-4') &&
+              !getVariant('jason-6') &&
+              !getVariant('jason-13') ? (
+                <div className="px-6 py-4 bg-[#07090f] border border-[#c89d54]/40 text-center max-w-lg">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c89d54] block">
+                    🔒 PROTEÇÃO ANTI-SPOILER ATIVA
+                  </span>
+                  <p className="text-xs text-stone-300 mt-1">
+                    Até este episódio, <strong className="text-white">Jason 1</strong> ainda não gerou ramificações visíveis no Corredor Quântico (as cópias começam a aparecer a partir de <strong className="text-[#e6c885]">T1:E4</strong>).
+                  </p>
+                </div>
+              ) : (
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 xl:gap-0 relative">
+                  {/* Horizontal Tree Bar connecting the 4 child branches on xl */}
+                  <div className="hidden xl:block absolute top-0 left-[12.5%] right-[12.5%] h-0.5 bg-[#c89d54]" />
 
                 {/* CHILD BRANCH 1: JASON 1 SURVIVOR & JASON 4 / JASON 7 */}
                 <div className="flex flex-col items-center px-2">
@@ -1167,6 +1225,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                   </div>
                 </div>
               </div>
+              )}
             </div>
           )}
 
