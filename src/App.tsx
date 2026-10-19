@@ -984,8 +984,6 @@ export function App() {
             <PodcastAndUpdaterTab
               worlds={worlds}
               variants={variants}
-              onAddWorld={(newWorld) => setWorlds((prev) => [...prev, newWorld])}
-              onAddVariant={(newVar) => setVariants((prev) => [...prev, newVar])}
             />
           )}
         </main>
