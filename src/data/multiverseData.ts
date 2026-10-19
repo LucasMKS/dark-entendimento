@@ -86,34 +86,36 @@ export const WORLDS: World[] = [
     code: 'REALITY 01',
     numberLabel: '01',
     name: 'Mundo Original (Casa de Jason 1)',
-    shortHook: 'Onde Jason escolheu o casamento com Daniela e onde 70+ Jasons convergem no final da T1.',
+    shortHook: 'Onde Jason escolheu o casamento com Daniela, 70+ Jasons convergem na T1 e o Agente Mitchel MacNamara investiga o necrotério na T2.',
     officialOrFanName: 'Reality 1 / Jason 1 World (R1)',
     season: '1 & 2',
-    episodes: ['T1:E1', 'T1:E2', 'T1:E6', 'T1:E8', 'T1:E9', 'T2:E1'],
+    episodes: ['T1:E1', 'T1:E2', 'T1:E6', 'T1:E8', 'T1:E9', 'T2:E1', 'T2:E3'],
     category: 'Root',
     habitability: 'Habitável',
     imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/3/32/Abandoned_warehouse_r1.png/revision/latest?cb=20240820012601',
     themeColor: '#f59e0b',
-    atmosphere: 'Chicago contemporânea padrão. Clima temperado.',
+    atmosphere: 'Chicago contemporânea padrão. No início da T2, sob investigação federal secreta devido aos corpos de Jasons.',
     boxLocation: 'Hangar abandonado (Abandoned Warehouse) no sul de Chicago.',
     description:
-      'A realidade de origem que acompanhamos no Episódio 1. Aqui, Jason Dessen optou por ficar com Daniela quando ela engravidou dos gêmeos Charlie e Max (embora Max tenha falecido no parto). No final da 1ª temporada, mais de 70 variantes de Jason (ramificações criadas no Corredor) chegam a este mundo tentando recuperar a família.',
+      'A realidade de origem que acompanhamos no Episódio 1. Aqui, Jason Dessen optou por ficar com Daniela quando ela engravidou dos gêmeos Charlie e Max (embora Max tenha falecido no parto). No final da 1ª temporada, mais de 70 variantes de Jason convergem neste mundo. Na abertura da 2ª temporada (**T2:E1 "A Quiet Life"**), dezenas de corpos idênticos de Jasons mortos acumulam-se no necrotério de Chicago, levando a Detetive **Jamie Mason** e o agente federal **Mitchel MacNamara (Reality 1)** a assumirem o caso suspeitando de clonagem humana e mantendo **Jason 13 ("Scar Jason")** preso em um black-site governamental.',
     visitors: [
       'jason-2',
       'jason-3',
+      'jason-4',
       'jason-6',
       'jason-7',
       'jason-8',
       'jason-13',
       'jason-24',
       'jason-30',
+      'jason-morgue-r1',
       'ryan-2'
     ],
-    residents: ['jason-1', 'daniela-1', 'charlie-1', 'ryan-1', 'blair-1', 'leighton-1', 'amanda-1', 'mitchel-2'],
+    residents: ['jason-1', 'daniela-1', 'charlie-1', 'ryan-1', 'blair-1', 'leighton-1', 'amanda-1', 'mitchel-1'],
     podcastInsight:
       'No Podcast Oficial, Blake Crouch explicou que todas as dezenas de Jasons que invadem este mundo saíram originalmente daqui — todos são ramificações do Jason 1 criadas pelas escolhas dele na Caixa.',
     sources: [
-      { type: 'EPISODE_CANON', label: 'T1:E1 & T1:E9', detail: 'Início da jornada e convergência final.' },
+      { type: 'EPISODE_CANON', label: 'T1:E1, T1:E9 & T2:E1 "A Quiet Life"', detail: 'Convergência dos 70+ Jasons e investigação de Mitchel MacNamara (R1) sobre os corpos em Chicago.' },
       { type: 'FANDOM_WIKI', label: 'Wiki: Reality 1', detail: 'Foto real do hangar abandonado onde a Caixa se materializa.' }
     ]
   },
@@ -134,8 +136,8 @@ export const WORLDS: World[] = [
     boxLocation: 'Hangar de contenção de alta segurança na sede da Velocity Labs.',
     description:
       'O universo onde Jason 2 decidiu priorizar a pesquisa quântica em vez de casar com Daniela há 15 anos. Com o financiamento bilionário de Leighton 2, ele construiu a Caixa e a droga Lavanda. É o mundo natal de Amanda 2, Leighton 2 e Blair 2.',
-    visitors: ['jason-1', 'jason-13', 'jason-24', 'jason-34'],
-    residents: ['jason-2', 'amanda-2', 'leighton-2', 'blair-2'],
+    visitors: ['jason-1', 'jason-3', 'jason-4', 'jason-6', 'jason-7', 'jason-8', 'jason-13', 'jason-24', 'jason-30', 'jason-34', 'jason-stalker-29', 'jason-morgue-r1', 'ryan-2'],
+    residents: ['jason-2', 'amanda-2', 'amanda-7', 'amanda-j13', 'leighton-2', 'blair-2', 'blair-19-dead'],
     podcastInsight:
       'A fotografia deste mundo usa tons frios de aço e ciano para contrastar com o calor familiar do Mundo 1.',
     sources: [
@@ -160,7 +162,7 @@ export const WORLDS: World[] = [
     boxLocation: 'Escombros carbonizados da zona industrial.',
     description:
       'Catalogado na Wiki como "Falling Apart / Ash World" (World 3). É a primeira porta que Jason 1 e Amanda 2 abrem juntos no Corredor (T1:E4). Como estavam fugindo em pânico após o tiroteio na Velocity Labs, o medo subconsciente deles sintonizou um mundo desolado e coberto de cinzas.',
-    visitors: ['jason-1', 'amanda-2', 'leighton-2'],
+    visitors: ['jason-1', 'amanda-2', 'leighton-2', 'jason-3', 'jason-8', 'jason-morgue-r1', 'amanda-j13'],
     residents: [],
     sources: [
       { type: 'EPISODE_CANON', label: 'T1:E4 "The Corridor"', detail: 'Primeira abertura de porta no Corredor.' },
@@ -230,7 +232,7 @@ export const WORLDS: World[] = [
     boxLocation: 'Soterrada na neve; a porta da Caixa congela aberta.',
     description:
       'Catalogado oficialmente na Wiki como "Whiteout Stranded (World 15)". Amanda entra em pânico no Corredor e abre esta porta em meio a uma nevasca mortal. Eles caminham até a casa soterrada de Jason, e Amanda quase morre de hipotermia antes de Jason carregá-la de volta para a Caixa.',
-    visitors: ['jason-1', 'amanda-2', 'leighton-2', 'jason-6'],
+    visitors: ['jason-1', 'amanda-2', 'leighton-2', 'jason-6', 'jason-morgue-r1'],
     residents: [],
     sources: [
       { type: 'EPISODE_CANON', label: 'T1:E4 "The Corridor"', detail: 'Sobrevivência na nevasca.' },
@@ -300,11 +302,11 @@ export const WORLDS: World[] = [
     atmosphere: 'Chicago devastada por enxames de vespas mutantes gigantes.',
     boxLocation: 'Hangar abandonado da Velocity Labs R4 iluminado em vermelho.',
     description:
-      'Catalogado na Wiki como "Big Wasps / Velocity Labs R4". É o mundo onde Blair 2 ficou presa durante os testes da Velocity Labs após outra versão de Blair trazer vespas gigantes pela Caixa. Jason 1 e Amanda 2 encontram Blair 2 armada aqui no T1:E5. Na 2ª temporada, Blair 2 consegue escapar deste mundo até o Santuário de Laurel.',
-    visitors: ['blair-2', 'jason-1', 'amanda-2', 'jason-8'],
+      'Catalogado na Wiki como "Big Wasps / Velocity Labs R4". É o mundo onde Blair 2 ficou presa durante os testes da Velocity Labs após outra versão de Blair (**Blair Viajante**) abrir a porta e ser devorada viva por enxames de vespas gigantes dentro do hangar. Jason 1 e Amanda 2 encontram Blair 2 armada aqui no T1:E5. Na 2ª temporada, Blair 2 consegue escapar deste mundo até o Santuário de Laurel.',
+    visitors: ['blair-2', 'blair-19-dead', 'jason-1', 'amanda-2', 'jason-8'],
     residents: [],
     sources: [
-      { type: 'EPISODE_CANON', label: 'T1:E5 "Worldless" & T2:E8', detail: 'Encontro com Blair 2 e gravação das câmeras do laboratório.' },
+      { type: 'EPISODE_CANON', label: 'T1:E5 "Worldless" & T2:E8', detail: 'Encontro com Blair 2 e gravação das câmeras do laboratório mostrando a morte da outra Blair.' },
       { type: 'FANDOM_WIKI', label: 'Wiki: Big Wasps', detail: 'Imagem real da câmera externa com as vespas.' }
     ]
   },
@@ -417,8 +419,8 @@ export const WORLDS: World[] = [
     atmosphere: 'Chicago utópica com auroras boreais verdes; na 2ª temporada, sob quarentena militar do CDC.',
     boxLocation: 'Galpão tranquilo próximo ao lago.',
     description:
-      'Catalogado oficialmente na Wiki como **"World 26 / Radical Empathy / Kinder More Progressive Place"**. É onde Jason 2 abandona Ryan 1 (T1:E6) e onde Amanda 2 decide morar (T1:E7). Na 2ª temporada, outra dupla de variantes (Ryan 3 e sua Amanda) contamina este mundo com a **Praga da Íris Negra (Hema Aetho 26)**, fazendo com que Amanda 2 e Ryan 1 sejam detidos pelo CDC até serem resgatados por Leighton 6.',
-    visitors: ['jason-2', 'ryan-1', 'amanda-2', 'jason-1', 'ryan-3', 'leighton-6'],
+      'Catalogado oficialmente na Wiki como **"World 26 / Radical Empathy / Kinder More Progressive Place"**. É onde Jason 2 abandona Ryan 1 (T1:E6) e onde Amanda 2 decide morar (T1:E7). Na 2ª temporada, outra dupla de variantes (**Ryan 3** e sua Amanda falecida) contamina este mundo com a **Praga da Íris Negra (Hema Aetho 26)**, fazendo com que Amanda 2 e Ryan 1 sejam detidos pelo CDC em **T2:E4 ("Stars, Hide Your Fires")** até serem resgatados por Leighton 6 em **T2:E7 ("The Pyramid")**.',
+    visitors: ['jason-2', 'ryan-1', 'amanda-2', 'jason-1', 'ryan-3', 'leighton-1', 'leighton-6'],
     residents: ['amanda-2', 'ryan-1'],
     podcastInsight:
       'Designado oficialmente nos roteiros e na Wiki como World 26 ("Radical Empathy").',
@@ -465,13 +467,13 @@ export const WORLDS: World[] = [
     atmosphere: 'Floresta densa onde árvores invadem o perímetro da Caixa.',
     boxLocation: 'No meio de uma mata fechada.',
     description:
-      'O grande ponto de bifurcação da 2ª temporada: um galho de árvore atravessa o peito de Amanda. Na ramificação de **Jason 13 (Scar Jason)**, Amanda morre ali mesmo. Na ramificação de **Jason 34**, ele carrega **Amanda 7** até o Santuário de Laurel e salva sua vida.',
-    visitors: ['jason-13', 'jason-34', 'amanda-7'],
+      'O grande ponto de bifurcação da 2ª temporada: um galho de árvore atravessa o peito de Amanda dentro da Caixa. Na ramificação de **Jason 13 ("Scar Jason")**, sua **Amanda morre em seus braços**. Na ramificação de **Jason 34**, ele carrega **Amanda 7** até o Santuário de Laurel e salva sua vida.',
+    visitors: ['jason-13', 'amanda-j13', 'jason-34', 'amanda-7'],
     residents: [],
     podcastInsight:
       'Citado diretamente no Podcast Oficial T2:E8 para explicar a diferença entre Jason 13 e o casal Jason 34 & Amanda 7.',
     sources: [
-      { type: 'OFFICIAL_PODCAST', label: 'Podcast Oficial T2:E8', detail: 'Explicação de Jason 34 e Amanda 7.' }
+      { type: 'OFFICIAL_PODCAST', label: 'Podcast Oficial T2:E8', detail: 'Explicação de Jason 34 e Amanda 7 vs. Jason 13.' }
     ]
   },
   {
@@ -490,8 +492,8 @@ export const WORLDS: World[] = [
     atmosphere: 'Casa afastada cercada por protocolos de segurança e armas escondidas.',
     boxLocation: 'Acessada pela família na fuga de emergência do T2:E1.',
     description:
-      'O mundo para onde Jason 1, Daniela 1 e Charlie 1 fugiram no final da 1ª temporada e viveram escondidos por 7 meses. No T2:E1 ("A Quiet Life"), enquanto Jason 1 está fora trabalhando, uma **variante hostil de Jason** (que mantinha um diário rastreando a família) invade a casa e **Daniela o mata com um tiro** para proteger a família. Quando um policial local aparece investigando o carro abandonado do invasor enquanto Jason 1 tenta enterrar o corpo, a família é obrigada a fugir imediatamente pela Caixa para o **Mundo Low-Tech**.',
-    visitors: ['jason-1', 'daniela-1', 'charlie-1', 'jason-8'],
+      'O mundo para onde Jason 1, Daniela 1 e Charlie 1 fugiram no final da 1ª temporada e viveram escondidos por 7 meses. No **T2:E1 ("A Quiet Life")**, enquanto Jason 1 está fora trabalhando, o **Jason Invasor do Mundo 29** (uma variante hostil que mantinha um diário rastreando a rotina da família) invade a casa e **Daniela o mata com um tiro** para proteger a família. Quando o policial local Jay Stringer aparece investigando o carro abandonado do invasor enquanto Jason 1 tenta enterrar o corpo, a família é obrigada a fugir imediatamente pela Caixa para o **Mundo Low-Tech**.',
+    visitors: ['jason-1', 'daniela-1', 'charlie-1', 'jason-stalker-29', 'jason-13', 'blair-2'],
     residents: [],
     sources: [
       { type: 'EPISODE_CANON', label: 'T2:E1 "A Quiet Life"', detail: 'Daniela mata o Jason invasor e a família foge da polícia.' },
@@ -531,7 +533,7 @@ export const WORLDS: World[] = [
     podcastInsight:
       'O Mundo Low-Tech e o Mundo da Pirâmide são a exata mesma realidade ("World X"): Leighton usou a falta de tecnologia digital deste mundo para dominar o mercado com a Velocity Tech e construir a Pirâmide nos túneis de Chicago.',
     sources: [
-      { type: 'EPISODE_CANON', label: 'T2:E2, T2:E6 & T2:E7', detail: 'Refúgio dos Dessen, disputa Velocity Tech vs. MacNamara Tech e revelação da Pirâmide.' },
+      { type: 'EPISODE_CANON', label: 'T2:E2, T2:E4, T2:E6 & T2:E7', detail: 'Refúgio dos Dessen, disputa Velocity Tech vs. MacNamara Tech e revelação da Pirâmide.' },
       { type: 'FANDOM_WIKI', label: 'Wiki: S2E02 & S2E07', detail: 'Imagens oficiais do Mundo Low-Tech e da Pirâmide.' }
     ]
   },
@@ -551,9 +553,9 @@ export const WORLDS: World[] = [
     atmosphere: 'Chicago serena e acolhedora.',
     boxLocation: 'Hangar de Chicago.',
     description:
-      'Cenário do T2:E5 ("Love and Be Loved"). **Jason 24** usa sua última ampola pensando na mãe falecida (**Ellie**). Aqui, Ellie está viva (comunicando-se em língua de sinais), mas perdeu o filho aos 16 anos. Jason 24 reconstrói a vida como marceneiro, acolhe os traumatizados **Jason 30** e **Jason 31** em casa e se apaixona por **Maria**.',
+      'Cenário do T2:E5 ("Love and Be Loved"). **Jason 24** usa sua última ampola pensando na mãe falecida (**Ellie**). Aqui, Ellie está viva (comunicando-se em língua de sinais), mas o **Jason Nativo deste mundo morreu aos 16 anos**. Jason 24 reconstrói a vida como marceneiro, acolhe os traumatizados **Jason 30** e **Jason 31** em casa e se apaixona por **Maria**.',
     visitors: ['jason-24', 'jason-30'],
-    residents: ['jason-24', 'jason-30'],
+    residents: ['jason-24', 'jason-30', 'jason-nativo-31'],
     podcastInsight:
       'Mostra como Jason 24, 30 e 31 encontraram cura através da fraternidade e do amor.',
     sources: [
@@ -565,7 +567,7 @@ export const WORLDS: World[] = [
     code: 'WORLD 32',
     numberLabel: '32',
     name: 'Santuário de Laurel ("The Basic Oneness of Everything")',
-    shortHook: 'Casa com uma Caixa na biblioteca onde a enfermeira Laurel salvou Amanda 7 e acolhe Charlie 1.',
+    shortHook: 'Propriedade isolada após uma bomba suja em Chicago onde a enfermeira Laurel salvou Amanda 7 e acolhe Charlie 1.',
     officialOrFanName: "Laurel's Sanctuary House (S2E08)",
     season: 2,
     episodes: ['T2:E7', 'T2:E8'],
@@ -573,12 +575,12 @@ export const WORLDS: World[] = [
     habitability: 'Refúgio Seguro',
     imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/f/f9/Dark_Matter_S2E08.jpg/revision/latest?cb=20261016143155',
     themeColor: '#10b981',
-    atmosphere: 'Propriedade arborizada e pacífica.',
+    atmosphere: 'Propriedade rural arborizada e autossuficiente (após o centro de Chicago ter sido atingido por uma bomba suja anos antes).',
     boxLocation: 'Dentro da biblioteca da casa de Laurel.',
     description:
-      'Revelado no T2:E8 ("The Basic Oneness of Everything"). Uma Caixa materializou-se na biblioteca da ex-enfermeira **Laurel** (Margo Martindale). De lá saíram **Jason 34** carregando **Amanda 7** empalada por um galho. Laurel salvou Amanda 7 e transformou a casa em santuário para viajantes como Blair 2 e Charlie 1.',
+      'Revelado no **T2:E8 ("The Basic Oneness of Everything")**. Neste mundo, uma bomba suja radioativa atingiu Chicago anos antes, e uma Caixa materializou-se dentro da biblioteca da ex-enfermeira militar **Laurel** (Margo Martindale). De lá saíram **Jason 34** carregando **Amanda 7** empalada por um galho. Laurel salvou Amanda 7 e transformou a casa em santuário para viajantes como **Blair 2** e **Charlie 1**.',
     visitors: ['jason-34', 'amanda-7', 'blair-2', 'charlie-1', 'leighton-6'],
-    residents: ['laurel-1', 'amanda-7'],
+    residents: ['laurel-1', 'amanda-7', 'jason-34'],
     podcastInsight:
       'No Podcast Oficial, Blake Crouch confirma as designações de Jason 34 e Amanda 7 como o coração emocional deste santuário.',
     sources: [
@@ -937,6 +939,85 @@ export const VARIANTS: CharacterVariant[] = [
       { type: 'OFFICIAL_PODCAST', label: 'Podcast Oficial T2:E8', detail: 'Analisado em detalhes por Blake Crouch como Jason 34.' }
     ]
   },
+  {
+    id: 'jason-stalker-29',
+    baseCharacter: 'Jason Dessen',
+    badgeNumber: 'J-INVASOR',
+    designation: 'Jason Invasor do Mundo 29 (Morto por Daniela — T2:E1)',
+    alias: 'O Perseguidor do Diário ("A Quiet Life")',
+    shortRole: 'Rastreou a família Dessen até o Mundo 29 após 7 meses e foi morto a tiros por Daniela 1 dentro de casa.',
+    actor: 'Joel Edgerton',
+    avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/e/ef/Dark_Matter_S2E01.jpg/revision/latest?cb=20260918144540',
+    accentColor: 'rose',
+    originWorldId: 'world-prime-1',
+    currentWorldId: 'world-sanctuary-refuge',
+    worldsVisited: ['world-prime-1', 'world-velocity-2', 'world-sanctuary-refuge'],
+    parentVariantId: 'jason-1',
+    branchEventLabel: 'Perseguição obsessiva pós-T1 até o Mundo 29 (T2:E1)',
+    status: 'Morto',
+    seasonIntroduced: 2,
+    visualTraits: 'Roupas escuras de vigilância, carregava um caderno detalhando toda a rotina de Daniela, Charlie e Jason 1.',
+    psychologicalProfile: 'Obsessivo e predatório; recusou-se a aceitar a escolha de Daniela no final da 1ª temporada e seguiu o rastro da família pelo Corredor.',
+    storyArc:
+      'No **T2:E1 ("A Quiet Life")**, sete meses após a fuga da família Dessen para o **Mundo 29**, esta variante consegue encontrar a mesma realidade. Ele vigia a casa, anota os horários de trabalho de Jason 1 em um diário e invade a residência quando Daniela 1 está sozinha. Durante a luta, **Daniela 1 pega a arma escondida e o mata com um tiro**. Enquanto Jason 1 tenta enterrar o corpo dele na mata, o policial local Jay Stringer encontra o carro abandonado do invasor, forçando a família a fugir para o **Mundo Low-Tech ("World X")**.',
+    branchOriginExplanation:
+      'Uma das 70+ variantes de Jason 1 da Reality 1 que não aceitou a despedida na garagem e perseguiu a família pelo Corredor.',
+    sources: [
+      { type: 'EPISODE_CANON', label: 'T2:E1 "A Quiet Life"', detail: 'Invasão à casa do Mundo 29, morte pelas mãos de Daniela 1 e gatilho da fuga.' }
+    ]
+  },
+  {
+    id: 'jason-morgue-r1',
+    baseCharacter: 'Jason Dessen',
+    badgeNumber: 'J-BAIXAS R1',
+    designation: 'Dezenas de Jasons Mortos em Chicago (Necrotério Reality 1)',
+    alias: 'Os Corpos da Convergência (T1:E9 & T2:E1)',
+    shortRole: 'Dezenas de variantes mortas nos confrontos da T1 cujos corpos idênticos lotam o necrotério de Chicago em T2:E1.',
+    actor: 'Joel Edgerton',
+    avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/3/32/Abandoned_warehouse_r1.png/revision/latest?cb=20240820012601',
+    accentColor: 'rose',
+    originWorldId: 'world-prime-1',
+    currentWorldId: 'world-prime-1',
+    worldsVisited: ['world-prime-1', 'world-velocity-2', 'world-ash', 'world-ice-blizzard'],
+    parentVariantId: 'jason-1',
+    branchEventLabel: 'Massacre e baixas da Convergência em Chicago (T1:E8–E9 / T2:E1)',
+    status: 'Morto',
+    seasonIntroduced: 1,
+    visualTraits: 'Dezenas de corpos com as mesmas impressões digitais e DNA de Jason Dessen, mas com diferentes cicatrizes, queimaduras e ferimentos de bala.',
+    psychologicalProfile: 'Variantes que sucumbiram à paranoia, lutaram entre si até a morte pela família ou tiraram a própria vida após perderem Daniela.',
+    storyArc:
+      'Durante os episódios finais da 1ª temporada (**T1:E8 e T1:E9**), dezenas de variantes de Jason se matam em becos, na porta da casa dos Dessen e no cerco à cabana. Na abertura do **T2:E1 ("A Quiet Life")**, a polícia de Chicago (Detetive **Jamie Mason**) e o agente federal **Mitchel MacNamara (Reality 1)** deparam-se com um necrotério lotado de cadáveres geneticamente idênticos de Jason Dessen — levando o governo a suspeitar de uma operação secreta de clonagem humana e a interrogar **Jason 13**.',
+    branchOriginExplanation:
+      'Múltiplas ramificações de Jason 1 geradas no Corredor que morreram na Reality 1.',
+    sources: [
+      { type: 'EPISODE_CANON', label: 'T1:E8, T1:E9 & T2:E1 "A Quiet Life"', detail: 'Corpos acumulados no necrotério de Chicago investigados por Mitchel MacNamara (R1).' }
+    ]
+  },
+  {
+    id: 'jason-nativo-31',
+    baseCharacter: 'Jason Dessen',
+    badgeNumber: 'J-NATIVO 31',
+    designation: 'Jason Nativo do Mundo 31 (Falecido aos 16 Anos)',
+    alias: 'Filho Original de Ellie no Mundo 31',
+    shortRole: 'Morreu aos 16 anos neste universo, enquanto sua mãe Ellie sobreviveu — permitindo que Ellie acolhesse Jason 24, 30 e 31.',
+    actor: 'Joel Edgerton',
+    avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/3/3e/Dark_Matter_S2E05.jpg/revision/latest?cb=20260918145143',
+    accentColor: 'rose',
+    originWorldId: 'world-ellie-maria',
+    currentWorldId: 'world-ellie-maria',
+    worldsVisited: ['world-ellie-maria'],
+    status: 'Morto',
+    seasonIntroduced: 2,
+    visualTraits: 'Visto apenas em memórias/fotos antigas na casa da mãe Ellie.',
+    psychologicalProfile: 'Jovem nativo do Mundo 31 que nunca chegou à vida adulta.',
+    storyArc:
+      'Revelado no **T2:E5 ("Love and Be Loved")**. Enquanto na Reality 1 a mãe de Jason (**Ellie**) morreu e o filho sobreviveu, no **Mundo 31** aconteceu o inverso: o Jason nativo faleceu aos 16 anos e Ellie continuou viva. É graças à ausência dele que **Jason 24** (e depois **Jason 30 e 31**) podem ocupar o lugar de filhos na vida de Ellie sem tomar a vida de outro Jason vivo.',
+    branchOriginExplanation:
+      'Nativo do Mundo 31 (divergência histórica onde morreu na adolescência).',
+    sources: [
+      { type: 'EPISODE_CANON', label: 'T2:E5 "Love and Be Loved"', detail: 'História de Ellie e do filho falecido aos 16 anos.' }
+    ]
+  },
 
   // ==================== AMANDA VARIANTS ====================
   {
@@ -961,8 +1042,10 @@ export const VARIANTS: CharacterVariant[] = [
       'world-murder-hornets',
       'world-plague-pandemic',
       'world-prison-jason',
+      'world-sealed-concrete',
       'world-dying-sun',
       'world-aurora-borealis',
+      'world-max-alive',
       'world-lowtech-analog'
     ],
     status: 'Ativo / Em Jornada',
@@ -970,7 +1053,7 @@ export const VARIANTS: CharacterVariant[] = [
     visualTraits: 'Deu seu colar da Estrela Polar (Polaris) para Jason 1.',
     psychologicalProfile: 'Empática e corajosa; ensinou Jason 1 a acalmar a mente para controlar as portas.',
     storyArc:
-      'Salva Jason 1 na Velocity Labs (T1:E3) e viaja com ele até decidir ficar no Mundo Utópico da Aurora / World 26 (T1:E7). Lá encontra Ryan 1. Na 2ª temporada, viaja com Ryan 1 passando pelo **Mundo Low-Tech** (hospedando-se no mesmo motel Milshire que a família Dessen e sendo vista pelo detetive MacNamara!) e enfrenta a quarentena da Praga da Íris Negra até ser resgatada por Leighton 6.',
+      'Salva Jason 1 na Velocity Labs (T1:E3) e viaja com ele até decidir ficar no Mundo Utópico da Aurora / World 26 (T1:E7). Lá encontra Ryan 1. Na 2ª temporada, viaja com Ryan 1 passando pelo **Mundo Low-Tech** (hospedando-se no mesmo motel Milshire que a família Dessen e sendo vista por Mitchel MacNamara!) e enfrenta a quarentena da Praga da Íris Negra (T2:E4) até ser resgatada por Leighton 6 (T2:E7).',
     branchOriginExplanation:
       'Nativa do Mundo 2 (Velocity Labs).',
     sources: [
@@ -1006,6 +1089,33 @@ export const VARIANTS: CharacterVariant[] = [
       'Ramificação de Amanda 2 que viajava com Jason 34.',
     sources: [
       { type: 'OFFICIAL_PODCAST', label: 'Podcast Oficial T2:E8', detail: 'Identificada nominalmente como Amanda 7 por Blake Crouch.' }
+    ]
+  },
+  {
+    id: 'amanda-j13',
+    baseCharacter: 'Amanda Lucas',
+    badgeNumber: 'A-J13',
+    designation: 'Amanda de Jason 13 (Morta no Acidente do Galho)',
+    alias: 'Variante Fatal do Mundo 28',
+    shortRole: 'Empalada pelo galho de árvore no Mundo 28, morreu nos braços de Jason 13 dentro da Caixa.',
+    actor: 'Alice Braga',
+    avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/6/6c/Alone_woods_world_4.png/revision/latest?cb=20240816213749',
+    accentColor: 'rose',
+    originWorldId: 'world-velocity-2',
+    currentWorldId: 'world-tree-branch-accident',
+    worldsVisited: ['world-velocity-2', 'world-ash', 'world-tree-branch-accident'],
+    parentVariantId: 'amanda-2',
+    branchEventLabel: 'Morte por empalamento no Mundo 28 (oposto de Amanda 7)',
+    status: 'Morto',
+    seasonIntroduced: 2,
+    visualTraits: 'Ferimento fatal no tórax causado pelo galho da floresta no Mundo 28.',
+    psychologicalProfile: 'Tentou ajudar Jason 13 a navegar pelo Corredor, mas teve a vida interrompida tragicamente ao abrir a porta da floresta.',
+    storyArc:
+      'Representa a bifurcação trágica do **Mundo 28 ("Alone in the Woods")**, explicada em **T2:E3** e **T2:E8**: quando a porta da Caixa se abriu em meio a uma mata densa, um galho atravessou seu peito. Enquanto na linha de **Jason 34** ele encontrou o Santuário de Laurel a tempo de salvar **Amanda 7**, na linha de **Jason 13 ("Scar Jason")** não houve socorro e ela morreu em seus braços — desencadeando a fúria autodestrutiva de Jason 13.',
+    branchOriginExplanation:
+      'Ramificação de Amanda 2 que viajava com Jason 13 quando abriram a porta do Mundo 28.',
+    sources: [
+      { type: 'OFFICIAL_PODCAST', label: 'Podcast Oficial T2:E8', detail: 'Contraste direto entre a morte da Amanda de Jason 13 e a sobrevivência de Amanda 7.' }
     ]
   },
   {
@@ -1053,7 +1163,7 @@ export const VARIANTS: CharacterVariant[] = [
     visualTraits: 'Neuroquímico brilhante; aparência tensa e determinada na 2ª temporada.',
     psychologicalProfile: 'Determinado a entender a mecânica neural da Lavanda para voltar para casa.',
     storyArc:
-      'Amigo de Jason 1 no Mundo 1. Quando descobre a farsa de Jason 2, é sequestrado e largado no Mundo 26 / Utopia da Aurora (T1:E6). Encontra Amanda 2 no final da T1 e viaja com ela na 2ª temporada (passando pelo **Mundo Low-Tech**, onde quase cruzam com Jason 1 no corredor do motel Milshire!), enfrentando depois a quarentena da Praga da Íris Negra.',
+      'Amigo de Jason 1 no Mundo 1. Quando descobre a farsa de Jason 2, é sequestrado e largado no Mundo 26 / Utopia da Aurora (T1:E6). Encontra Amanda 2 no final da T1 e viaja com ela na 2ª temporada (passando pelo **Mundo Low-Tech**, onde quase cruzam com Jason 1 no corredor do motel Milshire!), enfrentando depois a quarentena da Praga da Íris Negra (T2:E4) até ser resgatado por Leighton 6 (T2:E7).',
     branchOriginExplanation:
       'Nativo do Mundo 1.',
     sources: [
@@ -1089,9 +1199,9 @@ export const VARIANTS: CharacterVariant[] = [
     id: 'ryan-3',
     baseCharacter: 'Ryan Holder',
     badgeNumber: 'R3',
-    designation: 'Ryan 3 (Vetor da Praga da Íris Negra)',
-    alias: 'Ryan do Surto Hema Aetho 26',
-    shortRole: 'Variante de Ryan que trouxe acidentalmente a Praga da Íris Negra para o Mundo 26.',
+    designation: 'Ryan 3 & Sua Amanda (Mortos pela Praga da Íris Negra)',
+    alias: 'Vetores do Surto Hema Aetho 26 no Mundo 26',
+    shortRole: 'Variante de Ryan (e sua Amanda) que trouxeram acidentalmente a Praga da Íris Negra para o Mundo 26 e morreram na quarentena.',
     actor: 'Jimmi Simpson',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/1/1e/Ryan_Holder.png/revision/latest?cb=20240418155114',
     accentColor: 'rose',
@@ -1099,17 +1209,17 @@ export const VARIANTS: CharacterVariant[] = [
     currentWorldId: 'world-aurora-borealis',
     worldsVisited: ['world-prime-1', 'world-plague-pandemic', 'world-aurora-borealis'],
     parentVariantId: 'ryan-1',
-    branchEventLabel: 'Passagem por mundo infectado (T2:E4/E7)',
+    branchEventLabel: 'Contaminação fatal por Hema Aetho 26 (T2:E4)',
     status: 'Morto',
     seasonIntroduced: 2,
-    visualTraits: 'Infectado pelo patógeno Hema Aetho 26.',
-    psychologicalProfile: 'Viajante que causou uma catástrofe biológica sem intenção.',
+    visualTraits: 'Hemorragia ocular característica da Praga da Íris Negra (Hema Aetho 26).',
+    psychologicalProfile: 'Viajante que buscava refúgio com sua versão de Amanda, mas carregava um patógeno letal de outro mundo.',
     storyArc:
-      'Na 2ª temporada, Amanda 2 e Ryan 1 são presos pelo CDC porque esta outra variante de Ryan (junto com outra Amanda) espalhou a Praga da Íris Negra no Mundo 26.',
+      'Revelado em **T2:E4 ("Stars, Hide Your Fires")**: antes de Ryan 1 e Amanda 2 retornarem ao **Mundo 26 ("Radical Empathy")**, esta outra dupla de variantes (Ryan 3 e sua Amanda) chegou infectada pelo vírus **Hema Aetho 26 (Praga da Íris Negra)**. Ambos morreram na instalação médica, desencadeando o lockdown militar do CDC que prendeu Ryan 1 e Amanda 2.',
     branchOriginExplanation:
-      'Ramificação de Ryan que passou por um mundo pandêmico.',
+      'Ramificação de Ryan 1 e Amanda 2 que passou por um mundo pandêmico antes de entrar no Mundo 26.',
     sources: [
-      { type: 'EPISODE_CANON', label: 'T2:E4 & E7', detail: 'Origem da quarentena militar.' }
+      { type: 'EPISODE_CANON', label: 'T2:E4 "Stars, Hide Your Fires" & T2:E7', detail: 'Morte de Ryan 3 e sua Amanda na quarentena do CDC.' }
     ]
   },
 
@@ -1237,6 +1347,33 @@ export const VARIANTS: CharacterVariant[] = [
     ]
   },
   {
+    id: 'blair-19-dead',
+    baseCharacter: 'Blair Caplan',
+    badgeNumber: 'B-VESPAS',
+    designation: 'Blair Viajante (Morta pelo Enxame no Mundo 19)',
+    alias: 'Cobaia da Velocity Labs no Vídeo de Segurança',
+    shortRole: 'Abriu a porta para o Mundo das Vespas Gigantes (World 19) e foi devorada viva pelo enxame dentro do hangar.',
+    actor: 'Amanda Brugel',
+    avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/2/2c/Lab_video_exterior_wasps.png/revision/latest?cb=20240820012603',
+    accentColor: 'rose',
+    originWorldId: 'world-velocity-2',
+    currentWorldId: 'world-murder-hornets',
+    worldsVisited: ['world-velocity-2', 'world-murder-hornets'],
+    parentVariantId: 'blair-2',
+    branchEventLabel: 'Abertura fatal da porta no Mundo 19 (T1:E5)',
+    status: 'Morto',
+    seasonIntroduced: 1,
+    visualTraits: 'Traje de expedição da Velocity Labs; vista nas gravações de câmera do hangar iluminado em vermelho.',
+    psychologicalProfile: 'entrou em pânico ao deparar-se com o enxame de vespas mutantes.',
+    storyArc:
+      'No **T1:E5 ("Worldless")**, Jason 1 e Amanda 2 assistem num tablet às gravações de segurança da Velocity Labs R4: esta variante de Blair abriu a porta da Caixa para o **Mundo 19 ("Big Wasps")**, permitindo que enxames de vespas gigantes invadissem o laboratório e a matassem diante das câmeras — razão pela qual **Blair 2** se recusou a voltar para a Caixa naquele momento.',
+    branchOriginExplanation:
+      'Ramificação de Blair 2 durante os testes iniciais de exploração da Velocity Labs.',
+    sources: [
+      { type: 'EPISODE_CANON', label: 'T1:E5 "Worldless"', detail: 'Gravação das câmeras de segurança no hangar das vespas.' }
+    ]
+  },
+  {
     id: 'blair-1',
     baseCharacter: 'Blair Caplan',
     badgeNumber: 'B1',
@@ -1279,12 +1416,12 @@ export const VARIANTS: CharacterVariant[] = [
     visualTraits: 'Artista plástica; na 2ª temporada, mantém armas escondidas em casa por precaução.',
     psychologicalProfile: 'Exausta pela paranoia do multiverso, mas capaz de tudo para proteger e resgatar o filho Charlie.',
     storyArc:
-      'Após 7 meses no Mundo 29 (T2:E1), uma variante hostil de Jason invade a casa e **Daniela o mata com um tiro**. Foge com Jason 1 e Charlie para o **Mundo Low-Tech ("World X")** no T2:E2. No T2:E6/E7, após passar um tempo na cabana da família e conversar com seu padrasto/pai, ela volta para casa, descobre que **Charlie entrou sozinho na Caixa** atrás de Max, deixa um bilhete para Jason 1 e **entra sozinha na Caixa** para resgatar o filho!',
+      'Após 7 meses no Mundo 29 (T2:E1), o **Jason Invasor do Mundo 29** invade a casa e **Daniela o mata com um tiro**. Foge com Jason 1 e Charlie para o **Mundo Low-Tech ("World X")** no T2:E2. No T2:E6 ("What the Universe Is Made Of") e T2:E7 ("The Pyramid"), após passar um tempo na cabana da família e conversar com seu padrasto **Gabriel**, ela volta para casa, descobre que **Charlie entrou sozinho na Caixa** atrás de Max, deixa um bilhete para Jason 1 e **entra sozinha na Caixa** para resgatar o filho!',
     branchOriginExplanation:
       'Nativa do Mundo 1.',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Daniela Dessen', detail: 'Retrato oficial de Jennifer Connelly como Daniela.' },
-      { type: 'EPISODE_CANON', label: 'T2:E1, E2 & E7', detail: 'Mata o Jason invasor, foge para o Mundo Low-Tech e entra na Caixa atrás de Charlie.' }
+      { type: 'EPISODE_CANON', label: 'T2:E1, E2, E6 & E7', detail: 'Mata o Jason invasor, foge para o Mundo Low-Tech e entra na Caixa atrás de Charlie.' }
     ]
   },
   {
@@ -1310,7 +1447,7 @@ export const VARIANTS: CharacterVariant[] = [
     visualTraits: 'Adolescente, alérgico a nozes.',
     psychologicalProfile: 'Frustrado por ter que abandonar sua escola novamente após a fuga do Mundo 29; obcecado em encontrar o irmão gêmeo Max.',
     storyArc:
-      'Após Daniela matar o Jason invasor no Mundo 29 (T2:E1), Charlie é levado para o **Mundo Low-Tech ("World X")** (T2:E2). No T2:E6/E7, após Jason 1 lhe contar sobre o irmão gêmeo Max, Charlie entra secretamente na Caixa na piscina da escola abandonada e chega ao **Santuário de Laurel** (T2:E8), onde conversa com **Jason 34** e **Amanda 7**.',
+      'Após Daniela matar o Jason invasor no Mundo 29 (T2:E1), Charlie é levado para o **Mundo Low-Tech ("World X")** (T2:E2). No T2:E7 ("The Pyramid"), após Jason 1 lhe contar sobre o irmão gêmeo Max, Charlie entra secretamente na Caixa na piscina da escola abandonada e chega ao **Santuário de Laurel** (T2:E8), onde conversa com **Jason 34** e **Amanda 7**.',
     branchOriginExplanation:
       'Nativo do Mundo 1.',
     sources: [
@@ -1343,28 +1480,55 @@ export const VARIANTS: CharacterVariant[] = [
     ]
   },
   {
+    id: 'mitchel-1',
+    baseCharacter: 'Laurel & Agentes',
+    badgeNumber: 'MACNAMARA R1',
+    designation: 'Agente Mitchel MacNamara (Reality 1 — Black-Site / DARPA)',
+    alias: 'Agente Federal do Mundo Original (T2:E1)',
+    shortRole: 'Assume a investigação dos Jasons mortos em Chicago na Reality 1 e interroga Jason 13 em um black-site.',
+    actor: 'Chris Diamantopoulos',
+    avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/e/ef/Dark_Matter_S2E01.jpg/revision/latest?cb=20260918144540',
+    accentColor: 'cyan',
+    originWorldId: 'world-prime-1',
+    currentWorldId: 'world-prime-1',
+    worldsVisited: ['world-prime-1'],
+    status: 'Ativo / Em Jornada',
+    seasonIntroduced: 2,
+    visualTraits: 'Terno escuro de agente federal, postura fria e calculista em salas de interrogatório.',
+    psychologicalProfile: 'Cético e implacável; acredita inicialmente que as dezenas de Jasons mortos em Chicago são fruto de clonagem humana ilegal.',
+    storyArc:
+      'Apresentado logo no **T2:E1 ("A Quiet Life")** no **Mundo Original (Reality 1)**. Quando dezenas de corpos idênticos de Jason Dessen aparecem em Chicago após o final da 1ª temporada, o Agente Federal **Mitchel MacNamara (Reality 1)** assume o caso da Detetive **Jamie Mason** (Kate Eastman). Ele mantém **Jason 13 ("Scar Jason")** acorrentado em uma instalação secreta (black-site governamental/DARPA), ameaçando dissecá-lo em uma autópsia viva caso ele não revele quem é o "mentor da operação de clonagem".',
+    branchOriginExplanation:
+      'Nativo da Reality 1 (Mundo Original de Jason 1) — contraparte distinta do Mitchel MacNamara executivo do Mundo Low-Tech.',
+    sources: [
+      { type: 'EPISODE_CANON', label: 'T2:E1 "A Quiet Life" & T2:E3', detail: 'Investigação dos corpos no necrotério de Chicago e interrogatório de Jason 13 na Reality 1.' }
+    ]
+  },
+  {
     id: 'mitchel-2',
     baseCharacter: 'Laurel & Agentes',
-    badgeNumber: 'MACNAMARA',
-    designation: 'Mitchel MacNamara (MacNamara Tech / Mundo Low-Tech)',
-    alias: 'Irmão de Sheila MacNamara & Investigador',
-    shortRole: 'Investiga a Velocity Tech e a família Dessen no Mundo Low-Tech até ser dopado por Jason 1 e trancado no Corredor.',
+    badgeNumber: 'MACNAMARA X',
+    designation: 'Mitchel MacNamara (MacNamara Tech — Mundo Low-Tech)',
+    alias: 'Irmão de Sheila MacNamara no World X (T2:E2–E4)',
+    shortRole: 'Investiga a Velocity Tech e os Dessen no Mundo Low-Tech até ser dopado com Lavanda por Jason 1 e trancado no Corredor.',
     actor: 'Chris Diamantopoulos',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/d/d8/Dark_Matter_S2E02.jpg/revision/latest?cb=20260918144710',
     accentColor: 'rose',
     originWorldId: 'world-lowtech-analog',
     currentWorldId: 'world-lowtech-analog',
-    worldsVisited: ['world-lowtech-analog', 'world-prime-1'],
+    worldsVisited: ['world-lowtech-analog'],
+    parentVariantId: 'mitchel-1',
+    branchEventLabel: 'Contraparte corporativa no Mundo Low-Tech (T2:E2–E4)',
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 2,
-    visualTraits: 'Terno de investigador / executivo.',
-    psychologicalProfile: 'Astuto e implacável; investiga a relação entre a Caixa (na piscina da escola abandonada), a Velocity Tech de Leighton e os Dessen.',
+    visualTraits: 'Terno retrô dos anos 70/80 típico da Chicago analógica do Mundo Low-Tech.',
+    psychologicalProfile: 'Protetor dos negócios da irmã Sheila na MacNamara Tech; obcecado em descobrir de onde vêm os dispositivos impossíveis da Velocity Tech.',
     storyArc:
-      'No **Mundo Low-Tech ("World X")**, sua irmã **Sheila MacNamara** (da *MacNamara Tech*) descobre tecnologia avançada com o logo da **Velocity Tech** ligada à Caixa na piscina de uma escola abandonada. Mitchel investiga os Dessen, flagra Amanda 2 e Ryan 1 entrando na Caixa e invade a casa de Jason 1 — mas Jason 1 o captura, coloca a droga Lavanda em sua bebida e o joga dentro do Corredor da Caixa!',
+      'Apresentado em **T2:E2 ("A Perfect World")** no **Mundo Low-Tech ("World X")**. Irmão de **Sheila MacNamara** (Rebecca Spence), diretora da *MacNamara Tech*, que está sendo levada à falência pela misteriosa **Velocity Tech** de Leighton 2. Mitchel descobre componentes avançados perto da Caixa na piscina da escola abandonada, vê Amanda 2 e Ryan 1 no motel Milshire (T2:E3) e rastreia Jason 1. Em **T2:E4 ("Stars, Hide Your Fires")**, invade a casa dos Dessen, mas **Jason 1 o rende, despeja uma ampola de Lavanda na bebida dele e o tranca inconsciente dentro do Corredor da Caixa**!',
     branchOriginExplanation:
-      'Nativo do Mundo Low-Tech (com contraparte federal na Reality 1 que interroga Jason 13).',
+      'Nativo do Mundo 30 ("World X" / Mundo Low-Tech) — contraparte do Agente Federal Mitchel MacNamara da Reality 1.',
     sources: [
-      { type: 'EPISODE_CANON', label: 'T2:E1–E8', detail: 'Disputa MacNamara Tech vs. Velocity Tech e captura no Corredor.' }
+      { type: 'EPISODE_CANON', label: 'T2:E2, T2:E3 & T2:E4 "Stars, Hide Your Fires"', detail: 'Disputa MacNamara Tech vs. Velocity Tech e captura por Jason 1 no Corredor.' }
     ]
   }
 ];
@@ -1385,7 +1549,7 @@ export const JOURNEYS: BoxJourney[] = [
     id: 'journey-2',
     order: 2,
     season: 1,
-    episode: 'T1:E1 & E2',
+    episode: 'T1:E1 & E2 "Trip of a Lifetime"',
     fromWorldId: 'world-prime-1',
     toWorldId: 'world-velocity-2',
     travelers: ['jason-1', 'jason-2'],
@@ -1426,7 +1590,7 @@ export const JOURNEYS: BoxJourney[] = [
     travelers: ['jason-1', 'amanda-2'],
     subconsciousTrigger: 'Lembrança da Velocity Labs e da colega Blair 2.',
     ampoulesRemaining: 36,
-    outcome: 'Encontram Blair 2 isolada no World 19 (Big Wasps / Velocity Labs R4).'
+    outcome: 'Encontram Blair 2 isolada no World 19 (Big Wasps / Velocity Labs R4) e veem o vídeo da morte da outra Blair.'
   },
   {
     id: 'journey-6',
@@ -1456,13 +1620,13 @@ export const JOURNEYS: BoxJourney[] = [
     id: 'journey-8',
     order: 8,
     season: 1,
-    episode: 'T1:E8 & E9 "Entanglement"',
+    episode: 'T1:E8 "Jupiter" & E9 "Entanglement"',
     fromWorldId: 'world-max-alive',
     toWorldId: 'world-prime-1',
-    travelers: ['jason-1', 'jason-3', 'jason-6', 'jason-7', 'jason-8', 'jason-24', 'jason-30'],
+    travelers: ['jason-1', 'jason-3', 'jason-6', 'jason-7', 'jason-8', 'jason-13', 'jason-24', 'jason-30', 'jason-morgue-r1'],
     subconsciousTrigger: 'Aceitação completa da história real (incluindo a perda de Max) com Daniela.',
     ampoulesRemaining: 0,
-    outcome: 'Convergência de mais de 70 variantes de Jason na Reality 1.'
+    outcome: 'Convergência de mais de 70 variantes de Jason na Reality 1; dezenas morrem nos confrontos e lotam o necrotério de Chicago.'
   },
   {
     id: 'journey-9',
@@ -1479,23 +1643,23 @@ export const JOURNEYS: BoxJourney[] = [
     id: 'journey-10',
     order: 10,
     season: 2,
-    episode: 'T2:E1 & T2:E2 ("A Quiet Life" → "A Perfect World")',
+    episode: 'T2:E1 "A Quiet Life" & T2:E2 "A Perfect World"',
     fromWorldId: 'world-sanctuary-refuge',
     toWorldId: 'world-lowtech-analog',
     travelers: ['jason-1', 'daniela-1', 'charlie-1'],
-    subconsciousTrigger: 'Desejo de um mundo sem tecnologia digital, câmeras ou internet após Daniela matar um Jason invasor.',
-    outcome: 'Fogem da polícia do Mundo 29 e chegam à Chicago Low-Tech (onde Nixon cancelou a Corrida Espacial e não existem computadores).'
+    subconsciousTrigger: 'Desejo de um mundo sem tecnologia digital, câmeras ou internet após Daniela matar o Jason Invasor do Mundo 29.',
+    outcome: 'Fogem da polícia do Mundo 29 e chegam à Chicago Low-Tech ("World X", onde Nixon cancelou a Corrida Espacial).'
   },
   {
     id: 'journey-11',
     order: 11,
     season: 2,
-    episode: 'T2:E8 (Flashback de 2 anos antes)',
-    fromWorldId: 'world-tree-branch-accident',
-    toWorldId: 'world-laurel-sanctuary',
-    travelers: ['jason-34', 'amanda-7'],
-    subconsciousTrigger: 'Pedido desesperado de socorro após Amanda 7 ser empalada por um galho.',
-    outcome: 'Chegam à biblioteca da enfermeira Laurel, que salva Amanda 7 (enquanto na linha de Jason 13 ela morreu).'
+    episode: 'T2:E3 "Everything Beautiful, Everything Terrible" & T2:E4 "Stars, Hide Your Fires"',
+    fromWorldId: 'world-lowtech-analog',
+    toWorldId: 'world-aurora-borealis',
+    travelers: ['amanda-2', 'ryan-1', 'mitchel-2'],
+    subconsciousTrigger: 'Retorno de Amanda 2 e Ryan 1 ao Mundo 26; Jason 1 dopa Mitchel MacNamara (World X) com Lavanda e o tranca no Corredor.',
+    outcome: 'Amanda 2 e Ryan 1 são detidos pela quarentena da Praga da Íris Negra (causada por Ryan 3); Mitchel 2 fica perdido no Corredor.'
   },
   {
     id: 'journey-12',
@@ -1507,44 +1671,56 @@ export const JOURNEYS: BoxJourney[] = [
     travelers: ['jason-24', 'jason-30'],
     subconsciousTrigger: 'Saudade da mãe falecida Ellie após perder Daniela no final da T1.',
     ampoulesRemaining: 0,
-    outcome: 'Jason 24 reconstrói a vida com a mãe Ellie, acolhe os Jasons 30 e 31 e conhece Maria.'
+    outcome: 'Jason 24 reconstrói a vida com a mãe Ellie (cujo Jason nativo morreu aos 16 anos), acolhe os Jasons 30 e 31 e conhece Maria.'
   },
   {
     id: 'journey-13',
     order: 13,
     season: 2,
-    episode: 'T2:E7 & E8 "The Basic Oneness of Everything"',
+    episode: 'T2:E7 "The Pyramid" & T2:E8 "The Basic Oneness of Everything"',
     fromWorldId: 'world-lowtech-analog',
     toWorldId: 'world-laurel-sanctuary',
-    travelers: ['charlie-1'],
-    subconsciousTrigger: 'Busca secreta de Charlie 1 pelo irmão gêmeo Max.',
-    outcome: 'Charlie 1 sai do Mundo Low-Tech e chega ao Santuário de Laurel, onde conversa com Jason 34 e Amanda 7.'
+    travelers: ['charlie-1', 'daniela-1'],
+    subconsciousTrigger: 'Busca secreta de Charlie 1 pelo irmão gêmeo Max, seguida pela entrada desesperada de Daniela 1 para resgatar o filho.',
+    outcome: 'Charlie 1 chega ao Santuário de Laurel e conversa com Jason 34 e Amanda 7; Daniela 1 entra no Corredor atrás dele.'
+  },
+  {
+    id: 'journey-14',
+    order: 14,
+    season: 2,
+    episode: 'T2:E8 "The Basic Oneness of Everything" (Flashback de 2 anos antes)',
+    fromWorldId: 'world-tree-branch-accident',
+    toWorldId: 'world-laurel-sanctuary',
+    travelers: ['jason-34', 'amanda-7'],
+    subconsciousTrigger: 'Pedido desesperado de socorro após Amanda 7 ser empalada pelo galho no Mundo 28.',
+    outcome: 'Chegam à biblioteca da enfermeira Laurel, que salva Amanda 7 (enquanto na ramificação de Jason 13 sua Amanda morreu).'
   }
 ];
 
 export const PODCAST_RULES_AND_LORE = [
   {
+    title: 'Por que existem dois Mitchel MacNamara diferentes na 2ª Temporada (Reality 1 vs. Mundo Low-Tech)?',
+    speaker: 'Cânone Oficial T2:E1 "A Quiet Life" & T2:E2–E4',
+    explanation:
+      'Chris Diamantopoulos interpreta duas variantes distintas de Mitchel MacNamara na 2ª temporada: (1) No Mundo Original (Reality 1, T2:E1), ele é o Agente Federal Mitchel MacNamara (MACNAMARA R1), que assume a investigação das dezenas de corpos de Jason Dessen no necrotério de Chicago achando que são clones e interroga Jason 13 ("Scar Jason") em um black-site; (2) No Mundo Low-Tech ("World X", T2:E2–E4), ele é o executivo e investigador Mitchel MacNamara (MACNAMARA X), irmão de Sheila MacNamara da MacNamara Tech, que investiga a Velocity Tech e acaba dopado com Lavanda por Jason 1 e jogado dentro do Corredor da Caixa.'
+  },
+  {
     title: 'Por que existem números como Jason 13, Jason 24, Jason 30, Jason 34 e Amanda 7?',
     speaker: 'Blake Crouch & Jacquelyn Ben-Zekry — Dark Matter: The Official Podcast',
     explanation:
-      'No podcast oficial, Blake Crouch explicou que números como Jason 13, 24, 30, 31, 34 e Amanda 7 NÃO significam que eles vieram do "Mundo 34". Todos esses Jasons nasceram na Reality 1! O número é a identificação oficial dos roteiros para rastrear cada ramificação surgida dentro do Corredor. Exemplo clássico: quando o galho de árvore atinge Amanda, o caminho se divide entre a linha de Jason 13 (onde Amanda morre e ele fica preso na DARPA) e a linha de Jason 34 (onde ele salva a vida da Amanda 7 levando-a para a casa de Laurel).'
+      'No podcast oficial, Blake Crouch explicou que números como Jason 13, 24, 30, 31, 34 e Amanda 7 NÃO significam que eles vieram do "Mundo 34". Todos esses Jasons nasceram na Reality 1! O número é a identificação oficial dos roteiros para rastrear cada ramificação surgida dentro do Corredor. Exemplo clássico: quando o galho de árvore atinge Amanda no Mundo 28, o caminho se divide entre a linha de Jason 13 (onde sua Amanda morre e ele fica preso no black-site da Reality 1) e a linha de Jason 34 (onde ele salva a vida da Amanda 7 levando-a para a biblioteca de Laurel).'
+  },
+  {
+    title: 'Memorial de Baixas: Todas as Variantes Mortas (T1 & T2)',
+    speaker: 'Compilação Canônica T1:E4–E9 & T2:E1–E8',
+    explanation:
+      'Ao longo das duas temporadas, diversas variantes perderam a vida: (1) Blair Viajante (devorada pelas vespas gigantes na câmera do Mundo 19 em T1:E5); (2) Jason 3, Jason 6 (morto no beco da loja de armas em T1:E8), Jason 8 (invasor da cabana em T1:E9) e as dezenas de Jasons mortos na Convergência cujos corpos lotam o necrotério de Chicago em T2:E1; (3) O Jason Invasor do Mundo 29 (morto com um tiro por Daniela 1 em T2:E1); (4) A Amanda de Jason 13 (morta empalada pelo galho no Mundo 28); (5) Ryan 3 e sua Amanda (mortos pela Praga da Íris Negra no Mundo 26 em T2:E4); e (6) O Jason Nativo do Mundo 31 (que morreu aos 16 anos, permitindo que sua mãe Ellie acolhesse Jason 24, 30 e 31 em T2:E5).'
   },
   {
     title: 'A Sala de Chat dos Jasons (Onde Jason 1 vira "Jason9")',
     speaker: 'Blake Crouch — Podcast Oficial T1:E8 & E9',
     explanation:
       'No Episódio 8 da 1ª temporada, Jason 1 entra em um chat que ele mesmo programou na faculdade. Quando faz login achando que seria o único, descobre que "Jason1" a "Jason8" já estavam ocupados por variantes que chegaram antes dele — obrigando nosso protagonista a usar o nick "Jason9".'
-  },
-  {
-    title: 'O Destino dos Outros Jasons: Jason 24, 30 e 31 (T2:E5)',
-    speaker: 'Podcast Oficial T2:E5 "Love and Be Loved"',
-    explanation:
-      'O Episódio 5 da 2ª temporada responde o que aconteceu com os Jasons que ficaram para trás no final da T1: acompanhamos o Jason 24, que usa sua última ampola pensando na mãe falecida (Ellie) e vai para um mundo onde ela está viva. Lá ele também acolhe os traumatizados Jason 30 e Jason 31.'
-  },
-  {
-    title: 'Da Utopia da Aurora (World 26) à Praga da Íris Negra (Hema Aetho 26)',
-    speaker: 'Lore Oficial T1:E6/E7 & T2:E4/E7',
-    explanation:
-      'O World 26 ("Radical Empathy" / Utopia da Aurora Boreal) onde Amanda 2 e Ryan 1 ficaram no fim da T1 entra em colapso na T2 porque outra dupla de variantes (Ryan 3 e sua Amanda) trouxe acidentalmente o vírus letal Hema Aetho 26 de outro mundo.'
   }
 ];
+

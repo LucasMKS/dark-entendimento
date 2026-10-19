@@ -1,20 +1,22 @@
 import React, { useState, useMemo } from 'react';
 import { World, CharacterVariant } from '../data/multiverseData';
+import { DragScrollContainer } from './DragScrollContainer';
+import { RichText } from './RichText';
 import {
   GitBranch,
-  Sparkles,
-  Users,
-  Globe2,
-  Eye,
   ArrowRight,
-  MapPin,
-  Compass,
-  Filter
+  ChevronLeft,
+  ChevronRight,
+  RotateCcw,
+  Network,
+  Hand
 } from 'lucide-react';
 
 interface QuantumConnectionsMapProps {
   worlds: World[];
   variants: CharacterVariant[];
+  selectedVariantId: string | null;
+  selectedWorldId: string | null;
   onSelectWorld: (worldId: string) => void;
   onSelectVariant: (variantId: string) => void;
 }
@@ -22,584 +24,1270 @@ interface QuantumConnectionsMapProps {
 export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
   worlds,
   variants,
+  selectedVariantId,
   onSelectWorld,
   onSelectVariant,
 }) => {
-  const [focusedVariantId, setFocusedVariantId] = useState<string>('jason-1');
-  const [focusedWorldId, setFocusedWorldId] = useState<string | null>(null);
-  const [charGroupFilter, setCharGroupFilter] = useState<string>('ALL');
+  const [stageMode, setStageMode] = useState<'WEB' | 'TREE'>('WEB');
+
+  // Orbital Hub State: either a Variant is at the center of the wheel, or a World is at the center
+  const [centerMode, setCenterMode] = useState<'VARIANT' | 'WORLD'>('VARIANT');
+  const [focusedVariantId, setFocusedVariantId] = useState<string>(selectedVariantId || 'jason-1');
+  const [focusedWorldId, setFocusedWorldId] = useState<string>('world-prime-1');
+  const [activeStepIndex, setActiveStepIndex] = useState<number | null>(null);
+  const [lineageFilter, setLineageFilter] = useState<string>('ALL');
+
+  // Genealogical Tree Family Selector
+  const [treeFamily, setTreeFamily] = useState<'JASON' | 'AMANDA' | 'RYAN' | 'LEIGHTON' | 'BLAIR' | 'MACNAMARA'>('JASON');
 
   const getWorld = (id: string) => worlds.find((w) => w.id === id);
   const getVariant = (id: string) => variants.find((v) => v.id === id);
 
-  const activeVariant = getVariant(focusedVariantId);
-  const activeWorld = focusedWorldId ? getWorld(focusedWorldId) : null;
+  const activeVariant = getVariant(focusedVariantId) || variants[0];
+  const activeCenterWorld = getWorld(focusedWorldId) || worlds[0];
 
-  const filteredVariants = useMemo(() => {
-    if (charGroupFilter === 'ALL') return variants;
-    return variants.filter((v) => v.baseCharacter === charGroupFilter);
-  }, [variants, charGroupFilter]);
+  const deceasedCount = useMemo(
+    () => variants.filter((v) => v.status === 'Morto').length,
+    [variants]
+  );
 
-  const handleFocusVariant = (vId: string) => {
-    setFocusedWorldId(null);
+  const displayedVariants = useMemo(() => {
+    if (lineageFilter === 'ALL') return variants;
+    if (lineageFilter === 'DECEASED') return variants.filter((v) => v.status === 'Morto');
+    return variants.filter((v) => v.baseCharacter === lineageFilter);
+  }, [variants, lineageFilter]);
+
+  const handleSelectCharacter = (vId: string) => {
+    setCenterMode('VARIANT');
     setFocusedVariantId(vId);
+    setActiveStepIndex(null);
+    onSelectVariant(vId);
   };
 
-  const getStatusDotColor = (status: CharacterVariant['status']) => {
-    switch (status) {
-      case 'Estabelecido em Paz':
-      case 'No Santuário':
-        return 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]';
-      case 'Morto':
-        return 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.8)]';
-      case 'Preso (DARPA)':
-        return 'bg-fuchsia-400 shadow-[0_0_8px_rgba(232,121,249,0.8)]';
-      default:
-        return 'bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]';
+  const handleSelectWorldOnWheel = (wId: string) => {
+    onSelectWorld(wId);
+  };
+
+  const handleCenterOnWorld = (wId: string) => {
+    setCenterMode('WORLD');
+    setFocusedWorldId(wId);
+    onSelectWorld(wId);
+  };
+
+  const handleStepNavigation = (direction: 'PREV' | 'NEXT') => {
+    if (!activeVariant) return;
+    const total = activeVariant.worldsVisited.length;
+    if (total === 0) return;
+
+    let nextIdx = 0;
+    if (activeStepIndex === null) {
+      nextIdx = direction === 'NEXT' ? 0 : total - 1;
+    } else {
+      nextIdx =
+        direction === 'NEXT'
+          ? (activeStepIndex + 1) % total
+          : (activeStepIndex - 1 + total) % total;
+    }
+    setActiveStepIndex(nextIdx);
+    const targetWorldId = activeVariant.worldsVisited[nextIdx];
+    if (targetWorldId) {
+      onSelectWorld(targetWorldId);
     }
   };
 
+  // Compute deterministic radial coordinates in percentage (0..100) for the Orbital Wheel
+  const orbitalWorlds = useMemo(() => {
+    const count = worlds.length;
+    return worlds.map((w, i) => {
+      const angle = (i / count) * 2 * Math.PI - Math.PI / 2;
+      const rx = 41.5;
+      const ry = 39.5;
+      const x = 50 + rx * Math.cos(angle);
+      const y = 50 + ry * Math.sin(angle);
+      return { world: w, x, y, angle };
+    });
+  }, [worlds]);
+
+  const orbitalWorldVisitors = useMemo(() => {
+    if (!activeCenterWorld) return [];
+    const connectedIds = Array.from(
+      new Set([...activeCenterWorld.visitors, ...activeCenterWorld.residents])
+    );
+    const list = connectedIds.map((id) => getVariant(id)).filter(Boolean) as CharacterVariant[];
+    const count = Math.max(list.length, 1);
+    return list.map((v, i) => {
+      const angle = (i / count) * 2 * Math.PI - Math.PI / 2;
+      const rx = 39;
+      const ry = 37;
+      const x = 50 + rx * Math.cos(angle);
+      const y = 50 + ry * Math.sin(angle);
+      return { variant: v, x, y };
+    });
+  }, [activeCenterWorld, variants]);
+
   return (
-    <div className="space-y-10">
-      {/* SECTION 1: MODERN QUANTUM NEXUS (INTERACTIVE CONNECTION MATRIX) */}
-      <div className="rounded-[28px] glass-panel border border-indigo-500/20 p-6 sm:p-8 lg:p-10 relative overflow-hidden">
-        {/* Soft Indigo & Cyan Ambient Glows */}
-        <div className="pointer-events-none absolute -top-32 -left-24 w-[420px] h-[420px] rounded-full bg-indigo-600/15 blur-[110px]" />
-        <div className="pointer-events-none absolute -bottom-32 -right-24 w-[420px] h-[420px] rounded-full bg-cyan-500/12 blur-[110px]" />
-
-        <div className="relative z-10 space-y-8">
-          {/* Top Header & Quick Character Group Filter */}
-          <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-5 border-b border-white/[0.08] pb-6">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-400/30 text-indigo-300 text-[11px] font-semibold uppercase tracking-widest mb-2.5">
-                <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-                Mapeamento Quântico Interativo • Apple TV+
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
-                Quem Foi Para Onde no Multiverso?
-              </h2>
-              <p className="text-sm text-slate-300/90 mt-1.5 max-w-3xl">
-                Selecione qualquer <strong>Personagem / Variante</strong> para visualizar sua rota cronológica passo a passo e acender todos os mundos conectados.
-              </p>
-            </div>
-
-            {/* Group Filter Pills */}
-            <div className="flex flex-wrap items-center gap-1.5 bg-slate-950/70 p-1.5 rounded-2xl border border-white/[0.08]">
-              <Filter className="w-3.5 h-3.5 text-indigo-400 ml-2 mr-1 hidden sm:block" />
-              {[
-                { id: 'ALL', label: 'Todos (21)' },
-                { id: 'Jason Dessen', label: 'Jasons' },
-                { id: 'Amanda Lucas', label: 'Amandas' },
-                { id: 'Ryan Holder', label: 'Ryans' },
-                { id: 'Leighton Vance', label: 'Leightons' },
-                { id: 'Daniela & Charlie', label: 'Família Dessen' },
-                { id: 'Laurel & Agentes', label: 'Santuário & Detetive' }
-              ].map((grp) => (
-                <button
-                  key={grp.id}
-                  onClick={() => setCharGroupFilter(grp.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                    charGroupFilter === grp.id
-                      ? 'bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-md shadow-indigo-500/25'
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
-                  }`}
-                >
-                  {grp.label}
-                </button>
-              ))}
-            </div>
+    <div className="space-y-6">
+      {/* =====================================================================
+          TOP SUB-MODE BAR: 1. CONSTELAÇÃO ORBITAL vs 2. ÁRVORE GENEALÓGICA
+      ===================================================================== */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-[#c89d54]/25 pb-4">
+        <div className="flex items-center gap-4">
+          <div className="hidden sm:flex flex-col items-center justify-center w-11 h-11 border border-[#c89d54]/40 bg-[#07080c] text-[#c89d54] font-display text-sm">
+            <span>I</span>
           </div>
-
-          {/* ROW 1: CHARACTER PORTRAIT SELECTOR */}
           <div>
-            <div className="flex items-center justify-between mb-3.5">
-              <div className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                <Users className="w-4 h-4 text-indigo-400" />
-                <span>1. Selecione um Viajante ou Variante ({filteredVariants.length} exibidos)</span>
+            <div className="text-[10px] font-mono uppercase tracking-[0.28em] text-[#c89d54]">
+              {stageMode === 'WEB'
+                ? 'RODA DE DESTINOS • ZERO FIOS SOBREPOSTOS'
+                : 'GENEALOGIA QUÂNTICA • QUEM SE DIVIDIU EM QUEM'}
+            </div>
+            <h2 className="font-display text-xl sm:text-3xl font-normal tracking-[0.12em] text-white uppercase mt-0.5">
+              {stageMode === 'WEB'
+                ? 'Constelação Orbital do Multiverso'
+                : 'Árvore de Ramificações das Variantes'}
+            </h2>
+          </div>
+        </div>
+
+        {/* Mode Switcher */}
+        <div className="inline-flex bg-[#06070a] border border-[#c89d54]/40 p-1 self-start lg:self-auto">
+          <button
+            onClick={() => setStageMode('WEB')}
+            className={`px-4 py-2 text-xs font-mono uppercase tracking-[0.15em] flex items-center gap-2 transition-all ${
+              stageMode === 'WEB'
+                ? 'bg-[#c89d54] text-[#030305] font-bold shadow-[0_0_20px_rgba(200,157,84,0.3)]'
+                : 'text-stone-400 hover:text-white'
+            }`}
+          >
+            <Network className="w-3.5 h-3.5" />
+            <span>1. Teia de Conexões</span>
+          </button>
+          <button
+            onClick={() => setStageMode('TREE')}
+            className={`px-4 py-2 text-xs font-mono uppercase tracking-[0.15em] flex items-center gap-2 transition-all ${
+              stageMode === 'TREE'
+                ? 'bg-[#c89d54] text-[#030305] font-bold shadow-[0_0_20px_rgba(200,157,84,0.3)]'
+                : 'text-stone-400 hover:text-white'
+            }`}
+          >
+            <GitBranch className="w-3.5 h-3.5" />
+            <span>2. Árvore de Divisões</span>
+          </button>
+        </div>
+      </div>
+
+      {/* =====================================================================
+          MODE 1: ORBITAL CONSTELLATION WHEEL (ZERO CARD OVERLAP!)
+      ===================================================================== */}
+      {stageMode === 'WEB' && (
+        <div className="space-y-5">
+          {/* STEP 1: DRAG-TO-SCROLL CHARACTER SELECTOR DOCK */}
+          <div className="arch-box p-4 sm:p-5 space-y-3.5">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.07] pb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#c89d54]" />
+                <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-[#e6c885]">
+                  SELECIONE QUEM COLOCAR NO CENTRO (ARRASTE COM O MOUSE PARA NAVEGAR):
+                </span>
+                <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-stone-400 bg-white/5 px-2 py-0.5 border border-white/10">
+                  <Hand className="w-3 h-3 text-[#c89d54]" /> Segure e arraste
+                </span>
               </div>
-              {focusedWorldId && (
-                <button
-                  onClick={() => setFocusedWorldId(null)}
-                  className="px-3 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-400/40 text-xs font-semibold hover:bg-indigo-500/30 transition"
-                >
-                  Limpar filtro de mundo
-                </button>
-              )}
+
+              <DragScrollContainer className="flex items-center gap-1 pb-0.5 max-w-full">
+                {[
+                  { id: 'ALL', label: `TODOS (${variants.length})` },
+                  { id: 'DECEASED', label: `💀 MORTOS / BAIXAS (${deceasedCount})` },
+                  { id: 'Jason Dessen', label: 'JASONS' },
+                  { id: 'Amanda Lucas', label: 'AMANDAS' },
+                  { id: 'Ryan Holder', label: 'RYANS' },
+                  { id: 'Leighton Vance', label: 'LEIGHTONS' },
+                  { id: 'Blair Caplan', label: 'BLAIRS' },
+                  { id: 'Daniela & Charlie', label: 'FAMÍLIA DESSEN' },
+                  { id: 'Laurel & Agentes', label: 'MACNAMARA & SANTUÁRIO' },
+                ].map((grp) => (
+                  <button
+                    key={grp.id}
+                    onClick={() => setLineageFilter(grp.id)}
+                    className={`px-2.5 py-1 text-[10px] font-mono tracking-[0.12em] uppercase whitespace-nowrap transition ${
+                      lineageFilter === grp.id
+                        ? grp.id === 'DECEASED'
+                          ? 'bg-rose-600 text-white font-bold'
+                          : 'bg-[#c89d54] text-[#030305] font-bold'
+                        : grp.id === 'DECEASED'
+                        ? 'bg-rose-950/40 text-rose-300 hover:text-white border border-rose-500/40'
+                        : 'bg-[#07080c] text-stone-400 hover:text-white border border-white/[0.07]'
+                    }`}
+                  >
+                    {grp.label}
+                  </button>
+                ))}
+              </DragScrollContainer>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-7 gap-2.5">
-              {filteredVariants.map((v) => {
-                const isSelected = !focusedWorldId && focusedVariantId === v.id;
-                const isVisitorOfFocusedWorld =
-                  focusedWorldId &&
-                  (activeWorld?.visitors.includes(v.id) ||
-                    activeWorld?.residents.includes(v.id));
-
-                const highlight = isSelected || isVisitorOfFocusedWorld;
-                const currentW = getWorld(v.currentWorldId);
-
+            {/* Drag-to-Scroll Horizontal Carousel of Characters */}
+            <DragScrollContainer className="flex items-center gap-2.5 pb-2">
+              {displayedVariants.map((v) => {
+                const isSelected = centerMode === 'VARIANT' && activeVariant?.id === v.id;
+                const isDead = v.status === 'Morto';
                 return (
                   <button
                     key={v.id}
-                    onClick={() => handleFocusVariant(v.id)}
-                    className={`group relative flex items-center gap-3 p-2.5 rounded-2xl border text-left transition-all duration-200 ${
-                      highlight
-                        ? 'bg-gradient-to-br from-indigo-500/25 via-violet-500/15 to-cyan-500/10 border-indigo-400/80 shadow-lg shadow-indigo-500/15 scale-[1.02]'
-                        : focusedWorldId
-                        ? 'bg-slate-950/40 border-white/5 opacity-30 hover:opacity-80'
-                        : 'bg-slate-950/60 border-white/[0.07] hover:border-indigo-400/40 hover:bg-slate-900/80 opacity-85 hover:opacity-100'
+                    onClick={() => handleSelectCharacter(v.id)}
+                    className={`group shrink-0 flex items-center gap-2.5 px-3 py-2 border transition-all ${
+                      isSelected
+                        ? 'bg-[#171208] border-[#c89d54] shadow-[0_0_20px_rgba(200,157,84,0.3)]'
+                        : isDead
+                        ? 'bg-[#0c0608] border-rose-500/35 opacity-85 hover:opacity-100 hover:border-rose-400'
+                        : 'bg-[#06070b] border-white/10 opacity-75 hover:opacity-100 hover:border-[#c89d54]/50'
                     }`}
                   >
-                    <div className="relative shrink-0">
-                      <img
-                        src={v.avatarUrl}
-                        alt={v.designation}
-                        referrerPolicy="no-referrer"
-                        className={`w-12 h-12 rounded-xl object-cover border transition ${
-                          highlight
-                            ? 'border-indigo-300 ring-2 ring-indigo-500/30'
-                            : 'border-white/15 group-hover:border-white/30'
-                        }`}
-                      />
-                      <span
-                        className={`absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md text-[9px] font-extrabold tracking-tight shadow ${
-                          highlight
-                            ? 'bg-gradient-to-r from-indigo-500 to-cyan-400 text-slate-950'
-                            : 'bg-slate-900 text-slate-200 border border-white/20'
-                        }`}
-                      >
-                        {v.badgeNumber}
-                      </span>
-                      <span
-                        className={`w-2 h-2 rounded-full absolute -top-0.5 -left-0.5 ${getStatusDotColor(
-                          v.status
-                        )}`}
-                        title={v.status}
-                      />
-                    </div>
-
-                    <div className="min-w-0 flex-1">
-                      <div className="text-xs font-bold text-white truncate group-hover:text-indigo-200 transition">
-                        {v.designation.split(' (')[0]}
+                    <img
+                      src={v.avatarUrl}
+                      alt={v.designation}
+                      draggable={false}
+                      referrerPolicy="no-referrer"
+                      className={`w-9 h-9 rounded-full object-cover border pointer-events-none ${
+                        isSelected
+                          ? 'border-[#c89d54]'
+                          : isDead
+                          ? 'border-rose-500 grayscale-[35%]'
+                          : 'border-stone-600'
+                      }`}
+                    />
+                    <div className="text-left">
+                      <div className="flex items-center gap-1.5">
+                        <span
+                          className={`text-[9px] font-mono font-bold px-1.5 py-0.1 ${
+                            isSelected
+                              ? 'bg-[#c89d54] text-[#030305]'
+                              : isDead
+                              ? 'bg-rose-600 text-white'
+                              : 'bg-white/10 text-stone-300'
+                          }`}
+                        >
+                          {v.badgeNumber}
+                        </span>
+                        <span className="text-xs font-display text-white uppercase tracking-wider">
+                          {v.designation.split(' (')[0]}
+                        </span>
+                        {isDead && (
+                          <span className="text-[8px] font-mono uppercase px-1 bg-rose-950 text-rose-300 border border-rose-500/40">
+                            MORTO
+                          </span>
+                        )}
                       </div>
-                      <div className="text-[10px] text-slate-400 truncate">
+                      <div className="text-[9px] font-mono text-stone-400 truncate max-w-[150px]">
                         {v.alias}
-                      </div>
-                      <div className="text-[10px] text-cyan-300/90 font-medium truncate mt-0.5 flex items-center gap-1">
-                        <MapPin className="w-2.5 h-2.5 shrink-0 text-cyan-400" />
-                        <span>{currentW ? currentW.code : v.currentWorldId}</span>
                       </div>
                     </div>
                   </button>
                 );
               })}
-            </div>
+            </DragScrollContainer>
           </div>
 
-          {/* ACTIVE CHARACTER SPOTLIGHT + STEP-BY-STEP CHRONOLOGICAL ROUTE */}
-          {!focusedWorldId && activeVariant && (
-            <div className="rounded-3xl bg-gradient-to-br from-[#0e1528] via-[#0b1120] to-[#0e172a] border border-indigo-500/30 p-5 sm:p-7 shadow-2xl space-y-6">
-              {/* Top Character Bio Row */}
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-                <div className="flex items-start sm:items-center gap-4 sm:gap-5">
-                  <div className="relative shrink-0">
-                    <img
-                      src={activeVariant.avatarUrl}
-                      alt={activeVariant.designation}
-                      referrerPolicy="no-referrer"
-                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 border-indigo-400 shadow-lg shadow-indigo-500/20"
-                    />
-                    <span className="absolute -bottom-1.5 -right-1.5 px-2.5 py-0.5 rounded-lg text-xs font-extrabold bg-gradient-to-r from-indigo-500 to-cyan-400 text-slate-950 shadow">
-                      {activeVariant.badgeNumber}
-                    </span>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <div className="flex flex-wrap items-center gap-2.5">
-                      <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                        {activeVariant.designation}
-                      </h3>
-                      <span className="text-xs px-3 py-0.5 rounded-full bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 font-semibold">
-                        {activeVariant.status}
-                      </span>
-                    </div>
-
-                    <p className="text-sm text-slate-200/95 max-w-3xl leading-relaxed">
-                      {activeVariant.shortRole}
-                    </p>
-
-                    <div className="flex flex-wrap items-center gap-4 pt-1 text-xs text-slate-400">
-                      <span className="inline-flex items-center gap-1.5 bg-slate-950/70 px-3 py-1 rounded-lg border border-white/10">
-                        <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                        <strong className="text-indigo-300">Origem:</strong>{' '}
-                        <span className="text-white font-medium">
-                          {getWorld(activeVariant.originWorldId)?.name}
-                        </span>
-                      </span>
-
-                      <span className="inline-flex items-center gap-1.5 bg-slate-950/70 px-3 py-1 rounded-lg border border-cyan-500/25">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                        <strong className="text-cyan-300">Onde está agora:</strong>{' '}
-                        <span className="text-white font-semibold">
-                          {getWorld(activeVariant.currentWorldId)?.name}
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  onClick={() => onSelectVariant(activeVariant.id)}
-                  className="shrink-0 px-5 py-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-400 hover:to-violet-500 text-white font-semibold text-xs transition-all flex items-center gap-2 self-start lg:self-center shadow-lg shadow-indigo-500/25"
-                >
-                  <Eye className="w-4 h-4" />
-                  Abrir História Completa de {activeVariant.badgeNumber}
-                </button>
+          {/* STEP 2: THE SACRED ORBITAL WHEEL (CENTER NODE -> PERIMETER RING, ZERO OVERLAP!) */}
+          <div className="arch-box relative overflow-hidden">
+            {/* Top Legend inside Canvas */}
+            <div className="relative z-20 px-5 pt-4 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] bg-[#040508]/80">
+              <div className="flex items-center gap-4 text-[10px] font-mono uppercase tracking-wider text-stone-300">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#c89d54]" /> 1º Mundo de Origem
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-sky-400" /> Saltos no Corredor
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Paradeiro Atual
+                </span>
               </div>
 
-              {/* Chronological Step-by-Step Journey Ribbon */}
-              <div className="pt-4 border-t border-white/[0.08]">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-indigo-300 mb-3 flex items-center gap-2">
-                  <Compass className="w-3.5 h-3.5 text-cyan-400" />
-                  Rota Cronológica de {activeVariant.designation.split(' (')[0]} ({activeVariant.worldsVisited.length} mundos visitados em ordem):
-                </div>
+              <div className="flex items-center gap-2">
+                {centerMode === 'WORLD' ? (
+                  <button
+                    onClick={() => setCenterMode('VARIANT')}
+                    className="px-3 py-1 bg-[#c89d54] text-[#030305] font-mono text-[10px] font-bold uppercase flex items-center gap-1"
+                  >
+                    <RotateCcw className="w-3 h-3" /> Voltar Personagem ao Centro
+                  </button>
+                ) : (
+                  <span className="text-[10px] font-mono text-stone-400">
+                    Clique em um mundo no anel para abrir seu arquivo • Duplo clique para focar o mundo no centro
+                  </span>
+                )}
+              </div>
+            </div>
 
-                <div className="flex items-center gap-2.5 overflow-x-auto pb-2">
-                  {activeVariant.worldsVisited.map((wId, idx) => {
-                    const worldObj = getWorld(wId);
-                    if (!worldObj) return null;
-                    const isFirst = idx === 0;
-                    const isLast = idx === activeVariant.worldsVisited.length - 1;
-                    const isCurrentLoc = activeVariant.currentWorldId === wId;
+            {/* RADIAL ORBITAL CANVAS */}
+            <div className="relative w-full h-[680px] sm:h-[740px] select-none overflow-hidden">
+              <svg
+                viewBox="0 0 1000 1000"
+                preserveAspectRatio="none"
+                className="pointer-events-none absolute inset-0 w-full h-full z-10"
+              >
+                <defs>
+                  <filter id="orbitalGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3.5" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+
+                {/* Concentric Sacred Rings */}
+                <ellipse
+                  cx="500"
+                  cy="500"
+                  rx="415"
+                  ry="395"
+                  fill="none"
+                  stroke="rgba(200, 157, 84, 0.16)"
+                  strokeWidth="1"
+                  strokeDasharray="4 6"
+                />
+                <ellipse
+                  cx="500"
+                  cy="500"
+                  rx="260"
+                  ry="245"
+                  fill="none"
+                  stroke="rgba(200, 157, 84, 0.1)"
+                  strokeWidth="1"
+                />
+                <circle
+                  cx="500"
+                  cy="500"
+                  r="95"
+                  fill="none"
+                  stroke="rgba(200, 157, 84, 0.28)"
+                  strokeWidth="1"
+                />
+
+                {/* Spokes when Variant is in Center */}
+                {centerMode === 'VARIANT' &&
+                  orbitalWorlds.map(({ world, x, y }) => {
+                    const visitIndex = activeVariant.worldsVisited.indexOf(world.id);
+                    const isVisited = visitIndex !== -1;
+                    const isOrigin = activeVariant.originWorldId === world.id;
+                    const isCurrent = activeVariant.currentWorldId === world.id;
+                    const isHighlighted =
+                      activeStepIndex === null || activeStepIndex === visitIndex;
+
+                    const tx = x * 10;
+                    const ty = y * 10;
+
+                    if (!isVisited) {
+                      return (
+                        <line
+                          key={`faint-${world.id}`}
+                          x1="500"
+                          y1="500"
+                          x2={tx}
+                          y2={ty}
+                          stroke="rgba(255,255,255,0.035)"
+                          strokeWidth="1"
+                        />
+                      );
+                    }
+
+                    const color = isCurrent
+                      ? '#34d399'
+                      : isOrigin
+                      ? '#c89d54'
+                      : '#38bdf8';
+
+                    const bx = 500 + (tx - 500) * 0.56;
+                    const by = 500 + (ty - 500) * 0.56;
 
                     return (
-                      <React.Fragment key={`${wId}-${idx}`}>
-                        <div
-                          onClick={() => onSelectWorld(worldObj.id)}
-                          className={`group cursor-pointer shrink-0 w-48 rounded-2xl p-2.5 border transition-all flex items-center gap-2.5 ${
-                            isCurrentLoc
-                              ? 'bg-emerald-950/40 border-emerald-400/60 hover:border-emerald-300 shadow-md shadow-emerald-500/10'
-                              : isFirst
-                              ? 'bg-indigo-950/40 border-indigo-400/50 hover:border-indigo-300'
-                              : 'bg-slate-950/80 border-white/10 hover:border-cyan-400/50'
-                          }`}
-                        >
-                          <img
-                            src={worldObj.imageUrl}
-                            alt={worldObj.name}
-                            referrerPolicy="no-referrer"
-                            className="w-11 h-11 rounded-xl object-cover shrink-0 border border-white/15"
+                      <g
+                        key={`spoke-${world.id}`}
+                        style={{ opacity: isHighlighted ? 1 : 0.2 }}
+                      >
+                        <line
+                          x1="500"
+                          y1="500"
+                          x2={tx}
+                          y2={ty}
+                          stroke={color}
+                          strokeWidth={isCurrent || isOrigin ? 3.5 : 2.2}
+                          strokeOpacity="0.35"
+                          filter="url(#orbitalGlow)"
+                        />
+                        <line
+                          x1="500"
+                          y1="500"
+                          x2={tx}
+                          y2={ty}
+                          stroke={color}
+                          strokeWidth={isCurrent || isOrigin ? 2.4 : 1.6}
+                          className="animate-thread-flow"
+                        />
+                        <g transform={`translate(${bx}, ${by})`}>
+                          <circle
+                            r="13"
+                            fill="#040508"
+                            stroke={color}
+                            strokeWidth="1.8"
                           />
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-center gap-1">
-                              <span
-                                className={`text-[9px] font-extrabold px-1.5 py-0.2 rounded uppercase ${
-                                  isCurrentLoc
-                                    ? 'bg-emerald-400 text-slate-950'
-                                    : isFirst
-                                    ? 'bg-indigo-400 text-slate-950'
-                                    : 'bg-white/10 text-cyan-300'
-                                }`}
-                              >
-                                {isFirst ? '1º Origem' : isCurrentLoc ? `${idx + 1}º Atual` : `${idx + 1}º`}
-                              </span>
-                            </div>
-                            <div className="text-xs font-bold text-white truncate mt-0.5 group-hover:text-cyan-300 transition">
-                              {worldObj.name.split(' (')[0]}
-                            </div>
-                            <div className="text-[10px] text-slate-400 truncate">
-                              {worldObj.code}
-                            </div>
+                          <text
+                            textAnchor="middle"
+                            dy="4"
+                            fill={color}
+                            fontSize="11"
+                            fontFamily="JetBrains Mono, monospace"
+                            fontWeight="bold"
+                          >
+                            {visitIndex + 1}º
+                          </text>
+                        </g>
+                      </g>
+                    );
+                  })}
+
+                {/* Spokes when a World is in Center */}
+                {centerMode === 'WORLD' &&
+                  orbitalWorldVisitors.map(({ variant, x, y }) => {
+                    const tx = x * 10;
+                    const ty = y * 10;
+                    const isCurrent = variant.currentWorldId === activeCenterWorld.id;
+                    const isOrigin = variant.originWorldId === activeCenterWorld.id;
+                    const color = isCurrent
+                      ? '#34d399'
+                      : isOrigin
+                      ? '#c89d54'
+                      : '#38bdf8';
+
+                    return (
+                      <g key={`wspoke-${variant.id}`}>
+                        <line
+                          x1="500"
+                          y1="500"
+                          x2={tx}
+                          y2={ty}
+                          stroke={color}
+                          strokeWidth="2.2"
+                          strokeOpacity="0.4"
+                          filter="url(#orbitalGlow)"
+                        />
+                        <line
+                          x1="500"
+                          y1="500"
+                          x2={tx}
+                          y2={ty}
+                          stroke={color}
+                          strokeWidth="1.6"
+                          className="animate-thread-flow"
+                        />
+                      </g>
+                    );
+                  })}
+              </svg>
+
+              {/* CENTER HUB MEDALLION (EXACT 50%, 50%) */}
+              <div
+                style={{ left: '50%', top: '50%' }}
+                className="absolute -translate-x-1/2 -translate-y-1/2 z-30 flex flex-col items-center text-center"
+              >
+                {centerMode === 'VARIANT' && activeVariant ? (
+                  <div
+                    onClick={() => onSelectVariant(activeVariant.id)}
+                    className="cursor-pointer group flex flex-col items-center"
+                  >
+                    <div className="relative">
+                      <div className="absolute -inset-3 rounded-full border border-dashed border-[#c89d54]/60 animate-ring-rotate" />
+                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-[#c89d54] shadow-[0_0_45px_rgba(200,157,84,0.45)] bg-[#040508]">
+                        <img
+                          src={activeVariant.avatarUrl}
+                          alt={activeVariant.designation}
+                          draggable={false}
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full object-cover group-hover:scale-105 transition"
+                        />
+                      </div>
+                      <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-[#c89d54] text-[#030305] font-mono text-xs font-extrabold shadow-lg">
+                        {activeVariant.badgeNumber}
+                      </span>
+                    </div>
+
+                    <div className="mt-3 px-3 py-1 bg-[#050609]/95 border border-[#c89d54]/40 shadow-xl">
+                      <div className="font-display text-xs sm:text-sm text-white uppercase tracking-wider">
+                        {activeVariant.designation.split(' (')[0]}
+                      </div>
+                      <div className="text-[9px] font-mono text-[#c89d54]">
+                        {activeVariant.worldsVisited.length} MUNDOS CONECTADOS
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  activeCenterWorld && (
+                    <div
+                      onClick={() => onSelectWorld(activeCenterWorld.id)}
+                      className="cursor-pointer group flex flex-col items-center"
+                    >
+                      <div className="relative">
+                        <div className="absolute -inset-3 rounded-full border border-dashed border-sky-400/60 animate-ring-rotate" />
+                        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-sky-400 shadow-[0_0_45px_rgba(56,189,248,0.4)] bg-[#040508]">
+                          <img
+                            src={activeCenterWorld.imageUrl}
+                            alt={activeCenterWorld.name}
+                            draggable={false}
+                            referrerPolicy="no-referrer"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-sky-400 text-[#030305] font-mono text-[10px] font-extrabold">
+                          {activeCenterWorld.code}
+                        </span>
+                      </div>
+                      <div className="mt-3 px-3 py-1 bg-[#050609]/95 border border-sky-400/40 max-w-[180px]">
+                        <div className="font-display text-xs text-white uppercase tracking-wider truncate">
+                          {activeCenterWorld.name.split(' (')[0]}
+                        </div>
+                        <div className="text-[9px] font-mono text-sky-300">
+                          {orbitalWorldVisitors.length} VIAJANTES CONECTADOS
+                        </div>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+
+              {/* PERIMETER RING NODES: 14 WORLDS */}
+              {centerMode === 'VARIANT' &&
+                orbitalWorlds.map(({ world: w, x, y }) => {
+                  const visitIndex = activeVariant.worldsVisited.indexOf(w.id);
+                  const isVisited = visitIndex !== -1;
+                  const isOrigin = activeVariant.originWorldId === w.id;
+                  const isCurrent = activeVariant.currentWorldId === w.id;
+
+                  return (
+                    <div
+                      key={w.id}
+                      style={{ left: `${x}%`, top: `${y}%` }}
+                      className={`absolute -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center text-center transition-all duration-300 ${
+                        isVisited
+                          ? 'scale-100 opacity-100'
+                          : 'scale-90 opacity-35 hover:opacity-100 hover:scale-100'
+                      }`}
+                    >
+                      <button
+                        onClick={() => handleSelectWorldOnWheel(w.id)}
+                        onDoubleClick={() => handleCenterOnWorld(w.id)}
+                        className="group flex flex-col items-center focus:outline-none"
+                      >
+                        <div className="relative">
+                          {isVisited && (
+                            <span
+                              className={`absolute -top-2.5 left-1/2 -translate-x-1/2 px-1.5 py-0.2 text-[8px] font-mono font-extrabold uppercase tracking-wider whitespace-nowrap z-20 shadow ${
+                                isCurrent
+                                  ? 'bg-emerald-400 text-[#030305]'
+                                  : isOrigin
+                                  ? 'bg-[#c89d54] text-[#030305]'
+                                  : 'bg-sky-400 text-[#030305]'
+                              }`}
+                            >
+                              {isOrigin && visitIndex === 0
+                                ? '1º ORIGEM'
+                                : isCurrent
+                                ? `${visitIndex + 1}º ATUAL`
+                                : `${visitIndex + 1}º SALTO`}
+                            </span>
+                          )}
+
+                          <div
+                            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 bg-[#040508] transition-all ${
+                              isVisited
+                                ? isCurrent
+                                  ? 'border-emerald-400 shadow-[0_0_22px_rgba(52,211,153,0.45)]'
+                                  : isOrigin
+                                  ? 'border-[#c89d54] shadow-[0_0_22px_rgba(200,157,84,0.45)]'
+                                  : 'border-sky-400 shadow-[0_0_18px_rgba(56,189,248,0.4)]'
+                                : 'border-stone-700 group-hover:border-[#c89d54]'
+                            }`}
+                          >
+                            <img
+                              src={w.imageUrl}
+                              alt={w.name}
+                              draggable={false}
+                              referrerPolicy="no-referrer"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                            />
                           </div>
                         </div>
 
-                        {!isLast && (
-                          <ArrowRight className="w-4 h-4 text-indigo-400/60 shrink-0" />
+                        <div className="mt-1 px-2 py-0.5 bg-[#040508]/90 border border-white/[0.08] max-w-[115px] sm:max-w-[130px]">
+                          <div className="text-[8px] font-mono text-[#c89d54] uppercase leading-none">
+                            {w.code}
+                          </div>
+                          <div className="text-[10px] font-display text-stone-100 truncate mt-0.5 group-hover:text-[#e6c885]">
+                            {w.name.split(' (')[0]}
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  );
+                })}
+
+              {/* PERIMETER RING NODES: VISITORS (WHEN WORLD IS IN CENTER) */}
+              {centerMode === 'WORLD' &&
+                orbitalWorldVisitors.map(({ variant: v, x, y }) => {
+                  const isCurrent = v.currentWorldId === activeCenterWorld.id;
+                  const isOrigin = v.originWorldId === activeCenterWorld.id;
+                  return (
+                    <div
+                      key={v.id}
+                      style={{ left: `${x}%`, top: `${y}%` }}
+                      className="absolute -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center text-center"
+                    >
+                      <button
+                        onClick={() => handleSelectCharacter(v.id)}
+                        className="group flex flex-col items-center"
+                      >
+                        <div
+                          className={`w-14 h-14 rounded-full overflow-hidden border-2 bg-[#040508] ${
+                            isCurrent
+                              ? 'border-emerald-400 shadow-[0_0_20px_rgba(52,211,153,0.4)]'
+                              : isOrigin
+                              ? 'border-[#c89d54] shadow-[0_0_20px_rgba(200,157,84,0.4)]'
+                              : 'border-sky-400'
+                          }`}
+                        >
+                          <img
+                            src={v.avatarUrl}
+                            alt={v.designation}
+                            draggable={false}
+                            referrerPolicy="no-referrer"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="mt-1 px-2 py-0.5 bg-[#040508]/95 border border-white/15">
+                          <span className="text-[9px] font-mono font-bold text-[#c89d54] mr-1">
+                            {v.badgeNumber}
+                          </span>
+                          <span className="text-[10px] font-display text-white">
+                            {v.designation.split(' (')[0]}
+                          </span>
+                        </div>
+                      </button>
+                    </div>
+                  );
+                })}
+            </div>
+
+            {/* BOTTOM DRAG-TO-SCROLL STEP-BY-STEP TRAJECTORY RIBBON */}
+            {centerMode === 'VARIANT' && activeVariant && (
+              <div className="relative z-20 bg-[#050609]/95 border-t border-[#c89d54]/30 px-5 py-3.5 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+                <DragScrollContainer className="flex items-center gap-2 py-1 flex-1">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#c89d54] shrink-0 mr-1">
+                    ORDEM DOS SALTOS:
+                  </span>
+                  {activeVariant.worldsVisited.map((wId, idx) => {
+                    const w = getWorld(wId);
+                    if (!w) return null;
+                    const isOrigin = idx === 0;
+                    const isCurrent = activeVariant.currentWorldId === wId;
+                    const isFocusedStep = activeStepIndex === idx;
+
+                    return (
+                      <React.Fragment key={`${wId}-${idx}`}>
+                        <button
+                          onClick={() => {
+                            setActiveStepIndex(activeStepIndex === idx ? null : idx);
+                            onSelectWorld(w.id);
+                          }}
+                          className={`px-2.5 py-1 border text-left transition shrink-0 flex items-center gap-2 ${
+                            isFocusedStep
+                              ? 'bg-[#c89d54] text-[#030305] border-[#e6c885] font-bold'
+                              : isCurrent
+                              ? 'bg-emerald-950/40 text-emerald-200 border-emerald-400/60'
+                              : isOrigin
+                              ? 'bg-[#171208] text-[#e6c885] border-[#c89d54]/60'
+                              : 'bg-[#080a10] text-stone-200 border-white/15'
+                          }`}
+                        >
+                          <span className="font-mono text-[10px] font-bold">{idx + 1}º</span>
+                          <span className="text-[11px] font-medium truncate max-w-[120px]">
+                            {w.name.split(' (')[0]}
+                          </span>
+                        </button>
+                        {idx < activeVariant.worldsVisited.length - 1 && (
+                          <ArrowRight className="w-3 h-3 text-[#c89d54]/60 shrink-0" />
                         )}
                       </React.Fragment>
                     );
                   })}
+                </DragScrollContainer>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    onClick={() => handleStepNavigation('PREV')}
+                    className="p-1.5 bg-[#090b10] hover:bg-[#c89d54] text-stone-300 hover:text-[#030305] border border-white/15 transition"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => handleStepNavigation('NEXT')}
+                    className="px-3 py-1.5 bg-[#090b10] hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider flex items-center gap-1 transition"
+                  >
+                    <span>Passo a Passo</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* =====================================================================
+          MODE 2: TRUE HIERARCHICAL FAMILY / QUANTUM BRANCHING TREE
+          No internal scroll containers so vertical mouse-wheel scrolling is 100% smooth!
+      ===================================================================== */}
+      {stageMode === 'TREE' && (
+        <div className="arch-box p-5 sm:p-8 space-y-8">
+          {/* Family Selector Header */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#c89d54]/25 pb-5">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#c89d54] block">
+                DIAGRAMA DE ÁRVORE HIERÁRQUICA (PAI ➔ DECISÃO ➔ RAMIFICAÇÕES)
+              </span>
+              <h3 className="font-display text-xl sm:text-2xl text-white uppercase tracking-[0.1em] mt-1">
+                Escolha a Linhagem para Ver a Árvore de Divisões:
+              </h3>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-1.5 bg-[#050609] p-1 border border-[#c89d54]/35">
+              {[
+                { id: 'JASON', label: 'ÁRVORE DE JASON DESSEN (13)' },
+                { id: 'AMANDA', label: 'AMANDA LUCAS (4)' },
+                { id: 'RYAN', label: 'RYAN HOLDER (3)' },
+                { id: 'LEIGHTON', label: 'LEIGHTON VANCE (3)' },
+                { id: 'BLAIR', label: 'BLAIR CAPLAN (3)' },
+                { id: 'MACNAMARA', label: 'MACNAMARA, DANIELA, CHARLIE & LAUREL (5)' },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setTreeFamily(item.id as any)}
+                  className={`px-3 py-2 text-[10px] font-mono uppercase tracking-[0.14em] transition ${
+                    treeFamily === item.id
+                      ? 'bg-[#c89d54] text-[#030305] font-bold'
+                      : 'text-stone-400 hover:text-white'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* ===============================================================
+              1. TRUE VISUAL TREE FOR JASON DESSEN (100% RESPONSIVE, NO INNER SCROLL)
+          =============================================================== */}
+          {treeFamily === 'JASON' && (
+            <div className="w-full flex flex-col items-center py-2">
+              {/* LEVEL 0: THE ROOT NODE (YOUNG JASON 15 YEARS AGO) */}
+              <div className="flex flex-col items-center">
+                <div className="px-5 py-3 bg-[#141008] border-2 border-[#c89d54] text-center shadow-[0_0_30px_rgba(200,157,84,0.25)] max-w-md">
+                  <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-[#c89d54] block">
+                    RAIZ DA ÁRVORE • HÁ 15 ANOS EM CHICAGO
+                  </span>
+                  <div className="font-display text-base text-white uppercase tracking-wider mt-0.5">
+                    JASON DESSEN (ANTES DA DIVISÃO)
+                  </div>
+                  <div className="text-[11px] text-stone-400 mt-0.5">
+                    Daniela descobre que está grávida (ou na linha do Mundo 31, o jovem Jason morre aos 16 anos).
+                  </div>
+                </div>
+
+                {/* Vertical Trunk Line Down */}
+                <div className="w-0.5 h-7 bg-[#c89d54]" />
+              </div>
+
+              {/* HORIZONTAL TREE BRACKET SPLITTING INTO 3 REALITIES (15 YEARS AGO) */}
+              <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-0 relative">
+                {/* Horizontal connector bar across the middle of column 1 to column 3 */}
+                <div className="hidden lg:block absolute top-0 left-[16.666%] right-[16.666%] h-0.5 bg-[#c89d54]" />
+
+                {/* LEFT BRANCH: JASON 2 (SCIENCE / REALITY 02) */}
+                <div className="flex flex-col items-center px-2">
+                  <div className="hidden lg:block w-0.5 h-6 bg-[#c89d54]" />
+                  <div className="px-2.5 py-1 bg-[#07111a] border border-sky-400/50 text-[9px] font-mono text-sky-300 uppercase tracking-wider mb-2 text-center">
+                    RAMO A: Escolheu a Ciência (Sem Casamento)
+                  </div>
+                  <div className="w-0.5 h-4 bg-sky-400/60" />
+
+                  {(() => {
+                    const v = getVariant('jason-2');
+                    if (!v) return null;
+                    return (
+                      <button
+                        onClick={() => onSelectVariant(v.id)}
+                        className="group w-full max-w-[260px] p-4 bg-[#07090f] border border-sky-400/60 hover:border-sky-300 flex flex-col items-center text-center transition"
+                      >
+                        <div className="relative mb-2">
+                          <img
+                            src={v.avatarUrl}
+                            alt={v.designation}
+                            referrerPolicy="no-referrer"
+                            className="w-14 h-14 rounded-full object-cover border-2 border-sky-400"
+                          />
+                          <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.2 bg-sky-400 text-[#030305] font-mono text-[10px] font-bold">
+                            {v.badgeNumber}
+                          </span>
+                        </div>
+                        <div className="font-display text-sm text-white uppercase group-hover:text-sky-300">
+                          {v.designation}
+                        </div>
+                        <div className="text-[10px] font-mono text-sky-300 mt-0.5">
+                          REALITY 02 • CRIOU A CAIXA & A PIRÂMIDE
+                        </div>
+                        <p className="text-[11px] text-stone-400 mt-1.5 leading-snug">
+                          Construiu a Caixa na Velocity Labs, ajudou Leighton na Pirâmide e bate à porta de J1 em T2:E7.
+                        </p>
+                      </button>
+                    );
+                  })()}
+                </div>
+
+                {/* CENTER BRANCH: JASON 1 (MARRIED DANIELA / REALITY 01 -> THE TRUNK CONTINUES!) */}
+                <div className="flex flex-col items-center px-2">
+                  <div className="hidden lg:block w-0.5 h-6 bg-[#c89d54]" />
+                  <div className="px-2.5 py-1 bg-[#171208] border border-[#c89d54] text-[9px] font-mono text-[#e6c885] uppercase tracking-wider mb-2 text-center">
+                    RAMO B: Casou com Daniela (Reality 01)
+                  </div>
+                  <div className="w-0.5 h-4 bg-[#c89d54]" />
+
+                  {(() => {
+                    const v = getVariant('jason-1');
+                    if (!v) return null;
+                    return (
+                      <button
+                        onClick={() => onSelectVariant(v.id)}
+                        className="group w-full max-w-[270px] p-4 bg-[#141008] border-2 border-[#c89d54] shadow-[0_0_30px_rgba(200,157,84,0.3)] flex flex-col items-center text-center transition"
+                      >
+                        <div className="relative mb-2">
+                          <img
+                            src={v.avatarUrl}
+                            alt={v.designation}
+                            referrerPolicy="no-referrer"
+                            className="w-14 h-14 rounded-full object-cover border-2 border-[#c89d54]"
+                          />
+                          <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-[#c89d54] text-[#030305] font-mono text-[10px] font-bold whitespace-nowrap">
+                            {v.badgeNumber} (TRONCO)
+                          </span>
+                        </div>
+                        <div className="font-display text-sm text-white uppercase group-hover:text-[#e6c885]">
+                          {v.designation}
+                        </div>
+                        <div className="text-[10px] font-mono text-[#c89d54] mt-0.5">
+                          REALITY 01 • PROTAGONISTA
+                        </div>
+                        <p className="text-[11px] text-stone-300 mt-1.5 leading-snug">
+                          Sequestrado por J2 e jogado na Caixa (T1:E3). <strong className="text-[#e6c885]">Todas as variantes abaixo nasceram dele!</strong>
+                        </p>
+                      </button>
+                    );
+                  })()}
+
+                  {/* TRUNK CONTINUES DOWN ONLY FROM JASON 1! */}
+                  <div className="w-0.5 h-8 bg-[#c89d54]" />
+                  <div className="px-3 py-1.5 bg-[#c89d54] text-[#030305] font-mono text-[10px] font-extrabold uppercase tracking-wider text-center shadow-lg">
+                    ▼ ENTRA NA CAIXA (T1:E3) E SE DIVIDE EM 70+ CÓPIAS ▼
+                  </div>
+                  <div className="w-0.5 h-8 bg-[#c89d54]" />
+                </div>
+
+                {/* RIGHT BRANCH: JASON 5 (TWIN MAX SURVIVED / WORLD 27) & NATIVE JASON OF WORLD 31 */}
+                <div className="flex flex-col items-center px-2">
+                  <div className="hidden lg:block w-0.5 h-6 bg-[#c89d54]" />
+                  <div className="px-2.5 py-1 bg-[#071510] border border-emerald-400/50 text-[9px] font-mono text-emerald-300 uppercase tracking-wider mb-2 text-center">
+                    RAMO C: Outros Jasons Nativos (Sem Caixa)
+                  </div>
+                  <div className="w-0.5 h-4 bg-emerald-400/60" />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full max-w-[330px]">
+                    {['jason-5', 'jason-nativo-31'].map((id) => {
+                      const v = getVariant(id);
+                      if (!v) return null;
+                      const isDead = v.status === 'Morto';
+                      return (
+                        <button
+                          key={id}
+                          onClick={() => onSelectVariant(v.id)}
+                          className={`group p-3 bg-[#070d0b] border flex flex-col items-center text-center transition ${
+                            isDead
+                              ? 'border-rose-500/50 hover:border-rose-400'
+                              : 'border-emerald-400/50 hover:border-emerald-300'
+                          }`}
+                        >
+                          <div className="relative mb-2">
+                            <img
+                              src={v.avatarUrl}
+                              alt={v.designation}
+                              referrerPolicy="no-referrer"
+                              className={`w-12 h-12 rounded-full object-cover border-2 ${
+                                isDead ? 'border-rose-500 grayscale-[35%]' : 'border-emerald-400'
+                              }`}
+                            />
+                            <span
+                              className={`absolute -bottom-1 left-1/2 -translate-x-1/2 px-1.5 py-0.2 font-mono text-[9px] font-bold whitespace-nowrap ${
+                                isDead ? 'bg-rose-600 text-white' : 'bg-emerald-400 text-[#030305]'
+                              }`}
+                            >
+                              {v.badgeNumber}
+                            </span>
+                          </div>
+                          <div className="font-display text-xs text-white uppercase">
+                            {v.designation.split(' (')[0]}
+                          </div>
+                          <div
+                            className={`text-[9px] font-mono mt-0.5 ${
+                              isDead ? 'text-rose-300' : 'text-emerald-300'
+                            }`}
+                          >
+                            {isDead ? '💀 MORTO AOS 16 ANOS (W31)' : 'EM PAZ COM MAX (W27)'}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* LEVEL 2: CHILDREN OF JASON 1 (4 CLEAR TREE FORKS FROM THE CENTER TRUNK) */}
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 xl:gap-0 relative">
+                {/* Horizontal Tree Bar connecting the 4 child branches on xl */}
+                <div className="hidden xl:block absolute top-0 left-[12.5%] right-[12.5%] h-0.5 bg-[#c89d54]" />
+
+                {/* CHILD BRANCH 1: JASON 1 SURVIVOR & JASON 4 / JASON 7 */}
+                <div className="flex flex-col items-center px-2">
+                  <div className="hidden xl:block w-0.5 h-6 bg-[#c89d54]" />
+                  <div className="px-2 py-1 bg-[#141008] border border-[#c89d54]/60 text-[9px] font-mono text-[#e6c885] text-center uppercase mb-2">
+                    1. Protagonista & Sobreviventes
+                  </div>
+                  <div className="w-0.5 h-4 bg-[#c89d54]" />
+                  <div className="space-y-2 w-full max-w-[230px]">
+                    <button
+                      onClick={() => onSelectVariant('jason-1')}
+                      className="w-full p-3 bg-[#090b10] border border-[#c89d54] text-center hover:bg-[#141008] transition"
+                    >
+                      <span className="px-2 py-0.5 bg-[#c89d54] text-[#030305] font-mono text-[10px] font-bold">
+                        J1 (PROTAGONISTA)
+                      </span>
+                      <div className="font-display text-xs text-white uppercase mt-1.5">
+                        Jason 1 no Mundo Low-Tech
+                      </div>
+                      <p className="text-[10px] text-stone-400 mt-1">
+                        Dopa MacNamara X (T2:E4) e reencontra Jason 2 (T2:E7).
+                      </p>
+                    </button>
+
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {['jason-4', 'jason-7'].map((id) => {
+                        const v = getVariant(id);
+                        if (!v) return null;
+                        return (
+                          <button
+                            key={id}
+                            onClick={() => onSelectVariant(v.id)}
+                            className="p-2 bg-[#090b10] border border-amber-500/40 hover:border-amber-400 flex flex-col items-center text-center transition"
+                          >
+                            <span className="px-1.5 py-0.1 bg-amber-500 text-[#030305] font-mono text-[9px] font-bold">
+                              {v.badgeNumber}
+                            </span>
+                            <div className="text-[10px] font-bold text-white mt-1 truncate w-full">
+                              {v.alias}
+                            </div>
+                            <div className="text-[8px] font-mono text-amber-300">
+                              Sobrevivente T1
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* CHILD BRANCH 2: THE TREE BRANCH ACCIDENT IN THE BOX (J13 vs J34) */}
+                <div className="flex flex-col items-center px-2">
+                  <div className="hidden xl:block w-0.5 h-6 bg-[#c89d54]" />
+                  <div className="px-2 py-1 bg-[#1a0f0a] border border-amber-400/70 text-[9px] font-mono text-amber-300 text-center uppercase">
+                    2. Acidente do Galho (Mundo 28 — T2:E8)
+                  </div>
+                  <div className="w-0.5 h-4 bg-amber-400" />
+
+                  <div className="w-full grid grid-cols-2 relative pt-0">
+                    <div className="absolute top-0 left-1/4 right-1/4 h-0.5 bg-amber-400" />
+
+                    {/* J13 */}
+                    <div className="flex flex-col items-center pr-1">
+                      <div className="w-0.5 h-4 bg-rose-400" />
+                      {(() => {
+                        const v = getVariant('jason-13');
+                        if (!v) return null;
+                        return (
+                          <button
+                            onClick={() => onSelectVariant(v.id)}
+                            className="w-full p-2.5 bg-[#090b10] border border-rose-500/60 hover:border-rose-400 flex flex-col items-center text-center transition"
+                          >
+                            <img
+                              src={v.avatarUrl}
+                              alt={v.designation}
+                              referrerPolicy="no-referrer"
+                              className="w-10 h-10 rounded-full object-cover border border-rose-400 mb-1"
+                            />
+                            <span className="px-1.5 py-0.1 bg-rose-500 text-white font-mono text-[9px] font-bold">
+                              J13 (PRESO R1)
+                            </span>
+                            <div className="text-[10px] font-bold text-white mt-1">
+                              Sua Amanda Morre
+                            </div>
+                            <div className="text-[9px] text-stone-400 mt-0.5">
+                              Interrogado por Mitchel 1
+                            </div>
+                          </button>
+                        );
+                      })()}
+                    </div>
+
+                    {/* J34 */}
+                    <div className="flex flex-col items-center pl-1">
+                      <div className="w-0.5 h-4 bg-emerald-400" />
+                      {(() => {
+                        const v = getVariant('jason-34');
+                        if (!v) return null;
+                        return (
+                          <button
+                            onClick={() => onSelectVariant(v.id)}
+                            className="w-full p-2.5 bg-[#090b10] border border-emerald-400/70 hover:border-emerald-300 flex flex-col items-center text-center transition"
+                          >
+                            <img
+                              src={v.avatarUrl}
+                              alt={v.designation}
+                              referrerPolicy="no-referrer"
+                              className="w-10 h-10 rounded-full object-cover border border-emerald-400 mb-1"
+                            />
+                            <span className="px-1.5 py-0.1 bg-emerald-400 text-[#030305] font-mono text-[9px] font-bold">
+                              J34 (SANTUÁRIO)
+                            </span>
+                            <div className="text-[10px] font-bold text-white mt-1">
+                              Amanda 7 Salva!
+                            </div>
+                            <div className="text-[9px] text-stone-400 mt-0.5">
+                              Socorrida por Laurel (W32)
+                            </div>
+                          </button>
+                        );
+                      })()}
+                    </div>
+                  </div>
+                </div>
+
+                {/* CHILD BRANCH 3: PEACE AT MOTHER ELLIE'S HOUSE (J24 & J30/31) */}
+                <div className="flex flex-col items-center px-2">
+                  <div className="hidden xl:block w-0.5 h-6 bg-[#c89d54]" />
+                  <div className="px-2 py-1 bg-[#071510] border border-emerald-400/60 text-[9px] font-mono text-emerald-300 text-center uppercase">
+                    3. Casa da Mãe Ellie (Mundo 31 — T2:E5)
+                  </div>
+                  <div className="w-0.5 h-4 bg-emerald-400" />
+
+                  <div className="w-full grid grid-cols-2 relative">
+                    <div className="absolute top-0 left-1/4 right-1/4 h-0.5 bg-emerald-400" />
+
+                    {['jason-24', 'jason-30'].map((id) => {
+                      const v = getVariant(id);
+                      if (!v) return null;
+                      return (
+                        <div key={id} className="flex flex-col items-center px-1">
+                          <div className="w-0.5 h-4 bg-emerald-400" />
+                          <button
+                            onClick={() => onSelectVariant(v.id)}
+                            className="w-full p-2.5 bg-[#090b10] border border-emerald-500/50 hover:border-emerald-300 flex flex-col items-center text-center transition"
+                          >
+                            <img
+                              src={v.avatarUrl}
+                              alt={v.designation}
+                              referrerPolicy="no-referrer"
+                              className="w-10 h-10 rounded-full object-cover border border-emerald-400 mb-1"
+                            />
+                            <span className="px-1.5 py-0.1 bg-emerald-400 text-[#030305] font-mono text-[9px] font-bold">
+                              {v.badgeNumber}
+                            </span>
+                            <div className="text-[10px] font-bold text-white mt-1 truncate w-full">
+                              {v.alias}
+                            </div>
+                            <div className="text-[9px] text-stone-400 mt-0.5">
+                              Vive com Ellie (W31)
+                            </div>
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* CHILD BRANCH 4: DECEASED & INVADING JASONS (T1:E8–E9 & T2:E1) */}
+                <div className="flex flex-col items-center px-2">
+                  <div className="hidden xl:block w-0.5 h-6 bg-[#c89d54]" />
+                  <div className="px-2 py-1 bg-[#1a090d] border border-rose-500/70 text-[9px] font-mono text-rose-300 text-center uppercase">
+                    4. 💀 Jasons Mortos (T1:E8–E9 & T2:E1)
+                  </div>
+                  <div className="w-0.5 h-4 bg-rose-500" />
+
+                  <div className="grid grid-cols-2 gap-1.5 w-full">
+                    {[
+                      'jason-stalker-29',
+                      'jason-morgue-r1',
+                      'jason-3',
+                      'jason-6',
+                      'jason-8',
+                    ].map((id) => {
+                      const v = getVariant(id);
+                      if (!v) return null;
+                      return (
+                        <button
+                          key={id}
+                          onClick={() => onSelectVariant(v.id)}
+                          className={`p-2 bg-[#0c0608] border border-rose-500/50 hover:border-rose-400 flex flex-col items-center text-center transition ${
+                            id === 'jason-stalker-29' ? 'col-span-2' : ''
+                          }`}
+                        >
+                          <span className="px-1.5 py-0.1 bg-rose-600 text-white font-mono text-[9px] font-bold">
+                            💀 {v.badgeNumber}
+                          </span>
+                          <div className="text-[10px] font-bold text-white mt-1 truncate w-full">
+                            {v.designation.split(' (')[0]}
+                          </div>
+                          <div className="text-[8px] font-mono text-rose-300 truncate w-full">
+                            {v.alias}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
           )}
 
-          {/* ROW 2: ALL WORLDS OVERVIEW GRID */}
-          <div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <span className="flex items-center gap-2">
-                <Globe2 className="w-4 h-4 text-cyan-400" />
-                <span>2. Todos os {worlds.length} Mundos no Mapa (Os mundos iluminados fazem parte da jornada de {activeVariant?.designation.split(' (')[0]})</span>
-              </span>
-              <span className="text-[11px] text-indigo-300 font-medium">
-                Clique em qualquer mundo para abrir o dossiê completo
-              </span>
-            </div>
+          {/* ===============================================================
+              2. TRUE VISUAL TREE FOR AMANDA, RYAN, LEIGHTON, BLAIR, OR MACNAMARA
+          =============================================================== */}
+          {treeFamily !== 'JASON' && (
+            <div className="w-full flex flex-col items-center py-4">
+              {/* Root Node */}
+              <div className="px-6 py-3 bg-[#141008] border-2 border-[#c89d54] text-center max-w-xl">
+                <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-[#c89d54] block">
+                  RAIZ DA LINHAGEM & CONTRAPARTES NO MULTIVERSO
+                </span>
+                <div className="font-display text-lg text-white uppercase tracking-wider mt-0.5">
+                  {treeFamily === 'AMANDA'
+                    ? 'AMANDA LUCAS (4 VARIANTES — INCLUINDO A MORTA NO GALHO)'
+                    : treeFamily === 'RYAN'
+                    ? 'RYAN HOLDER (3 VARIANTES — INCLUINDO RYAN 3 MORTO NA PRAGA)'
+                    : treeFamily === 'LEIGHTON'
+                    ? 'LEIGHTON VANCE (3 VARIANTES)'
+                    : treeFamily === 'BLAIR'
+                    ? 'BLAIR CAPLAN (3 VARIANTES — INCLUINDO A MORTA PELAS VESPAS)'
+                    : 'MITCHEL MACNAMARA (R1 vs. WORLD X), DANIELA, CHARLIE & LAUREL'}
+                </div>
+              </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3.5">
-              {worlds.map((w) => {
-                const visitIndex = activeVariant
-                  ? activeVariant.worldsVisited.indexOf(w.id)
-                  : -1;
-                const isOrigin = activeVariant?.originWorldId === w.id;
-                const isCurrent = activeVariant?.currentWorldId === w.id;
-                const isVisitedBySelectedVariant =
-                  !focusedWorldId && visitIndex !== -1;
-                const isFocusedWorld = focusedWorldId === w.id;
+              <div className="w-0.5 h-8 bg-[#c89d54]" />
 
-                const isLit = isVisitedBySelectedVariant || isFocusedWorld;
+              {(() => {
+                const familyList = variants.filter((v) => {
+                  if (treeFamily === 'AMANDA') return v.baseCharacter === 'Amanda Lucas';
+                  if (treeFamily === 'RYAN') return v.baseCharacter === 'Ryan Holder';
+                  if (treeFamily === 'LEIGHTON') return v.baseCharacter === 'Leighton Vance';
+                  if (treeFamily === 'BLAIR') return v.baseCharacter === 'Blair Caplan';
+                  return (
+                    v.baseCharacter === 'Laurel & Agentes' ||
+                    v.baseCharacter === 'Daniela & Charlie'
+                  );
+                });
+
+                const gridCols =
+                  familyList.length >= 5
+                    ? 'md:grid-cols-3 xl:grid-cols-5'
+                    : familyList.length === 4
+                    ? 'md:grid-cols-2 xl:grid-cols-4'
+                    : 'md:grid-cols-3';
 
                 return (
-                  <div
-                    key={w.id}
-                    onClick={() => onSelectWorld(w.id)}
-                    className={`group cursor-pointer rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col justify-between relative ${
-                      isLit
-                        ? isCurrent
-                          ? 'bg-slate-900/95 border-emerald-400/80 shadow-lg shadow-emerald-500/15 scale-[1.02]'
-                          : 'bg-slate-900/95 border-indigo-400/80 shadow-lg shadow-indigo-500/15 scale-[1.02]'
-                        : 'bg-slate-950/50 border-white/[0.06] opacity-40 hover:opacity-95 hover:border-white/20'
-                    }`}
-                  >
-                    {/* World Cover Image */}
-                    <div className="relative h-28 w-full overflow-hidden bg-slate-950">
-                      <img
-                        src={w.imageUrl}
-                        alt={w.name}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/35 to-transparent" />
+                  <div className={`w-full grid grid-cols-1 ${gridCols} gap-5 md:gap-3 relative`}>
+                    <div className="hidden md:block absolute top-0 left-[10%] right-[10%] h-0.5 bg-[#c89d54]" />
 
-                      {/* World Number Badge */}
-                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-950/85 text-slate-100 backdrop-blur-md border border-white/15">
-                        {w.code}
-                      </span>
+                    {familyList.map((v) => {
+                      const isDead = v.status === 'Morto';
+                      const orig = getWorld(v.originWorldId);
+                      return (
+                        <div key={v.id} className="flex flex-col items-center px-2">
+                          <div
+                            className={`hidden md:block w-0.5 h-8 ${
+                              isDead ? 'bg-rose-500' : 'bg-[#c89d54]'
+                            }`}
+                          />
+                          <button
+                            onClick={() => onSelectVariant(v.id)}
+                            className={`w-full max-w-[280px] p-4 bg-[#07090f] border flex flex-col items-center text-center transition ${
+                              isDead
+                                ? 'border-rose-500/60 hover:border-rose-400 bg-[#0d0608]'
+                                : 'border-[#c89d54]/60 hover:border-[#c89d54]'
+                            }`}
+                          >
+                            <div className="relative mb-3">
+                              <img
+                                src={v.avatarUrl}
+                                alt={v.designation}
+                                referrerPolicy="no-referrer"
+                                className={`w-16 h-16 rounded-full object-cover border-2 ${
+                                  isDead
+                                    ? 'border-rose-500 grayscale-[35%]'
+                                    : 'border-[#c89d54]'
+                                }`}
+                              />
+                              <span
+                                className={`absolute -bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.5 font-mono text-[10px] font-bold whitespace-nowrap ${
+                                  isDead
+                                    ? 'bg-rose-600 text-white'
+                                    : 'bg-[#c89d54] text-[#030305]'
+                                }`}
+                              >
+                                {isDead ? `💀 ${v.badgeNumber}` : v.badgeNumber}
+                              </span>
+                            </div>
 
-                      {/* Step Order Badge when Variant is Selected */}
-                      {isVisitedBySelectedVariant && (
-                        <span
-                          className={`absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-extrabold shadow ${
-                            isCurrent
-                              ? 'bg-emerald-400 text-slate-950'
-                              : isOrigin
-                              ? 'bg-indigo-400 text-slate-950'
-                              : 'bg-cyan-400 text-slate-950'
-                          }`}
-                        >
-                          {isOrigin && visitIndex === 0
-                            ? '1º Origem'
-                            : isCurrent
-                            ? `${visitIndex + 1}º Atual`
-                            : `${visitIndex + 1}º Passo`}
-                        </span>
-                      )}
-                    </div>
+                            <span
+                              className={`text-[9px] font-mono uppercase px-2 py-0.5 mb-1.5 border ${
+                                isDead
+                                  ? 'bg-rose-950/60 text-rose-300 border-rose-500/40'
+                                  : 'bg-white/5 text-[#e6c885] border-[#c89d54]/30'
+                              }`}
+                            >
+                              {v.status} • ORIGEM: {orig?.code}
+                            </span>
 
-                    {/* World Title */}
-                    <div className="p-3">
-                      <div className="text-xs font-bold text-white leading-snug line-clamp-2 group-hover:text-indigo-300 transition">
-                        {w.name}
-                      </div>
-                      <div className="text-[10px] text-slate-400 mt-1.5 flex items-center justify-between">
-                        <span>{w.visitors.length} viajantes</span>
-                        <span className="text-indigo-400 group-hover:text-cyan-300 font-semibold transition">
-                          Dossiê →
-                        </span>
-                      </div>
-                    </div>
+                            <div className="font-display text-sm text-white uppercase">
+                              {v.designation}
+                            </div>
+                            <div className="text-[10px] font-mono text-[#c89d54] mt-0.5 mb-2">
+                              {v.alias}
+                            </div>
+                            <p className="text-xs text-stone-300 leading-relaxed">
+                              <RichText text={v.shortRole} />
+                            </p>
+                          </button>
+                        </div>
+                      );
+                    })}
                   </div>
                 );
-              })}
+              })()}
             </div>
-          </div>
+          )}
         </div>
-      </div>
-
-      {/* SECTION 2: AUTO-EXPLANATORY VISUAL BRANCHING TREE */}
-      <div className="rounded-[28px] glass-panel border border-white/[0.08] p-6 sm:p-8 lg:p-10 space-y-6">
-        <div className="border-b border-white/[0.08] pb-4">
-          <div className="inline-flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-widest mb-1">
-            <GitBranch className="w-4 h-4" />
-            Guia Rápido de Bifurcações
-          </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white">
-            Árvore de Divisões (De Onde Surgiu Cada Variante?)
-          </h3>
-          <p className="text-sm text-slate-300/90 mt-1">
-            Entenda visualmente os 3 eventos-chave que criaram as ramificações de Jason, Amanda e da família Dessen.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* BRANCH 1 */}
-          <div className="glass-card border border-indigo-500/25 rounded-2xl p-6 flex flex-col justify-between">
-            <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
-                1. A Divisão Há 15 Anos (Antes da Caixa)
-              </span>
-              <h4 className="text-lg font-bold text-white mt-3 mb-2">
-                Reality 1 vs. Reality 2
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-                Quando Daniela engravidou há 15 anos, a decisão de Jason criou os dois mundos principais da série:
-              </p>
-
-              <div className="space-y-3">
-                <div
-                  onClick={() => onSelectVariant('jason-1')}
-                  className="cursor-pointer p-3.5 rounded-xl bg-slate-950/85 border border-indigo-500/35 hover:border-indigo-400 flex items-center gap-3 transition"
-                >
-                  <img
-                    src={getVariant('jason-1')?.avatarUrl}
-                    alt="Jason 1"
-                    referrerPolicy="no-referrer"
-                    className="w-11 h-11 rounded-full object-cover border border-indigo-400 shrink-0"
-                  />
-                  <div>
-                    <div className="text-xs font-bold text-white">Jason 1 (Reality 01 → Mundo Low-Tech)</div>
-                    <div className="text-[11px] text-slate-400">
-                      Casou com Daniela, recuperou a família e hoje vive no Mundo Low-Tech (World 30).
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  onClick={() => onSelectVariant('jason-2')}
-                  className="cursor-pointer p-3.5 rounded-xl bg-slate-950/85 border border-cyan-500/35 hover:border-cyan-400 flex items-center gap-3 transition"
-                >
-                  <img
-                    src={getVariant('jason-2')?.avatarUrl}
-                    alt="Jason 2"
-                    referrerPolicy="no-referrer"
-                    className="w-11 h-11 rounded-full object-cover border border-cyan-400 shrink-0"
-                  />
-                  <div>
-                    <div className="text-xs font-bold text-white">Jason 2 (Reality 02 → A Pirâmide)</div>
-                    <div className="text-[11px] text-slate-400">
-                      Criou a Caixa na Velocity Labs, sequestrou o J1 e na T2 atua na Pirâmide.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-white/[0.08] text-[11px] text-slate-400">
-              💡 Já no Mundo 27, o gêmeo Max sobreviveu ao parto (lar do <strong>Jason 5</strong>).
-            </div>
-          </div>
-
-          {/* BRANCH 2 */}
-          <div className="glass-card border border-violet-500/25 rounded-2xl p-6 flex flex-col justify-between">
-            <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-violet-500/20 text-violet-300 border border-violet-400/30">
-                2. O Acidente do Galho (T2:E8 & Podcast)
-              </span>
-              <h4 className="text-lg font-bold text-white mt-3 mb-2">
-                Jason 13 vs. Jason 34 & Amanda 7
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-                Quando um galho de árvore empala Amanda dentro da Caixa, o destino se divide em dois caminhos opostos:
-              </p>
-
-              <div className="space-y-3">
-                <div
-                  onClick={() => onSelectVariant('jason-13')}
-                  className="cursor-pointer p-3.5 rounded-xl bg-slate-950/85 border border-rose-500/35 hover:border-rose-400 flex items-center gap-3 transition"
-                >
-                  <span className="w-11 h-11 rounded-full bg-rose-500/25 border border-rose-400 text-rose-200 font-bold text-xs flex items-center justify-center shrink-0">
-                    J13
-                  </span>
-                  <div>
-                    <div className="text-xs font-bold text-white">
-                      Caminho A: Jason 13 ("Scar Jason")
-                    </div>
-                    <div className="text-[11px] text-slate-400">
-                      Amanda morre no acidente. Consumido pelo ódio, ele é preso pela DARPA.
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  onClick={() => onSelectVariant('jason-34')}
-                  className="cursor-pointer p-3.5 rounded-xl bg-slate-950/85 border border-emerald-500/35 hover:border-emerald-400 flex items-center gap-3 transition"
-                >
-                  <span className="w-11 h-11 rounded-full bg-emerald-500/25 border border-emerald-400 text-emerald-200 font-bold text-xs flex items-center justify-center shrink-0">
-                    J34
-                  </span>
-                  <div>
-                    <div className="text-xs font-bold text-white">
-                      Caminho B: Jason 34 + Amanda 7
-                    </div>
-                    <div className="text-[11px] text-slate-400">
-                      Ele leva <strong>Amanda 7</strong> até a enfermeira <strong>Laurel</strong>, que salva sua vida!
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-white/[0.08] text-[11px] text-emerald-300">
-              ✓ Confirmado por Blake Crouch no Podcast Oficial do Episódio 8.
-            </div>
-          </div>
-
-          {/* BRANCH 3 */}
-          <div className="glass-card border border-cyan-500/25 rounded-2xl p-6 flex flex-col justify-between">
-            <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
-                3. Fuga da Família & Outros Jasons (T2:E1–E5)
-              </span>
-              <h4 className="text-lg font-bold text-white mt-3 mb-2">
-                Fuga para o Low-Tech & Casa de Ellie
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-                No T2:E1, Daniela mata um Jason invasor no Mundo 29 e a família foge para o <strong>Mundo Low-Tech</strong>. Enquanto isso, outros Jasons encontram paz:
-              </p>
-
-              <div className="space-y-3">
-                <div
-                  onClick={() => onSelectVariant('jason-24')}
-                  className="cursor-pointer p-3.5 rounded-xl bg-slate-950/85 border border-indigo-500/35 hover:border-indigo-400 flex items-center gap-3 transition"
-                >
-                  <span className="w-11 h-11 rounded-full bg-indigo-500/25 border border-indigo-400 text-indigo-200 font-bold text-xs flex items-center justify-center shrink-0">
-                    J24
-                  </span>
-                  <div>
-                    <div className="text-xs font-bold text-white">
-                      Jason 24 (O Marceneiro — T2:E5)
-                    </div>
-                    <div className="text-[11px] text-slate-400">
-                      Vai para o Mundo 31 onde sua mãe <strong>Ellie</strong> está viva e conhece <strong>Maria</strong>.
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  onClick={() => onSelectVariant('jason-30')}
-                  className="cursor-pointer p-3.5 rounded-xl bg-slate-950/85 border border-emerald-500/35 hover:border-emerald-400 flex items-center gap-3 transition"
-                >
-                  <span className="w-11 h-11 rounded-full bg-emerald-500/25 border border-emerald-400 text-emerald-200 font-bold text-[10px] flex items-center justify-center shrink-0">
-                    J30/31
-                  </span>
-                  <div>
-                    <div className="text-xs font-bold text-white">
-                      Jason 30 & Jason 31
-                    </div>
-                    <div className="text-[11px] text-slate-400">
-                      Acolhidos como irmãos por Jason 24 e Ellie no Mundo 31.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-white/[0.08] text-[11px] text-slate-400">
-              💡 Já <strong>Charlie 1</strong> saiu do Mundo Low-Tech pela Caixa e chegou ao Santuário de Laurel (World 33).
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
