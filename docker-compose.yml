@@ -1,0 +1,10 @@
+services:
+  dark-entendimento:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lucasmks/dark-entendimento:latest
+    container_name: dark-entendimento
+    restart: unless-stopped
+    ports:
+      - "8080:80"
