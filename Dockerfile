@@ -1,4 +1,4 @@
-# Stage 1: Build the React/Vite application
+# Estágio 1: Build da aplicação React + TypeScript
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -9,25 +9,12 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# Stage 2: Production Node.js Server + PostgreSQL Client + Automatic Cron Job
-FROM node:20-alpine
+# Estágio 2: Servidor Web Nginx leve para produção
+FROM nginx:alpine
 
-WORKDIR /app
-
-ENV NODE_ENV=production
-ENV PORT=80
-ENV CRON_INTERVAL_HOURS=6
-
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
-
-COPY --from=builder /app/dist ./dist
-COPY server ./server
-COPY scripts ./scripts
-
-# Local fallback cache volume if DATABASE_URL is not set
-RUN mkdir -p /app/.cache
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
-CMD ["node", "server/index.mjs"]
+CMD ["nginx", "-g", "daemon off;"]

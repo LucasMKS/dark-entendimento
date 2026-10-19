@@ -8,7 +8,7 @@ import {
 } from './data/multiverseData';
 import { QuantumConnectionsMap } from './components/QuantumConnectionsMap';
 import { MultiverseGraph } from './components/MultiverseGraph';
-import { PodcastAndUpdaterTab, SyncLogEntry } from './components/PodcastAndUpdaterTab';
+import { PodcastAndUpdaterTab } from './components/PodcastAndUpdaterTab';
 import { DragScrollContainer } from './components/DragScrollContainer';
 import { RichText } from './components/RichText';
 import {
@@ -121,16 +121,8 @@ const DarkAtmosphericCanvas: React.FC = () => {
 export function App() {
   const [worlds, setWorlds] = useState<World[]>(INITIAL_WORLDS);
   const [variants, setVariants] = useState<CharacterVariant[]>(INITIAL_VARIANTS);
-  const [episodeGuide, setEpisodeGuide] = useState<EpisodeGuideItem[]>(INITIAL_EPISODE_GUIDE);
+  const [episodeGuide] = useState<EpisodeGuideItem[]>(INITIAL_EPISODE_GUIDE);
   const [activeTab, setActiveTab] = useState<ActiveTab>('CONNECTIONS');
-
-  // PostgreSQL / Auto-Sync Backend State
-  const [storageMode, setStorageMode] = useState<'POSTGRESQL' | 'LOCAL_JSON'>('LOCAL_JSON');
-  const [dbConnected, setDbConnected] = useState<boolean>(false);
-  const [cronIntervalHours, setCronIntervalHours] = useState<number>(6);
-  const [lastSyncAt, setLastSyncAt] = useState<string | null>(null);
-  const [syncLogs, setSyncLogs] = useState<SyncLogEntry[]>([]);
-  const [isSyncing, setIsSyncing] = useState<boolean>(false);
 
   // Dark Netflix Episode / Season Selector State
   const [globalSeasonScope, setGlobalSeasonScope] = useState<'ALL' | '1' | '2'>('ALL');
@@ -157,130 +149,6 @@ export function App() {
 
   const getWorldById = (id: string) => worlds.find((w) => w.id === id);
   const getVariantById = (id: string) => variants.find((v) => v.id === id);
-
-  const applyBackendPayload = (data: any) => {
-    if (!data) return;
-    if (data.storageMode) setStorageMode(data.storageMode);
-    if (typeof data.dbConnected === 'boolean') setDbConnected(data.dbConnected);
-    if (typeof data.cronIntervalHours === 'number') setCronIntervalHours(data.cronIntervalHours);
-    if (data.lastSyncAt !== undefined) setLastSyncAt(data.lastSyncAt);
-    if (Array.isArray(data.syncLogs)) setSyncLogs(data.syncLogs);
-
-    // Merge customWorlds
-    if (Array.isArray(data.customWorlds) && data.customWorlds.length > 0) {
-      setWorlds((prev) => {
-        const existingIds = new Set(prev.map((w) => w.id));
-        const toAdd = data.customWorlds.filter((w: World) => !existingIds.has(w.id));
-        return toAdd.length > 0 ? [...prev, ...toAdd] : prev;
-      });
-    }
-
-    // Merge customVariants + variantPatches (auto-synced episode timeline notes)
-    const customVars: CharacterVariant[] = Array.isArray(data.customVariants)
-      ? data.customVariants
-      : [];
-    const patches = data.variantPatches || {};
-
-    setVariants(() => {
-      const mergedBase = [...INITIAL_VARIANTS];
-      const existingIds = new Set(mergedBase.map((v) => v.id));
-      for (const cv of customVars) {
-        if (!existingIds.has(cv.id)) {
-          mergedBase.push(cv);
-          existingIds.add(cv.id);
-        }
-      }
-      return mergedBase.map((v) => {
-        const p = patches[v.id];
-        if (!p || !Array.isArray(p.extraKeyEvents) || p.extraKeyEvents.length === 0) {
-          return v;
-        }
-        const additional = p.extraKeyEvents.filter((ev: string) => !v.storyArc.includes(ev));
-        if (additional.length === 0) return v;
-        return {
-          ...v,
-          storyArc: `${v.storyArc} • ${additional.join(' • ')}`,
-          sources: [
-            ...v.sources,
-            ...additional.map((ev: string) => ({
-              type: 'FANDOM_WIKI' as const,
-              label: 'Auto-Sync Wiki (Cron Job)',
-              detail: ev,
-            })),
-          ],
-        };
-      });
-    });
-
-    // Merge episodePatches (e.g. when T2:E9 or T2:E10 airs and Wiki Plot is published)
-    if (data.episodePatches && typeof data.episodePatches === 'object') {
-      setEpisodeGuide(
-        INITIAL_EPISODE_GUIDE.map((item) => {
-          const epPatch = data.episodePatches[item.ep];
-          if (!epPatch) return item;
-          return {
-            ...item,
-            title: epPatch.title || item.title.replace(' (EM BREVE)', ''),
-            date: epPatch.date || item.date,
-            focus: epPatch.focus || item.focus,
-            released: epPatch.released ?? true,
-          };
-        })
-      );
-    }
-  };
-
-  useEffect(() => {
-    fetch('/api/multiverse')
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (data) applyBackendPayload(data);
-      })
-      .catch(() => {
-        // Fallback silencioso se rodando estático
-      });
-  }, []);
-
-  const handleTriggerSyncNow = async () => {
-    setIsSyncing(true);
-    try {
-      const res = await fetch('/api/sync', { method: 'POST' });
-      if (res.ok) {
-        const data = await res.json();
-        applyBackendPayload(data);
-      }
-    } catch {
-      // Ignore network error
-    } finally {
-      setIsSyncing(false);
-    }
-  };
-
-  const handleAddWorld = async (newWorld: World) => {
-    setWorlds((prev) => [...prev, newWorld]);
-    try {
-      await fetch('/api/worlds', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newWorld),
-      });
-    } catch {
-      // Salvo em memória local caso offline
-    }
-  };
-
-  const handleAddVariant = async (newVariant: CharacterVariant) => {
-    setVariants((prev) => [...prev, newVariant]);
-    try {
-      await fetch('/api/variants', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newVariant),
-      });
-    } catch {
-      // Salvo em memória local caso offline
-    }
-  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -972,15 +840,8 @@ export function App() {
             <PodcastAndUpdaterTab
               worlds={worlds}
               variants={variants}
-              storageMode={storageMode}
-              dbConnected={dbConnected}
-              cronIntervalHours={cronIntervalHours}
-              lastSyncAt={lastSyncAt}
-              syncLogs={syncLogs}
-              isSyncing={isSyncing}
-              onTriggerSyncNow={handleTriggerSyncNow}
-              onAddWorld={handleAddWorld}
-              onAddVariant={handleAddVariant}
+              onAddWorld={(newWorld) => setWorlds((prev) => [...prev, newWorld])}
+              onAddVariant={(newVar) => setVariants((prev) => [...prev, newVar])}
             />
           )}
         </main>

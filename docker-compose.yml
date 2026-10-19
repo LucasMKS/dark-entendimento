@@ -1,22 +1,10 @@
 services:
   dark-entendimento:
+    image: lucasmks/dark-entendimento:latest
     build:
       context: .
       dockerfile: Dockerfile
-    image: lucasmks/dark-entendimento:latest
     container_name: dark-entendimento
     restart: unless-stopped
     ports:
-      - "8080:80"
-    environment:
-      # Conecte no seu PostgreSQL já existente na VPS!
-      # O sistema cria automaticamente o schema isolado `dark_matter_atlas` sem afetar seus outros sistemas.
-      - DATABASE_URL=${DATABASE_URL:-}
-      - DATABASE_SSL=${DATABASE_SSL:-false}
-      # Intervalo do Cron Job automático que consulta a Fandom Wiki API (em horas)
-      - CRON_INTERVAL_HOURS=${CRON_INTERVAL_HOURS:-6}
-    volumes:
-      - dark_atlas_cache:/app/.cache
-
-volumes:
-  dark_atlas_cache:
+      - "8085:80"
