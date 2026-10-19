@@ -106,7 +106,7 @@ export const PodcastAndUpdaterTab: React.FC<PodcastAndUpdaterTabProps> = ({
 
             <div className="mt-5 pt-3 border-t border-white/[0.08] flex items-center justify-between text-[10px] font-mono text-stone-400">
               <span>FONTE OFICIAL:</span>
-              <span className="text-[#e6c885]">{item.episodeReference}</span>
+              <span className="text-[#e6c885]">The Official Apple TV+ Podcast</span>
             </div>
           </div>
         ))}
