@@ -37,6 +37,10 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
   const [activeStepIndex, setActiveStepIndex] = useState<number | null>(null);
   const [lineageFilter, setLineageFilter] = useState<string>('ALL');
 
+  // Mobile Web tab & door drawer states
+  const [mobileWebTab, setMobileWebTab] = useState<'JOURNEY' | 'WHEEL'>('JOURNEY');
+  const [showAllWorldsMobile, setShowAllWorldsMobile] = useState<boolean>(false);
+
   // Genealogical Tree Family Selector
   const [treeFamily, setTreeFamily] = useState<'JASON' | 'AMANDA' | 'RYAN' | 'LEIGHTON' | 'BLAIR' | 'MACNAMARA'>('JASON');
 
@@ -62,6 +66,16 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
     setFocusedVariantId(vId);
     setActiveStepIndex(null);
     onSelectVariant(vId);
+  };
+
+  const handleCycleVariant = (direction: 'PREV' | 'NEXT') => {
+    const list = displayedVariants.length > 0 ? displayedVariants : variants;
+    const currentIdx = list.findIndex((v) => v.id === activeVariant?.id);
+    const nextIdx =
+      direction === 'NEXT'
+        ? (currentIdx + 1) % list.length
+        : (currentIdx - 1 + list.length) % list.length;
+    handleSelectCharacter(list[nextIdx].id);
   };
 
   const handleSelectWorldOnWheel = (wId: string) => {
@@ -150,10 +164,10 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
         </div>
 
         {/* Mode Switcher */}
-        <div className="inline-flex bg-[#06070a] border border-[#c89d54]/40 p-1 self-start lg:self-auto">
+        <div className="inline-flex w-full sm:w-auto bg-[#06070a] border border-[#c89d54]/40 p-1 self-start lg:self-auto">
           <button
             onClick={() => setStageMode('WEB')}
-            className={`px-4 py-2 text-xs font-mono uppercase tracking-[0.15em] flex items-center gap-2 transition-all ${
+            className={`flex-1 sm:flex-initial justify-center px-4 py-2 text-xs font-mono uppercase tracking-[0.15em] flex items-center gap-2 transition-all ${
               stageMode === 'WEB'
                 ? 'bg-[#c89d54] text-[#030305] font-bold shadow-[0_0_20px_rgba(200,157,84,0.3)]'
                 : 'text-stone-400 hover:text-white'
@@ -164,7 +178,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
           </button>
           <button
             onClick={() => setStageMode('TREE')}
-            className={`px-4 py-2 text-xs font-mono uppercase tracking-[0.15em] flex items-center gap-2 transition-all ${
+            className={`flex-1 sm:flex-initial justify-center px-4 py-2 text-xs font-mono uppercase tracking-[0.15em] flex items-center gap-2 transition-all ${
               stageMode === 'TREE'
                 ? 'bg-[#c89d54] text-[#030305] font-bold shadow-[0_0_20px_rgba(200,157,84,0.3)]'
                 : 'text-stone-400 hover:text-white'
@@ -287,8 +301,512 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
             </DragScrollContainer>
           </div>
 
-          {/* STEP 2: THE SACRED ORBITAL WHEEL (CENTER NODE -> PERIMETER RING, ZERO OVERLAP!) */}
-          <div className="arch-box relative overflow-hidden">
+          {/* =====================================================================
+              MOBILE CONSTELATION VIEW (BLOCK LG:HIDDEN)
+              100% Touch-Friendly, Clear & Responsive!
+          ===================================================================== */}
+          <div className="block lg:hidden space-y-4">
+            {/* Mobile View Toggle: 1. Jornada & Conexões (Default) vs 2. Roda Orbital */}
+            <div className="flex items-center justify-between gap-2 p-1 bg-[#06070a] border border-[#c89d54]/30">
+              <button
+                onClick={() => setMobileWebTab('JOURNEY')}
+                className={`flex-1 py-2 text-[11px] font-mono uppercase tracking-wider transition ${
+                  mobileWebTab === 'JOURNEY'
+                    ? 'bg-[#c89d54] text-[#030305] font-bold shadow'
+                    : 'text-stone-400 hover:text-white'
+                }`}
+              >
+                ⚡ Conexões & Rota ({centerMode === 'VARIANT' ? activeVariant?.worldsVisited.length : orbitalWorldVisitors.length})
+              </button>
+              <button
+                onClick={() => setMobileWebTab('WHEEL')}
+                className={`flex-1 py-2 text-[11px] font-mono uppercase tracking-wider transition ${
+                  mobileWebTab === 'WHEEL'
+                    ? 'bg-[#c89d54] text-[#030305] font-bold shadow'
+                    : 'text-stone-400 hover:text-white'
+                }`}
+              >
+                🪐 Roda Orbital
+              </button>
+            </div>
+
+            {/* TAB A: MOBILE JOURNEY & CONNECTIONS */}
+            {mobileWebTab === 'JOURNEY' && (
+              <div className="space-y-4">
+                {/* 1. HERO ACTIVE NODE CARD (VARIANT OR WORLD) */}
+                <div className="arch-box p-4 border-[#c89d54]/50">
+                  {centerMode === 'VARIANT' && activeVariant ? (
+                    <div>
+                      <div className="flex items-center justify-between border-b border-white/[0.08] pb-3 mb-3">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c89d54] flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-[#c89d54] animate-pulse" />
+                          CENTRO DA CONSTELAÇÃO
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => handleCycleVariant('PREV')}
+                            className="px-2 py-1 bg-white/5 border border-white/10 text-stone-300 hover:text-[#c89d54] text-[10px] font-mono uppercase flex items-center gap-0.5"
+                          >
+                            <ChevronLeft className="w-3.5 h-3.5" /> Ant.
+                          </button>
+                          <button
+                            onClick={() => handleCycleVariant('NEXT')}
+                            className="px-2 py-1 bg-white/5 border border-white/10 text-stone-300 hover:text-[#c89d54] text-[10px] font-mono uppercase flex items-center gap-0.5"
+                          >
+                            Próx. <ChevronRight className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-3.5">
+                        <div className="relative shrink-0">
+                          <img
+                            src={activeVariant.avatarUrl}
+                            alt={activeVariant.designation}
+                            className={`w-16 h-16 rounded-full object-cover border-2 ${
+                              activeVariant.status === 'Morto'
+                                ? 'border-rose-500 grayscale-[35%]'
+                                : 'border-[#c89d54]'
+                            }`}
+                          />
+                          <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.2 bg-[#c89d54] text-[#030305] font-mono text-[10px] font-bold whitespace-nowrap">
+                            {activeVariant.badgeNumber}
+                          </span>
+                        </div>
+
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                            <span
+                              className={`px-1.5 py-0.2 text-[9px] font-mono uppercase border ${
+                                activeVariant.status === 'Morto'
+                                  ? 'bg-rose-950/70 text-rose-300 border-rose-500/50'
+                                  : 'bg-emerald-950/50 text-emerald-300 border-emerald-500/40'
+                              }`}
+                            >
+                              {activeVariant.status === 'Morto' ? '💀 MORTO' : activeVariant.status}
+                            </span>
+                            <span className="text-[9px] font-mono text-[#c89d54]">
+                              {activeVariant.baseCharacter}
+                            </span>
+                          </div>
+                          <h3 className="font-display text-base text-white uppercase tracking-wider truncate">
+                            {activeVariant.designation}
+                          </h3>
+                          <p className="text-xs text-stone-300 font-mono mt-0.5 truncate">
+                            {activeVariant.alias}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Quick Origin / Current World Row */}
+                      <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-white/[0.08]">
+                        {(() => {
+                          const orig = getWorld(activeVariant.originWorldId);
+                          return (
+                            <button
+                              onClick={() => orig && onSelectWorld(orig.id)}
+                              className="p-2 bg-[#050609] border border-[#c89d54]/30 text-left hover:border-[#c89d54]"
+                            >
+                              <span className="text-[8px] font-mono uppercase text-[#c89d54] block">
+                                1º ORIGEM
+                              </span>
+                              <span className="text-xs text-stone-200 font-semibold truncate block">
+                                {orig?.code} • {orig?.name.split(' (')[0]}
+                              </span>
+                            </button>
+                          );
+                        })()}
+
+                        {(() => {
+                          const curr = getWorld(activeVariant.currentWorldId);
+                          const isDead = activeVariant.status === 'Morto';
+                          return (
+                            <button
+                              onClick={() => curr && onSelectWorld(curr.id)}
+                              className={`p-2 bg-[#050609] border text-left ${
+                                isDead
+                                  ? 'border-rose-500/30 hover:border-rose-400'
+                                  : 'border-emerald-500/30 hover:border-emerald-400'
+                              }`}
+                            >
+                              <span
+                                className={`text-[8px] font-mono uppercase block ${
+                                  isDead ? 'text-rose-400' : 'text-emerald-400'
+                                }`}
+                              >
+                                {isDead ? 'LOCAL DA MORTE' : 'PARADEIRO ATUAL'}
+                              </span>
+                              <span className="text-xs text-stone-200 font-semibold truncate block">
+                                {curr?.code} • {curr?.name.split(' (')[0]}
+                              </span>
+                            </button>
+                          );
+                        })()}
+                      </div>
+
+                      <button
+                        onClick={() => onSelectVariant(activeVariant.id)}
+                        className="w-full mt-3 py-2 bg-[#141108] hover:bg-[#c89d54] text-[#e6c885] hover:text-[#030305] border border-[#c89d54]/50 font-mono text-xs uppercase tracking-wider font-semibold transition flex items-center justify-center gap-1.5"
+                      >
+                        Abrir Dossiê Completo desta Variante →
+                      </button>
+                    </div>
+                  ) : (
+                    /* When a World is in the center */
+                    activeCenterWorld && (
+                      <div>
+                        <div className="flex items-center justify-between border-b border-white/[0.08] pb-3 mb-3">
+                          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-sky-400 flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+                            MUNDO EM FOCO NO CENTRO
+                          </span>
+                          <button
+                            onClick={() => setCenterMode('VARIANT')}
+                            className="px-2.5 py-1 bg-[#c89d54] text-[#030305] font-mono text-[10px] font-bold uppercase flex items-center gap-1"
+                          >
+                            <RotateCcw className="w-3 h-3" /> Voltar Personagem
+                          </button>
+                        </div>
+
+                        <div className="flex items-start gap-3.5">
+                          <img
+                            src={activeCenterWorld.imageUrl}
+                            alt={activeCenterWorld.name}
+                            className="w-16 h-16 rounded object-cover border-2 border-sky-400 shrink-0"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="px-2 py-0.2 bg-sky-400 text-[#030305] font-mono text-[10px] font-bold">
+                                {activeCenterWorld.code}
+                              </span>
+                              <span className="text-[9px] font-mono text-stone-400 border border-white/10 px-1.5 py-0.2">
+                                {activeCenterWorld.habitability}
+                              </span>
+                            </div>
+                            <h3 className="font-display text-base text-white uppercase tracking-wider truncate">
+                              {activeCenterWorld.name}
+                            </h3>
+                            <p className="text-xs text-stone-400 mt-1 line-clamp-2">
+                              <RichText text={activeCenterWorld.shortHook} />
+                            </p>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => onSelectWorld(activeCenterWorld.id)}
+                          className="w-full mt-3 py-2 bg-[#06121a] hover:bg-sky-400 text-sky-200 hover:text-[#030305] border border-sky-400/50 font-mono text-xs uppercase tracking-wider font-semibold transition flex items-center justify-center gap-1.5"
+                        >
+                          Abrir Dossiê deste Mundo →
+                        </button>
+                      </div>
+                    )
+                  )}
+                </div>
+
+                {/* 2. CHRONOLOGICAL JUMP CARDS (WHEN VARIANT IS IN CENTER) */}
+                {centerMode === 'VARIANT' && activeVariant && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between px-1">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c89d54] font-bold">
+                        ROTA DE SALTOS DO PERSONAGEM ({activeVariant.worldsVisited.length} MUNDOS)
+                      </span>
+                      <span className="text-[9px] font-mono text-stone-400">
+                        Toque para abrir
+                      </span>
+                    </div>
+
+                    <div className="space-y-2.5">
+                      {activeVariant.worldsVisited.map((wId, idx) => {
+                        const w = getWorld(wId);
+                        if (!w) return null;
+                        const isOrigin = idx === 0;
+                        const isCurrent = activeVariant.currentWorldId === wId;
+
+                        const badgeColor = isCurrent
+                          ? 'bg-emerald-400 text-[#030305]'
+                          : isOrigin
+                          ? 'bg-[#c89d54] text-[#030305]'
+                          : 'bg-sky-400 text-[#030305]';
+
+                        const borderStyle = isCurrent
+                          ? 'border-emerald-500/60 shadow-[0_0_15px_rgba(52,211,153,0.15)]'
+                          : isOrigin
+                          ? 'border-[#c89d54]/60 shadow-[0_0_15px_rgba(200,157,84,0.15)]'
+                          : 'border-white/10 hover:border-sky-400/50';
+
+                        return (
+                          <div key={`mob-step-${wId}-${idx}`} className="space-y-2">
+                            <div className={`arch-box p-3 ${borderStyle} transition-all`}>
+                              <div className="flex items-center justify-between gap-2 mb-2">
+                                <span className={`px-2 py-0.5 text-[9px] font-mono font-extrabold uppercase ${badgeColor}`}>
+                                  {isOrigin && idx === 0
+                                    ? '1º MUNDO DE ORIGEM'
+                                    : isCurrent
+                                    ? `${idx + 1}º PARADEIRO ATUAL`
+                                    : `${idx + 1}º SALTO NO CORREDOR`}
+                                </span>
+                                <span className="text-[9px] font-mono text-stone-400">
+                                  {w.code} • {w.habitability}
+                                </span>
+                              </div>
+
+                              <div className="flex items-center gap-3">
+                                <img
+                                  src={w.imageUrl}
+                                  alt={w.name}
+                                  className="w-14 h-14 rounded object-cover border border-white/20 shrink-0"
+                                />
+                                <div className="flex-1 min-w-0">
+                                  <div className="font-display text-sm text-white uppercase tracking-wider truncate">
+                                    {w.name}
+                                  </div>
+                                  <p className="text-[11px] text-stone-300 mt-0.5 line-clamp-1">
+                                    <RichText text={w.shortHook} />
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className="grid grid-cols-2 gap-2 mt-2.5 pt-2 border-t border-white/[0.06]">
+                                <button
+                                  onClick={() => onSelectWorld(w.id)}
+                                  className="py-1.5 px-2 bg-white/5 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider text-center transition"
+                                >
+                                  Abrir Arquivo →
+                                </button>
+                                <button
+                                  onClick={() => handleCenterOnWorld(w.id)}
+                                  className="py-1.5 px-2 bg-white/5 hover:bg-sky-400 text-stone-200 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider text-center transition"
+                                >
+                                  Focar no Centro 🪐
+                                </button>
+                              </div>
+                            </div>
+
+                            {idx < activeVariant.worldsVisited.length - 1 && (
+                              <div className="flex flex-col items-center justify-center my-0.5">
+                                <div className="w-0.5 h-2.5 bg-[#c89d54]/60" />
+                                <div className="w-4 h-4 rounded-full bg-[#120e07] border border-[#c89d54]/50 flex items-center justify-center text-[9px] text-[#c89d54]">
+                                  ↓
+                                </div>
+                                <div className="w-0.5 h-2.5 bg-[#c89d54]/60" />
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. CONNECTED TRAVELERS CARDS (WHEN WORLD IS IN CENTER) */}
+                {centerMode === 'WORLD' && activeCenterWorld && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between px-1">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-sky-400 font-bold">
+                        VIAJANTES CONECTADOS A ESTA PORTA ({orbitalWorldVisitors.length})
+                      </span>
+                    </div>
+
+                    <div className="space-y-2">
+                      {orbitalWorldVisitors.map(({ variant: v }) => {
+                        const isCurrent = v.currentWorldId === activeCenterWorld.id;
+                        const isOrigin = v.originWorldId === activeCenterWorld.id;
+                        const isDead = v.status === 'Morto';
+
+                        return (
+                          <div
+                            key={`mob-v-${v.id}`}
+                            className="arch-box p-3 border-white/15 hover:border-sky-400/60 transition"
+                          >
+                            <div className="flex items-center justify-between mb-2">
+                              <span
+                                className={`px-1.5 py-0.2 text-[9px] font-mono font-bold uppercase ${
+                                  isCurrent
+                                    ? 'bg-emerald-400 text-[#030305]'
+                                    : isOrigin
+                                    ? 'bg-[#c89d54] text-[#030305]'
+                                    : 'bg-sky-400 text-[#030305]'
+                                }`}
+                              >
+                                {isOrigin ? 'NATIVO / ORIGEM' : isCurrent ? 'PARADEIRO ATUAL' : 'ATRAVESSOU A PORTA'}
+                              </span>
+                              <span className="text-[9px] font-mono text-stone-400">
+                                {isDead ? '💀 MORTO' : v.status}
+                              </span>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                              <img
+                                src={v.avatarUrl}
+                                alt={v.designation}
+                                className="w-12 h-12 rounded-full object-cover border border-[#c89d54] shrink-0"
+                              />
+                              <div className="flex-1 min-w-0">
+                                <div className="font-display text-sm text-white uppercase truncate">
+                                  <span className="font-mono text-[#c89d54] mr-1.5">{v.badgeNumber}</span>
+                                  {v.designation.split(' (')[0]}
+                                </div>
+                                <div className="text-[11px] text-stone-400 truncate mt-0.5">
+                                  {v.alias}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-2 mt-2.5 pt-2 border-t border-white/[0.06]">
+                              <button
+                                onClick={() => onSelectVariant(v.id)}
+                                className="py-1.5 px-2 bg-white/5 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider text-center transition"
+                              >
+                                Abrir Dossiê →
+                              </button>
+                              <button
+                                onClick={() => handleSelectCharacter(v.id)}
+                                className="py-1.5 px-2 bg-white/5 hover:bg-sky-400 text-stone-200 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider text-center transition"
+                              >
+                                Focar no Centro 🎯
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 4. EXPANDABLE MULTIVERSE PORTALS ACCORDION FOR MOBILE */}
+                <div className="arch-box p-3 border-[#c89d54]/30">
+                  <button
+                    onClick={() => setShowAllWorldsMobile(!showAllWorldsMobile)}
+                    className="w-full flex items-center justify-between text-left py-1 text-xs font-mono uppercase tracking-wider text-[#e6c885]"
+                  >
+                    <span>{showAllWorldsMobile ? '▲ Ocultar Catálogo de Portas' : `▼ Explorar Todas as ${worlds.length} Portas do Corredor`}</span>
+                    <span className="text-[10px] px-2 py-0.5 bg-white/5 border border-white/10">
+                      {worlds.length} Portas
+                    </span>
+                  </button>
+
+                  {showAllWorldsMobile && (
+                    <div className="pt-3 mt-3 border-t border-white/[0.08] space-y-2">
+                      <div className="grid grid-cols-2 gap-2">
+                        {worlds.map((w) => {
+                          const isVisited = activeVariant?.worldsVisited.includes(w.id);
+                          return (
+                            <button
+                              key={`mob-all-w-${w.id}`}
+                              onClick={() => onSelectWorld(w.id)}
+                              className={`p-2 text-left border flex items-center gap-2 transition ${
+                                isVisited
+                                  ? 'bg-[#120e07] border-[#c89d54]/70'
+                                  : 'bg-[#06070a] border-white/10 hover:border-white/30'
+                              }`}
+                            >
+                              <img
+                                src={w.imageUrl}
+                                alt={w.name}
+                                className="w-8 h-8 rounded object-cover shrink-0"
+                              />
+                              <div className="min-w-0">
+                                <div className="text-[9px] font-mono text-[#c89d54] uppercase">
+                                  {w.code}
+                                </div>
+                                <div className="text-[11px] text-white truncate font-medium">
+                                  {w.name.split(' (')[0]}
+                                </div>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* TAB B: MOBILE SCROLLABLE ORBITAL WHEEL */}
+            {mobileWebTab === 'WHEEL' && (
+              <div className="space-y-2">
+                <div className="px-3 py-1.5 bg-[#120e07] border border-[#c89d54]/40 text-[10px] font-mono text-[#e6c885] flex items-center justify-between">
+                  <span>↔ Arraste horizontalmente para navegar na roda</span>
+                  <button
+                    onClick={() => setMobileWebTab('JOURNEY')}
+                    className="underline text-[#c89d54] uppercase"
+                  >
+                    Voltar à Lista
+                  </button>
+                </div>
+
+                <div className="arch-box overflow-x-auto touch-pan-x">
+                  <div className="min-w-[680px]">
+                    <div className="relative w-full h-[620px] select-none overflow-hidden">
+                      <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 w-full h-full z-10">
+                        <ellipse cx="500" cy="500" rx="415" ry="395" fill="none" stroke="rgba(200, 157, 84, 0.16)" strokeWidth="1" strokeDasharray="4 6" />
+                        <ellipse cx="500" cy="500" rx="260" ry="245" fill="none" stroke="rgba(200, 157, 84, 0.1)" strokeWidth="1" />
+                        <circle cx="500" cy="500" r="95" fill="none" stroke="rgba(200, 157, 84, 0.28)" strokeWidth="1" />
+
+                        {centerMode === 'VARIANT' && activeVariant && orbitalWorlds.map(({ world, x, y }) => {
+                          const visitIndex = activeVariant.worldsVisited.indexOf(world.id);
+                          const isVisited = visitIndex !== -1;
+                          const isOrigin = activeVariant.originWorldId === world.id;
+                          const isCurrent = activeVariant.currentWorldId === world.id;
+                          const tx = x * 10;
+                          const ty = y * 10;
+                          if (!isVisited) return null;
+                          const color = isCurrent ? '#34d399' : isOrigin ? '#c89d54' : '#38bdf8';
+                          return (
+                            <line key={`spoke-mob-${world.id}`} x1="500" y1="500" x2={tx} y2={ty} stroke={color} strokeWidth="2" strokeOpacity="0.5" />
+                          );
+                        })}
+                      </svg>
+
+                      {/* Center Node */}
+                      <div style={{ left: '50%', top: '50%' }} className="absolute -translate-x-1/2 -translate-y-1/2 z-30 flex flex-col items-center text-center">
+                        {centerMode === 'VARIANT' && activeVariant && (
+                          <div onClick={() => onSelectVariant(activeVariant.id)} className="cursor-pointer group flex flex-col items-center">
+                            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-[#c89d54] bg-[#040508] relative">
+                              <img src={activeVariant.avatarUrl} alt={activeVariant.designation} className="w-full h-full object-cover" />
+                            </div>
+                            <span className="mt-1 px-2 py-0.5 bg-[#c89d54] text-[#030305] font-mono text-[10px] font-extrabold">
+                              {activeVariant.badgeNumber}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Perimeter nodes */}
+                      {centerMode === 'VARIANT' && activeVariant && orbitalWorlds.map(({ world: w, x, y }) => {
+                        const visitIndex = activeVariant.worldsVisited.indexOf(w.id);
+                        const isVisited = visitIndex !== -1;
+                        return (
+                          <div
+                            key={`wheel-mob-node-${w.id}`}
+                            style={{ left: `${x}%`, top: `${y}%` }}
+                            className={`absolute -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center text-center ${
+                              isVisited ? 'scale-100 opacity-100' : 'scale-75 opacity-40'
+                            }`}
+                          >
+                            <button onClick={() => onSelectWorld(w.id)} className="flex flex-col items-center">
+                              <div className={`w-10 h-10 rounded-full overflow-hidden border-2 ${
+                                isVisited ? 'border-[#c89d54]' : 'border-stone-700'
+                              }`}>
+                                <img src={w.imageUrl} alt={w.name} className="w-full h-full object-cover" />
+                              </div>
+                              <span className="text-[8px] font-mono text-[#c89d54]">{w.code}</span>
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* =====================================================================
+              STEP 2: THE SACRED ORBITAL WHEEL (DESKTOP VERSION — 100% PRESERVED!)
+          ===================================================================== */}
+          <div className="hidden lg:block arch-box relative overflow-hidden">
             {/* Top Legend inside Canvas */}
             <div className="relative z-20 px-5 pt-4 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] bg-[#040508]/80">
               <div className="flex items-center gap-4 text-[10px] font-mono uppercase tracking-wider text-stone-300">
@@ -756,7 +1274,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
               </h3>
             </div>
 
-            <div className="flex flex-wrap items-center gap-1.5 bg-[#050609] p-1 border border-[#c89d54]/35">
+            <DragScrollContainer className="flex items-center gap-1.5 bg-[#050609] p-1 border border-[#c89d54]/35 max-w-full">
               {[
                 {
                   id: 'JASON',
@@ -802,7 +1320,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                 <button
                   key={item.id}
                   onClick={() => setTreeFamily(item.id as any)}
-                  className={`px-3 py-2 text-[10px] font-mono uppercase tracking-[0.14em] transition ${
+                  className={`px-3 py-2 text-[10px] font-mono uppercase tracking-[0.14em] whitespace-nowrap transition ${
                     treeFamily === item.id
                       ? 'bg-[#c89d54] text-[#030305] font-bold'
                       : 'text-stone-400 hover:text-white'
@@ -811,7 +1329,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                   {item.label}
                 </button>
               ))}
-            </div>
+            </DragScrollContainer>
           </div>
 
           {/* ===============================================================
@@ -843,7 +1361,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                 <div className="hidden lg:block absolute top-0 left-[16.666%] right-[16.666%] h-0.5 bg-[#c89d54]" />
 
                 {/* LEFT BRANCH: JASON 2 (SCIENCE / REALITY 02) */}
-                <div className="flex flex-col items-center px-2">
+                <div className="flex flex-col items-center px-2 order-2 lg:order-1">
                   <div className="hidden lg:block w-0.5 h-6 bg-[#c89d54]" />
                   <div className="px-2.5 py-1 bg-[#07111a] border border-sky-400/50 text-[9px] font-mono text-sky-300 uppercase tracking-wider mb-2 text-center">
                     RAMO A: Escolheu a Ciência (Sem Casamento)
@@ -884,7 +1402,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                 </div>
 
                 {/* CENTER BRANCH: JASON 1 (MARRIED DANIELA / REALITY 01 -> THE TRUNK CONTINUES!) */}
-                <div className="flex flex-col items-center px-2">
+                <div className="flex flex-col items-center px-2 order-1 lg:order-2">
                   <div className="hidden lg:block w-0.5 h-6 bg-[#c89d54]" />
                   <div className="px-2.5 py-1 bg-[#171208] border border-[#c89d54] text-[9px] font-mono text-[#e6c885] uppercase tracking-wider mb-2 text-center">
                     RAMO B: Casou com Daniela (Reality 01)
@@ -932,7 +1450,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                 </div>
 
                 {/* RIGHT BRANCH: JASON 5 (TWIN MAX SURVIVED / WORLD 27) & NATIVE JASON OF WORLD 31 */}
-                <div className="flex flex-col items-center px-2">
+                <div className="flex flex-col items-center px-2 order-3">
                   <div className="hidden lg:block w-0.5 h-6 bg-[#c89d54]" />
                   <div className="px-2.5 py-1 bg-[#071510] border border-emerald-400/50 text-[9px] font-mono text-emerald-300 uppercase tracking-wider mb-2 text-center">
                     RAMO C: Outros Jasons Nativos (Sem Caixa)

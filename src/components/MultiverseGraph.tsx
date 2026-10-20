@@ -49,13 +49,13 @@ export const MultiverseGraph: React.FC<MultiverseGraphProps> = ({
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="relative">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full lg:w-auto">
+          <div className="relative w-full sm:w-auto">
             <Filter className="w-3.5 h-3.5 text-[#c89d54] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <select
               value={selectedTravelerId}
               onChange={(e) => setSelectedTravelerId(e.target.value)}
-              className="pl-9 pr-8 py-2 text-xs font-mono bg-[#050609] border border-[#c89d54]/35 text-stone-100 focus:outline-none focus:border-[#c89d54]"
+              className="w-full sm:w-auto pl-9 pr-8 py-2 text-xs font-mono bg-[#050609] border border-[#c89d54]/35 text-stone-100 focus:outline-none focus:border-[#c89d54]"
             >
               <option value="ALL">TODOS OS VIAJANTES</option>
               {variants.map((v) => (
@@ -66,7 +66,7 @@ export const MultiverseGraph: React.FC<MultiverseGraphProps> = ({
             </select>
           </div>
 
-          <div className="inline-flex bg-[#050609] p-1 border border-[#c89d54]/30">
+          <div className="inline-flex bg-[#050609] p-1 border border-[#c89d54]/30 self-start sm:self-auto">
             {(['ALL', 1, 2] as const).map((s) => (
               <button
                 key={String(s)}
@@ -85,18 +85,18 @@ export const MultiverseGraph: React.FC<MultiverseGraphProps> = ({
       </div>
 
       {/* Architectural Golden Thread Timeline */}
-      <div className="relative pl-6 sm:pl-12 space-y-6 before:absolute before:left-2.5 sm:before:left-5 before:top-4 before:bottom-4 before:w-px before:bg-gradient-to-b before:from-[#c89d54] before:via-sky-400/60 before:to-emerald-400/70">
+      <div className="relative pl-8 sm:pl-12 space-y-6 before:absolute before:left-3.5 sm:before:left-5 before:top-4 before:bottom-4 before:w-px before:bg-gradient-to-b before:from-[#c89d54] before:via-sky-400/60 before:to-emerald-400/70">
         {filteredJourneys.map((journey) => {
           const fromWorld = getWorld(journey.fromWorldId);
           const toWorld = getWorld(journey.toWorldId);
 
           return (
             <div key={journey.id} className="relative">
-              <div className="absolute -left-6 sm:-left-12 top-6 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#050609] border border-[#c89d54] text-[#e6c885] font-mono font-bold text-xs flex items-center justify-center shadow-[0_0_15px_rgba(200,157,84,0.35)]">
+              <div className="absolute -left-8 sm:-left-12 top-6 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#050609] border border-[#c89d54] text-[#e6c885] font-mono font-bold text-xs flex items-center justify-center shadow-[0_0_15px_rgba(200,157,84,0.35)]">
                 {journey.order}
               </div>
 
-              <div className="arch-box p-5 sm:p-6 transition-all hover:border-[#c89d54]/70">
+              <div className="arch-box p-4 sm:p-6 transition-all hover:border-[#c89d54]/70">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 bg-[#c89d54] text-[#030305]">
@@ -109,7 +109,7 @@ export const MultiverseGraph: React.FC<MultiverseGraphProps> = ({
 
                   {journey.ampoulesRemaining !== undefined && (
                     <span className="text-[10px] font-mono text-sky-300 bg-sky-500/10 px-2.5 py-0.5 border border-sky-400/30">
-                      AMPOLAS DE LAVANDA RESTANTES: {journey.ampoulesRemaining}
+                      AMPOLAS RESTANTES: {journey.ampoulesRemaining}
                     </span>
                   )}
                 </div>
@@ -138,8 +138,8 @@ export const MultiverseGraph: React.FC<MultiverseGraphProps> = ({
                     </div>
                   </div>
 
-                  <div className="md:col-span-1 flex justify-center">
-                    <div className="w-8 h-8 rounded-full bg-[#141008] border border-[#c89d54]/60 text-[#e6c885] flex items-center justify-center">
+                  <div className="md:col-span-1 flex justify-center py-1 md:py-0">
+                    <div className="w-8 h-8 rounded-full bg-[#141008] border border-[#c89d54]/60 text-[#e6c885] flex items-center justify-center rotate-90 md:rotate-0 transition-transform">
                       <ArrowRight className="w-4 h-4" />
                     </div>
                   </div>

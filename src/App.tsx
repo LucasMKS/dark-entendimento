@@ -144,7 +144,12 @@ export function App() {
 
   // Non-blocking Right-Hand Editorial Dossier Panel (dark.netflix.io style!)
   const [selectedWorldId, setSelectedWorldId] = useState<string | null>(null);
-  const [selectedVariantId, setSelectedVariantId] = useState<string | null>('jason-1');
+  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1280) {
+      return null;
+    }
+    return 'jason-1';
+  });
   const [drawerHistory, setDrawerHistory] = useState<DrawerHistoryItem[]>([]);
 
   // Chronological Episode Ranking (Anti-Spoiler "Onde Você Está?" System like dark.netflix.io)
@@ -474,21 +479,21 @@ export function App() {
           MINIMALIST ARCHITECTURAL HUD BAR (AUTHENTIC DARK.NETFLIX.IO HEADER)
       ===================================================================== */}
       <header className="sticky top-0 z-40 bg-[#030305]/95 backdrop-blur-xl border-b border-[#c89d54]/30">
-        <div className="max-w-[1920px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-8 h-14 sm:h-16 flex items-center justify-between gap-3 sm:gap-4">
           {/* Left: Minimalist DARK Typographic Wordmark + Episode Filter Trigger */}
-          <div className="flex items-center gap-5 shrink-0">
+          <div className="flex items-center gap-3 sm:gap-5 shrink-0">
             <button
               onClick={() => setActiveTab('CONNECTIONS')}
-              className="text-left group flex items-center gap-3"
+              className="text-left group flex items-center gap-2.5 sm:gap-3"
             >
-              <div className="w-7 h-7 rounded-full border border-[#c89d54] flex items-center justify-center relative">
-                <div className="w-2 h-2 rounded-full bg-[#c89d54] group-hover:scale-125 transition" />
+              <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-[#c89d54] flex items-center justify-center relative shrink-0">
+                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#c89d54] group-hover:scale-125 transition" />
               </div>
               <div>
-                <span className="font-display text-base sm:text-lg tracking-[0.38em] text-white uppercase block leading-none">
+                <span className="font-display text-sm sm:text-lg tracking-[0.28em] sm:tracking-[0.38em] text-white uppercase block leading-none">
                   DARK MATTER
                 </span>
-                <span className="font-mono text-[9px] tracking-[0.25em] text-[#c89d54] uppercase block mt-1">
+                <span className="font-mono text-[8px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.25em] text-[#c89d54] uppercase block mt-0.5 sm:mt-1">
                   GUIA DO MULTIVERSO
                 </span>
               </div>
@@ -496,6 +501,7 @@ export function App() {
 
             <div className="hidden md:block h-7 w-px bg-[#c89d54]/25" />
 
+            {/* Desktop Episode Filter Trigger */}
             <button
               onClick={() => setIsEpisodeModalOpen(true)}
               className="hidden md:flex items-center gap-2.5 px-3 py-1.5 bg-[#08090e] hover:bg-[#141108] border border-[#c89d54]/40 transition text-left"
@@ -516,38 +522,58 @@ export function App() {
             </button>
           </div>
 
-          {/* Center: Drag-to-Scroll Roman Numeral Chapters */}
-          <DragScrollContainer className="flex items-center h-full">
-            {[
-              { id: 'CONNECTIONS', roman: 'I', label: 'A TEIA QUÂNTICA' },
-              { id: 'WORLDS', roman: 'II', label: `O CORREDOR (${scopedWorlds.length})` },
-              { id: 'VARIANTS', roman: 'III', label: `AS VARIANTES (${scopedVariants.length})` },
-              { id: 'CORRIDOR', roman: 'IV', label: 'CRONOLOGIA DE SALTOS' },
-              { id: 'PODCAST', roman: 'V', label: 'LEIS DA CAIXA' },
-            ].map((item) => {
-              const active = activeTab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveTab(item.id as ActiveTab)}
-                  className={`h-full px-3 sm:px-5 flex items-center gap-2 text-[11px] font-mono tracking-[0.18em] uppercase whitespace-nowrap border-b-2 transition-all ${
-                    active
-                      ? 'border-[#c89d54] text-white bg-[#c89d54]/[0.07] font-bold'
-                      : 'border-transparent text-stone-400 hover:text-[#e6c885]'
-                  }`}
-                >
-                  <span className="text-[#c89d54]">{item.roman}.</span>
-                  <span>{item.label}</span>
-                </button>
-              );
-            })}
-          </DragScrollContainer>
+          {/* Center: Desktop Drag-to-Scroll Roman Numeral Chapters */}
+          <div className="hidden md:flex items-center h-full">
+            <DragScrollContainer className="flex items-center h-full">
+              {[
+                { id: 'CONNECTIONS', roman: 'I', label: 'A TEIA QUÂNTICA' },
+                { id: 'WORLDS', roman: 'II', label: `O CORREDOR (${scopedWorlds.length})` },
+                { id: 'VARIANTS', roman: 'III', label: `AS VARIANTES (${scopedVariants.length})` },
+                { id: 'CORRIDOR', roman: 'IV', label: 'CRONOLOGIA DE SALTOS' },
+                { id: 'PODCAST', roman: 'V', label: 'LEIS DA CAIXA' },
+              ].map((item) => {
+                const active = activeTab === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => setActiveTab(item.id as ActiveTab)}
+                    className={`h-full px-3 sm:px-5 flex items-center gap-2 text-[11px] font-mono tracking-[0.18em] uppercase whitespace-nowrap border-b-2 transition-all ${
+                      active
+                        ? 'border-[#c89d54] text-white bg-[#c89d54]/[0.07] font-bold'
+                        : 'border-transparent text-stone-400 hover:text-[#e6c885]'
+                    }`}
+                  >
+                    <span className="text-[#c89d54]">{item.roman}.</span>
+                    <span>{item.label}</span>
+                  </button>
+                );
+              })}
+            </DragScrollContainer>
+          </div>
 
-          {/* Right: Search */}
-          <div className="flex items-center gap-2.5 shrink-0">
+          {/* Right: Search & Mobile Episode Trigger */}
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            {/* Mobile Episode Filter Trigger */}
+            <button
+              onClick={() => setIsEpisodeModalOpen(true)}
+              className="flex md:hidden items-center gap-1.5 px-2.5 py-1.5 bg-[#08090e] hover:bg-[#141108] border border-[#c89d54]/40 transition text-left"
+              title="Onde você está na série?"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#c89d54]" />
+              <span className="text-[10px] font-mono font-bold text-[#e6c885] uppercase tracking-wider">
+                {selectedEpisodeCode !== 'ALL'
+                  ? selectedEpisodeCode
+                  : globalSeasonScope === 'ALL'
+                  ? 'T1/T2'
+                  : `T${globalSeasonScope}`}
+              </span>
+            </button>
+
+            {/* Global Search Button */}
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="px-3 py-1.5 bg-[#08090e] hover:bg-[#141108] border border-[#c89d54]/35 text-xs font-mono text-stone-300 hover:text-[#e6c885] flex items-center gap-2 transition"
+              className="px-2.5 sm:px-3 py-1.5 bg-[#08090e] hover:bg-[#141108] border border-[#c89d54]/35 text-xs font-mono text-stone-300 hover:text-[#e6c885] flex items-center gap-2 transition"
+              title="Buscar no Multiverso"
             >
               <Search className="w-3.5 h-3.5 text-[#c89d54]" />
               <span className="hidden sm:inline uppercase tracking-wider text-[10px]">
@@ -558,6 +584,37 @@ export function App() {
               </kbd>
             </button>
           </div>
+        </div>
+
+        {/* Mobile Dedicated Horizontal Tab Strip (MD:HIDDEN) */}
+        <div className="md:hidden border-t border-[#c89d54]/20 bg-[#020204]/98 px-2 py-1.5">
+          <DragScrollContainer className="flex items-center gap-1.5 overflow-x-auto touch-pan-x">
+            {[
+              { id: 'CONNECTIONS', roman: 'I', label: 'TEIA' },
+              { id: 'WORLDS', roman: 'II', label: `CORREDOR (${scopedWorlds.length})` },
+              { id: 'VARIANTS', roman: 'III', label: `VARIANTES (${scopedVariants.length})` },
+              { id: 'CORRIDOR', roman: 'IV', label: 'SALTOS' },
+              { id: 'PODCAST', roman: 'V', label: 'LEIS' },
+            ].map((item) => {
+              const active = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveTab(item.id as ActiveTab)}
+                  className={`px-3 py-1.5 text-[10px] font-mono tracking-wider uppercase whitespace-nowrap border transition-all ${
+                    active
+                      ? 'bg-[#c89d54] text-[#030305] border-[#c89d54] font-bold shadow-[0_0_12px_rgba(200,157,84,0.3)]'
+                      : 'bg-[#07080d] text-stone-400 border-white/10 hover:text-white'
+                  }`}
+                >
+                  <span className={active ? 'text-[#030305] mr-1' : 'text-[#c89d54] mr-1'}>
+                    {item.roman}.
+                  </span>
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </DragScrollContainer>
         </div>
       </header>
 
@@ -642,7 +699,7 @@ export function App() {
 
               {/* Active Corridor Portal Banner (Synced with the Cards Below!) */}
               {activeCorridorWorld && (
-                <div className="arch-box relative min-h-[290px] flex flex-col justify-end p-6 sm:p-8 bg-black overflow-hidden">
+                <div className="arch-box relative min-h-[260px] sm:min-h-[290px] flex flex-col justify-end p-4 sm:p-8 bg-black overflow-hidden">
                   <img
                     src={activeCorridorWorld.imageUrl}
                     alt={activeCorridorWorld.name}
@@ -675,16 +732,16 @@ export function App() {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2 shrink-0">
+                    <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
                       <button
                         onClick={() => handleStepCorridorWorld('PREV')}
-                        className="px-3 py-2 bg-[#080a10]/90 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-[#c89d54]/40 text-[10px] font-mono uppercase flex items-center gap-1 transition"
+                        className="flex-1 sm:flex-initial justify-center px-3 py-2 bg-[#080a10]/90 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-[#c89d54]/40 text-[10px] font-mono uppercase flex items-center gap-1 transition"
                       >
                         <ChevronLeft className="w-3.5 h-3.5" /> Porta Ant.
                       </button>
                       <button
                         onClick={() => handleStepCorridorWorld('NEXT')}
-                        className="px-3 py-2 bg-[#080a10]/90 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-[#c89d54]/40 text-[10px] font-mono uppercase flex items-center gap-1 transition"
+                        className="flex-1 sm:flex-initial justify-center px-3 py-2 bg-[#080a10]/90 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-[#c89d54]/40 text-[10px] font-mono uppercase flex items-center gap-1 transition"
                       >
                         Próx. Porta <ChevronRight className="w-3.5 h-3.5" />
                       </button>
@@ -992,30 +1049,38 @@ export function App() {
             RIGHT-HAND DOCKED EDITORIAL DOSSIER PANEL
         ===================================================================== */}
         {isDossierOpen && (
-          <aside className="fixed xl:sticky top-16 right-0 z-30 h-[calc(100vh-4rem)] w-full sm:w-[440px] 2xl:w-[480px] bg-[#050609]/98 border-l border-[#c89d54]/40 overflow-y-auto shadow-[-20px_0_60px_rgba(0,0,0,0.9)] shrink-0">
-            <div className="sticky top-0 z-20 bg-[#050609]/95 backdrop-blur-md px-5 py-3 border-b border-[#c89d54]/25 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                {drawerHistory.length > 0 && (
-                  <button
-                    onClick={handleDrawerBack}
-                    className="px-2.5 py-1 bg-white/5 hover:bg-[#c89d54] text-[#e6c885] hover:text-[#030305] border border-[#c89d54]/40 text-[10px] font-mono uppercase flex items-center gap-1 transition"
-                  >
-                    <ArrowLeft className="w-3 h-3" /> Voltar
-                  </button>
-                )}
-                <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#c89d54]">
-                  {selectedVariant ? 'ARQUIVO DE VARIANTE' : 'ARQUIVO DE REALIDADE'}
-                </span>
-              </div>
+          <>
+            {/* Mobile Backdrop Overlay */}
+            <div
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 xl:hidden"
+              onClick={handleCloseDrawer}
+            />
 
-              <button
-                onClick={handleCloseDrawer}
-                className="p-1.5 text-stone-400 hover:text-white border border-white/10 hover:border-[#c89d54]"
-                title="Fechar Painel Lateral"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+            <aside className="fixed xl:sticky top-0 sm:top-16 right-0 z-50 xl:z-30 h-full sm:h-[calc(100vh-4rem)] w-full sm:w-[440px] 2xl:w-[480px] bg-[#050609]/98 border-l border-[#c89d54]/40 overflow-y-auto shadow-[-20px_0_60px_rgba(0,0,0,0.9)] shrink-0 pb-16 sm:pb-6">
+              <div className="sticky top-0 z-20 bg-[#050609]/95 backdrop-blur-md px-4 sm:px-5 py-3 border-b border-[#c89d54]/25 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  {drawerHistory.length > 0 && (
+                    <button
+                      onClick={handleDrawerBack}
+                      className="px-2.5 py-1 bg-white/5 hover:bg-[#c89d54] text-[#e6c885] hover:text-[#030305] border border-[#c89d54]/40 text-[10px] font-mono uppercase flex items-center gap-1 transition"
+                    >
+                      <ArrowLeft className="w-3 h-3" /> Voltar
+                    </button>
+                  )}
+                  <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#c89d54]">
+                    {selectedVariant ? 'ARQUIVO DE VARIANTE' : 'ARQUIVO DE REALIDADE'}
+                  </span>
+                </div>
+
+                <button
+                  onClick={handleCloseDrawer}
+                  className="px-2.5 py-1 text-stone-300 hover:text-white border border-white/15 hover:border-[#c89d54] bg-[#08090e] text-[11px] font-mono uppercase flex items-center gap-1.5 transition"
+                  title="Fechar Painel Lateral"
+                >
+                  <X className="w-3.5 h-3.5 text-[#c89d54]" />
+                  <span className="inline xl:hidden">Fechar</span>
+                </button>
+              </div>
 
             {/* WORLD DOSSIER CONTENT */}
             {selectedWorld && (
@@ -1299,7 +1364,19 @@ export function App() {
                 </div>
               </div>
             )}
+
+            {/* Mobile Bottom Fixed Close Action Bar */}
+            <div className="sticky bottom-0 z-20 p-3 bg-[#050609]/95 backdrop-blur-md border-t border-[#c89d54]/30 xl:hidden">
+              <button
+                onClick={handleCloseDrawer}
+                className="w-full py-2.5 bg-[#120e07] hover:bg-[#c89d54] border border-[#c89d54] text-[#e6c885] hover:text-[#030305] font-mono text-xs uppercase tracking-wider font-bold flex items-center justify-center gap-2 transition shadow-lg"
+              >
+                <X className="w-4 h-4" />
+                Voltar ao Mapa / Fechar Arquivo
+              </button>
+            </div>
           </aside>
+          </>
         )}
       </div>
 
@@ -1308,11 +1385,11 @@ export function App() {
       ===================================================================== */}
       {isEpisodeModalOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-4"
           onClick={() => setIsEpisodeModalOpen(false)}
         >
           <div
-            className="w-full max-w-4xl arch-box p-6 sm:p-10 space-y-6 max-h-[85vh] overflow-y-auto"
+            className="w-full max-w-4xl arch-box p-4 sm:p-10 space-y-4 sm:space-y-6 max-h-[88vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-[#c89d54]/30 pb-4">
@@ -1399,7 +1476,7 @@ export function App() {
       ===================================================================== */}
       {isSearchOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-start justify-center pt-20 px-4"
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-start justify-center pt-4 sm:pt-20 px-3 sm:px-4"
           onClick={() => setIsSearchOpen(false)}
         >
           <div

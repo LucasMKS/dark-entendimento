@@ -60,9 +60,10 @@ export const DragScrollContainer: React.FC<DragScrollContainerProps> = ({
       onMouseUp={stopDragging}
       onMouseLeave={stopDragging}
       onClickCapture={handleClickCapture}
-      className={`overflow-x-auto select-none ${
+      className={`overflow-x-auto touch-pan-x select-none scroll-smooth ${
         isDragging ? 'cursor-grabbing' : 'cursor-grab'
       } ${className}`}
+      style={{ WebkitOverflowScrolling: 'touch' }}
     >
       {children}
     </div>

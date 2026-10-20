@@ -29,18 +29,18 @@ export const PodcastAndUpdaterTab: React.FC<PodcastAndUpdaterTabProps> = ({
           </div>
         </div>
 
-        <div className="px-4 py-2 bg-[#07080c] border border-[#c89d54]/30 text-xs font-mono text-stone-300">
+        <div className="px-4 py-2 bg-[#07080c] border border-[#c89d54]/30 text-xs font-mono text-stone-300 self-start lg:self-auto">
           <span className="text-[#c89d54] font-bold">{worlds.length}</span> Mundos •{' '}
           <span className="text-[#c89d54] font-bold">{variants.length}</span> Variantes Catalogadas
         </div>
       </div>
 
       {/* Podcast Rules & Lore Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
         {PODCAST_RULES_AND_LORE.map((item, idx) => (
           <div
             key={idx}
-            className="arch-box p-6 flex flex-col justify-between transition hover:border-[#c89d54]/70"
+            className="arch-box p-4 sm:p-6 flex flex-col justify-between transition hover:border-[#c89d54]/70"
           >
             <div>
               <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#c89d54] block mb-2">

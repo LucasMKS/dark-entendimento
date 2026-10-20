@@ -112,3 +112,15 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(200, 157, 84, 0.75);
 }
+
+/* Mobile touch enhancements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer utilities {
+  .touch-pan-x {
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+  }
+}
