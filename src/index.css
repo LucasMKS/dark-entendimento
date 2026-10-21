@@ -31,9 +31,8 @@
 /* Hairline architectural box with corner ticks (Dark / The Box style) */
 .arch-box {
   position: relative;
-  background: rgba(7, 8, 12, 0.86);
+  background: #07080c;
   border: 1px solid rgba(200, 157, 84, 0.22);
-  backdrop-filter: blur(20px);
 }
 
 .arch-box::before,

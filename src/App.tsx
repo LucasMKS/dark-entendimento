@@ -451,14 +451,33 @@ export function App() {
   const selectedVariant = selectedVariantId ? getVariantById(selectedVariantId) : null;
   const isDossierOpen = Boolean(selectedWorld || selectedVariant);
 
-  // Unified active world in Tab II (O Corredor) — synced with selectedWorldId!
+  // Lock body scroll on mobile when modal or dossier is open to prevent background bleed / movement
+  useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 1280;
+    if ((isMobile && isDossierOpen) || isEpisodeModalOpen || isSearchOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isDossierOpen, isEpisodeModalOpen, isSearchOpen]);
+
+  // Unified active world in Tab II (O Corredor) — independent cycle on mobile so it doesn't hijack the screen
+  const [corridorFocusedWorldId, setCorridorFocusedWorldId] = useState<string | null>(null);
+
   const activeCorridorWorld = useMemo(() => {
+    if (corridorFocusedWorldId) {
+      const found = getWorldById(corridorFocusedWorldId);
+      if (found) return found;
+    }
     if (selectedWorldId) {
       const found = getWorldById(selectedWorldId);
       if (found) return found;
     }
     return filteredWorlds[0] || worlds[0];
-  }, [selectedWorldId, filteredWorlds, worlds]);
+  }, [corridorFocusedWorldId, selectedWorldId, filteredWorlds, worlds]);
 
   const handleStepCorridorWorld = (dir: 'PREV' | 'NEXT') => {
     const list = filteredWorlds.length > 0 ? filteredWorlds : worlds;
@@ -468,7 +487,11 @@ export function App() {
       dir === 'NEXT'
         ? (currentIdx + 1) % list.length
         : (currentIdx - 1 + list.length) % list.length;
-    handleOpenWorldDetail(list[nextIdx].id);
+    const nextWorld = list[nextIdx];
+    setCorridorFocusedWorldId(nextWorld.id);
+    if (typeof window !== 'undefined' && window.innerWidth >= 1280) {
+      handleOpenWorldDetail(nextWorld.id);
+    }
   };
 
   return (
@@ -587,7 +610,7 @@ export function App() {
         </div>
 
         {/* Mobile Dedicated Horizontal Tab Strip (MD:HIDDEN) */}
-        <div className="md:hidden border-t border-[#c89d54]/20 bg-[#020204]/98 px-2 py-1.5">
+        <div className="md:hidden border-t border-[#c89d54]/30 bg-[#030305] px-2 py-1.5 shadow-md">
           <DragScrollContainer className="flex items-center gap-1.5 overflow-x-auto touch-pan-x">
             {[
               { id: 'CONNECTIONS', roman: 'I', label: 'TEIA' },
@@ -732,19 +755,27 @@ export function App() {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0 w-full sm:w-auto">
                       <button
-                        onClick={() => handleStepCorridorWorld('PREV')}
-                        className="flex-1 sm:flex-initial justify-center px-3 py-2 bg-[#080a10]/90 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-[#c89d54]/40 text-[10px] font-mono uppercase flex items-center gap-1 transition"
+                        onClick={() => handleOpenWorldDetail(activeCorridorWorld.id)}
+                        className="px-4 py-2 bg-[#c89d54] text-[#030305] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#e6c885] transition flex items-center justify-center gap-1.5 shadow"
                       >
-                        <ChevronLeft className="w-3.5 h-3.5" /> Porta Ant.
+                        Abrir Dossiê Desta Porta →
                       </button>
-                      <button
-                        onClick={() => handleStepCorridorWorld('NEXT')}
-                        className="flex-1 sm:flex-initial justify-center px-3 py-2 bg-[#080a10]/90 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-[#c89d54]/40 text-[10px] font-mono uppercase flex items-center gap-1 transition"
-                      >
-                        Próx. Porta <ChevronRight className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleStepCorridorWorld('PREV')}
+                          className="flex-1 sm:flex-initial justify-center px-3 py-2 bg-[#080a10]/90 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-[#c89d54]/40 text-[10px] font-mono uppercase flex items-center gap-1 transition"
+                        >
+                          <ChevronLeft className="w-3.5 h-3.5" /> Porta Ant.
+                        </button>
+                        <button
+                          onClick={() => handleStepCorridorWorld('NEXT')}
+                          className="flex-1 sm:flex-initial justify-center px-3 py-2 bg-[#080a10]/90 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-[#c89d54]/40 text-[10px] font-mono uppercase flex items-center gap-1 transition"
+                        >
+                          Próx. Porta <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -820,8 +851,8 @@ export function App() {
                           </span>
                         </div>
 
-                        <span className="text-[10px] font-mono text-[#c89d54] group-hover:translate-x-1 transition">
-                          {isSelected ? 'PORTA SELECIONADA ✓' : 'ABRIR PORTA →'}
+                        <span className="text-[10px] font-mono text-[#c89d54] group-hover:translate-x-1 transition font-semibold">
+                          {isSelected ? 'PORTA SELECIONADA ✓' : 'ABRIR DOSSIÊ →'}
                         </span>
                       </div>
                     </div>
@@ -1052,12 +1083,12 @@ export function App() {
           <>
             {/* Mobile Backdrop Overlay */}
             <div
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 xl:hidden"
+              className="fixed inset-0 bg-black/85 backdrop-blur-sm z-40 xl:hidden animate-fade-in"
               onClick={handleCloseDrawer}
             />
 
-            <aside className="fixed xl:sticky top-0 sm:top-16 right-0 z-50 xl:z-30 h-full sm:h-[calc(100vh-4rem)] w-full sm:w-[440px] 2xl:w-[480px] bg-[#050609]/98 border-l border-[#c89d54]/40 overflow-y-auto shadow-[-20px_0_60px_rgba(0,0,0,0.9)] shrink-0 pb-16 sm:pb-6">
-              <div className="sticky top-0 z-20 bg-[#050609]/95 backdrop-blur-md px-4 sm:px-5 py-3 border-b border-[#c89d54]/25 flex items-center justify-between">
+            <aside className="fixed xl:sticky top-0 sm:top-16 right-0 z-50 xl:z-30 h-full sm:h-[calc(100vh-4rem)] w-full sm:w-[460px] 2xl:w-[480px] bg-[#07080c] border-l border-[#c89d54]/40 overflow-y-auto overscroll-contain shadow-[-20px_0_60px_rgba(0,0,0,0.95)] shrink-0 pb-16 sm:pb-6">
+              <div className="sticky top-0 z-30 bg-[#07080c] px-4 sm:px-5 py-3 border-b border-[#c89d54]/30 flex items-center justify-between shadow-md">
                 <div className="flex items-center gap-2">
                   {drawerHistory.length > 0 && (
                     <button
@@ -1067,18 +1098,19 @@ export function App() {
                       <ArrowLeft className="w-3 h-3" /> Voltar
                     </button>
                   )}
-                  <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#c89d54]">
-                    {selectedVariant ? 'ARQUIVO DE VARIANTE' : 'ARQUIVO DE REALIDADE'}
+                  <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#c89d54] font-bold flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#c89d54] animate-pulse" />
+                    {selectedVariant ? 'DOSSIÊ DA VARIANTE' : 'DOSSIÊ DO MUNDO'}
                   </span>
                 </div>
 
                 <button
                   onClick={handleCloseDrawer}
-                  className="px-2.5 py-1 text-stone-300 hover:text-white border border-white/15 hover:border-[#c89d54] bg-[#08090e] text-[11px] font-mono uppercase flex items-center gap-1.5 transition"
-                  title="Fechar Painel Lateral"
+                  className="px-3 py-1 text-stone-200 hover:text-white border border-[#c89d54]/40 hover:border-[#c89d54] bg-[#120e07] text-[11px] font-mono uppercase flex items-center gap-1.5 transition font-semibold"
+                  title="Fechar Dossiê"
                 >
                   <X className="w-3.5 h-3.5 text-[#c89d54]" />
-                  <span className="inline xl:hidden">Fechar</span>
+                  <span>Fechar</span>
                 </button>
               </div>
 
@@ -1366,13 +1398,13 @@ export function App() {
             )}
 
             {/* Mobile Bottom Fixed Close Action Bar */}
-            <div className="sticky bottom-0 z-20 p-3 bg-[#050609]/95 backdrop-blur-md border-t border-[#c89d54]/30 xl:hidden">
+            <div className="sticky bottom-0 z-30 p-3 bg-[#07080c] border-t border-[#c89d54]/30 xl:hidden shadow-[0_-10px_25px_rgba(0,0,0,0.8)]">
               <button
                 onClick={handleCloseDrawer}
-                className="w-full py-2.5 bg-[#120e07] hover:bg-[#c89d54] border border-[#c89d54] text-[#e6c885] hover:text-[#030305] font-mono text-xs uppercase tracking-wider font-bold flex items-center justify-center gap-2 transition shadow-lg"
+                className="w-full py-3 bg-[#171208] hover:bg-[#c89d54] border border-[#c89d54] text-[#e6c885] hover:text-[#030305] font-mono text-xs uppercase tracking-wider font-bold flex items-center justify-center gap-2 transition shadow-lg active:scale-[0.98]"
               >
-                <X className="w-4 h-4" />
-                Voltar ao Mapa / Fechar Arquivo
+                <X className="w-4 h-4 text-[#c89d54]" />
+                Fechar Dossiê e Voltar
               </button>
             </div>
           </aside>
@@ -1389,7 +1421,7 @@ export function App() {
           onClick={() => setIsEpisodeModalOpen(false)}
         >
           <div
-            className="w-full max-w-4xl arch-box p-4 sm:p-10 space-y-4 sm:space-y-6 max-h-[88vh] overflow-y-auto"
+            className="w-full max-w-4xl arch-box bg-[#07080c] p-4 sm:p-10 space-y-4 sm:space-y-6 max-h-[88vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-[#c89d54]/30 pb-4">
@@ -1480,7 +1512,7 @@ export function App() {
           onClick={() => setIsSearchOpen(false)}
         >
           <div
-            className="w-full max-w-2xl arch-box overflow-hidden shadow-2xl"
+            className="w-full max-w-2xl arch-box bg-[#07080c] overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-4 border-b border-[#c89d54]/30 flex items-center gap-3">

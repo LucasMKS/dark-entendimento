@@ -65,7 +65,9 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
     setCenterMode('VARIANT');
     setFocusedVariantId(vId);
     setActiveStepIndex(null);
-    onSelectVariant(vId);
+    if (typeof window !== 'undefined' && window.innerWidth >= 1280) {
+      onSelectVariant(vId);
+    }
   };
 
   const handleCycleVariant = (direction: 'PREV' | 'NEXT') => {
@@ -85,7 +87,9 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
   const handleCenterOnWorld = (wId: string) => {
     setCenterMode('WORLD');
     setFocusedWorldId(wId);
-    onSelectWorld(wId);
+    if (typeof window !== 'undefined' && window.innerWidth >= 1280) {
+      onSelectWorld(wId);
+    }
   };
 
   const handleStepNavigation = (direction: 'PREV' | 'NEXT') => {
@@ -201,10 +205,13 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#c89d54]" />
                 <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-[#e6c885]">
-                  SELECIONE QUEM COLOCAR NO CENTRO (ARRASTE COM O MOUSE PARA NAVEGAR):
+                  SELECIONE QUEM COLOCAR NO CENTRO:
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-stone-400 bg-white/5 px-2 py-0.5 border border-white/10">
                   <Hand className="w-3 h-3 text-[#c89d54]" /> Segure e arraste
+                </span>
+                <span className="sm:hidden text-[10px] font-mono text-stone-400">
+                  (deslize para escolher)
                 </span>
               </div>
 
@@ -569,13 +576,13 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                               <div className="grid grid-cols-2 gap-2 mt-2.5 pt-2 border-t border-white/[0.06]">
                                 <button
                                   onClick={() => onSelectWorld(w.id)}
-                                  className="py-1.5 px-2 bg-white/5 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider text-center transition"
+                                  className="py-2 px-2 bg-[#120e07] hover:bg-[#c89d54] text-[#e6c885] hover:text-[#030305] border border-[#c89d54]/50 text-[10px] font-mono uppercase tracking-wider text-center transition font-semibold"
                                 >
-                                  Abrir Arquivo →
+                                  Abrir Dossiê →
                                 </button>
                                 <button
                                   onClick={() => handleCenterOnWorld(w.id)}
-                                  className="py-1.5 px-2 bg-white/5 hover:bg-sky-400 text-stone-200 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider text-center transition"
+                                  className="py-2 px-2 bg-white/5 hover:bg-sky-400 text-stone-300 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider text-center transition"
                                 >
                                   Focar no Centro 🪐
                                 </button>
@@ -655,13 +662,13 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                             <div className="grid grid-cols-2 gap-2 mt-2.5 pt-2 border-t border-white/[0.06]">
                               <button
                                 onClick={() => onSelectVariant(v.id)}
-                                className="py-1.5 px-2 bg-white/5 hover:bg-[#c89d54] text-stone-200 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider text-center transition"
+                                className="py-2 px-2 bg-[#120e07] hover:bg-[#c89d54] text-[#e6c885] hover:text-[#030305] border border-[#c89d54]/50 text-[10px] font-mono uppercase tracking-wider text-center transition font-semibold"
                               >
                                 Abrir Dossiê →
                               </button>
                               <button
                                 onClick={() => handleSelectCharacter(v.id)}
-                                className="py-1.5 px-2 bg-white/5 hover:bg-sky-400 text-stone-200 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider text-center transition"
+                                className="py-2 px-2 bg-white/5 hover:bg-sky-400 text-stone-300 hover:text-[#030305] border border-white/15 text-[10px] font-mono uppercase tracking-wider text-center transition"
                               >
                                 Focar no Centro 🎯
                               </button>
