@@ -1620,13 +1620,13 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                               className="w-10 h-10 rounded-full object-cover border border-rose-400 mb-1"
                             />
                             <span className="px-1.5 py-0.1 bg-rose-500 text-white font-mono text-[9px] font-bold">
-                              J13 (PRESO R1)
+                              {v.status === 'Preso (DARPA)' ? 'J13 (PRESO R1)' : 'J13 (LIBERTO)'}
                             </span>
                             <div className="text-[10px] font-bold text-white mt-1">
-                              Sua Amanda Morre
+                              {v.status === 'Preso (DARPA)' ? 'Sua Amanda Morre' : 'Liberto com Daniela'}
                             </div>
                             <div className="text-[9px] text-stone-400 mt-0.5">
-                              Interrogado por Mitchel 1
+                              {v.status === 'Preso (DARPA)' ? 'Interrogado por Mitchel 1' : 'Elimina Mitchel 1 (T2:E9)'}
                             </div>
                           </button>
                         );

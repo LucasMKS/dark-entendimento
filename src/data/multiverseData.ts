@@ -89,15 +89,15 @@ export const WORLDS: World[] = [
     shortHook: 'Onde Jason escolheu o casamento com Daniela, 70+ Jasons convergem na T1 e o Agente Mitchel MacNamara investiga o necrotério na T2.',
     officialOrFanName: 'Reality 1 / Jason 1 World (R1)',
     season: '1 & 2',
-    episodes: ['T1:E1', 'T1:E2', 'T1:E6', 'T1:E8', 'T1:E9', 'T2:E1', 'T2:E3'],
+    episodes: ['T1:E1', 'T1:E2', 'T1:E6', 'T1:E8', 'T1:E9', 'T2:E1', 'T2:E3', 'T2:E9'],
     category: 'Root',
     habitability: 'Habitável',
     imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/3/32/Abandoned_warehouse_r1.png/revision/latest?cb=20240820012601',
     themeColor: '#f59e0b',
-    atmosphere: 'Chicago contemporânea padrão. No início da T2, sob investigação federal secreta devido aos corpos de Jasons.',
+    atmosphere: 'Chicago contemporânea padrão. Sob investigação federal secreta devido aos corpos de Jasons e black-site da DARPA.',
     boxLocation: 'Hangar abandonado (Abandoned Warehouse) no sul de Chicago.',
     description:
-      'A realidade de origem que acompanhamos no Episódio 1. Aqui, Jason Dessen optou por ficar com Daniela quando ela engravidou dos gêmeos Charlie e Max (embora Max tenha falecido no parto). No final da 1ª temporada, mais de 70 variantes de Jason convergem neste mundo. Na abertura da 2ª temporada (**T2:E1 "A Quiet Life"**), dezenas de corpos idênticos de Jasons mortos acumulam-se no necrotério de Chicago, levando a Detetive **Jamie Mason** e o agente federal **Mitchel MacNamara (Reality 1)** a assumirem o caso suspeitando de clonagem humana e mantendo **Jason 13 ("Scar Jason")** preso em um black-site governamental.',
+      'A realidade de origem que acompanhamos no Episódio 1. Aqui, Jason Dessen optou por ficar com Daniela quando ela engravidou dos gêmeos Charlie e Max (embora Max tenha falecido no parto). No final da 1ª temporada, mais de 70 variantes de Jason convergem neste mundo. Na abertura da 2ª temporada (**T2:E1 "A Quiet Life"**), dezenas de corpos idênticos de Jasons mortos acumulam-se no necrotério de Chicago, levando o agente federal **Mitchel MacNamara (Reality 1)** a prender **Jason 13 ("Scar Jason")** em uma cela DARPA. No **T2:E9 ("How to Build the Box")**, **Daniela 1** retorna em busca de Charlie, é capturada na mesma cela e, unindo forças com Jason 13, atrai MacNamara para a Caixa, dopando-o e eliminando-o em um mundo condenado.',
     visitors: [
       'jason-2',
       'jason-3',
@@ -109,7 +109,8 @@ export const WORLDS: World[] = [
       'jason-24',
       'jason-30',
       'jason-morgue-r1',
-      'ryan-2'
+      'ryan-2',
+      'daniela-1'
     ],
     residents: ['jason-1', 'daniela-1', 'charlie-1', 'ryan-1', 'blair-1', 'leighton-1', 'amanda-1', 'mitchel-1'],
     podcastInsight:
@@ -127,7 +128,7 @@ export const WORLDS: World[] = [
     shortHook: 'Onde Jason 2 trocou a família pela ciência, ganhou o Prêmio Pavia e construiu a Caixa.',
     officialOrFanName: 'Reality 2 / Jason 2 World (R2)',
     season: '1 & 2',
-    episodes: ['T1:E1', 'T1:E2', 'T1:E3', 'T1:E7'],
+    episodes: ['T1:E1', 'T1:E2', 'T1:E3', 'T1:E7', 'T2:E9'],
     category: 'Industrial',
     habitability: 'Habitável',
     imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/6/6d/Image_2024-08-07_192406104.png/revision/latest?cb=20240808022410',
@@ -135,7 +136,7 @@ export const WORLDS: World[] = [
     atmosphere: 'Chicago hiper-tecnológica dominada pelo complexo corporativo da Velocity Labs.',
     boxLocation: 'Hangar de contenção de alta segurança na sede da Velocity Labs.',
     description:
-      'O universo onde Jason 2 decidiu priorizar a pesquisa quântica em vez de casar com Daniela há 15 anos. Com o financiamento bilionário de Leighton 2, ele construiu a Caixa e a droga Lavanda. É o mundo natal de Amanda 2, Leighton 2 e Blair 2.',
+      'O universo onde Jason 2 decidiu priorizar a pesquisa quântica em vez de casar com Daniela há 15 anos. Com o financiamento bilionário de Leighton 2, ele construiu a Caixa e a droga Lavanda. É o mundo natal de Amanda 2, Leighton 2 e Blair 2. No **T2:E9 ("How to Build the Box")**, os flashbacks revelam a obsessão cega e os custos humanos de sua construção original, enquanto Blair 2 conclui que a Caixa da Velocity Labs é o nodo-mestre onde deve ser injetado o "Kill Switch" para selar todo o multiverso.',
     visitors: ['jason-1', 'jason-3', 'jason-4', 'jason-6', 'jason-7', 'jason-8', 'jason-13', 'jason-24', 'jason-30', 'jason-34', 'jason-stalker-29', 'jason-morgue-r1', 'ryan-2'],
     residents: ['jason-2', 'amanda-2', 'amanda-7', 'amanda-j13', 'leighton-2', 'blair-2', 'blair-19-dead'],
     podcastInsight:
@@ -436,16 +437,16 @@ export const WORLDS: World[] = [
     shortHook: 'Onde o irmão gêmeo Maximillian sobreviveu e o Jason 5 dorme em paz com Daniela.',
     officialOrFanName: 'Massive Disappointment / Max Alive World',
     season: '1 & 2',
-    episodes: ['T1:E7', 'T2:E7', 'T2:E8'],
+    episodes: ['T1:E7', 'T2:E7', 'T2:E8', 'T2:E9'],
     category: 'Root',
     habitability: 'Habitável',
     imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/8/8c/Max_Dessen_in_season_1_episode_7.jpg/revision/latest?cb=20260921232212',
     themeColor: '#10b981',
-    atmosphere: 'Chicago quase idêntica ao Mundo 1.',
+    atmosphere: 'Chicago quase idêntica ao Mundo 1, onde a família Dessen vive em perfeita estabilidade familiar.',
     boxLocation: 'Hangar de Chicago.',
     description:
-      'Catalogado na Wiki como "Massive Disappointment" (T1:E7). Jason 1 chega achando que voltou para casa, mas encontra outro Jason (**Jason 5**) dormindo com Daniela e se choca ao encontrar **Maximillian (Max)** — o irmão gêmeo de Charlie que havia morrido no nascimento no Mundo 1 — vivo e adulto!',
-    visitors: ['jason-1', 'amanda-2'],
+      'Catalogado na Wiki como "Massive Disappointment" (T1:E7). Jason 1 chega achando que voltou para casa, mas encontra outro Jason (**Jason 5**) dormindo com Daniela e se choca ao encontrar **Maximillian (Max)** — o irmão gêmeo de Charlie que havia morrido no nascimento no Mundo 1 — vivo e saudável! No **T2:E9 ("How to Build the Box")**, **Charlie 1** finalmente chega a este mundo através da Caixa após partir do Santuário de Laurel, vivenciando o tão sonhado e emocionante reencontro com seu irmão gêmeo Max.',
+    visitors: ['jason-1', 'amanda-2', 'charlie-1'],
     residents: ['jason-5'],
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Maximillian Dessen', detail: 'Foto oficial de Max Dessen no Episódio 7.' }
@@ -508,7 +509,7 @@ export const WORLDS: World[] = [
     shortHook: 'Chicago sem internet onde a família Dessen se esconde E onde Leighton constrói "A Pirâmide" subterrânea.',
     officialOrFanName: 'World X / Low-Tech Chicago ("A Perfect World" & "The Pyramid")',
     season: 2,
-    episodes: ['T2:E2', 'T2:E3', 'T2:E4', 'T2:E6', 'T2:E7'],
+    episodes: ['T2:E2', 'T2:E3', 'T2:E4', 'T2:E6', 'T2:E7', 'T2:E9'],
     category: 'Root',
     habitability: 'Habitável',
     imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/b/b7/Dark_Matter_S2E07.jpg/revision/latest?cb=20261002143559',
@@ -516,7 +517,7 @@ export const WORLDS: World[] = [
     atmosphere: 'Chicago analógica/retrô (sem internet ou celulares), mas com "A Pirâmide" oculta nos túneis subterrâneos.',
     boxLocation: 'Piscina vazia de uma escola abandonada (e "A Pirâmide" nos túneis de carga sob Chicago).',
     description:
-      'Conhecido como **"World X" / Mundo Low-Tech**, é o cenário central da 2ª temporada — onde acontecem TANTO o refúgio da família Dessen QUANTO a construção da **Pirâmide**! Neste universo, Nixon venceu JFK em 1960 e cancelou a Corrida Espacial da NASA, impedindo a invenção do microprocessador. **Jason 1, Daniela 1 e Charlie 1** fogem para cá no T2:E2 após Daniela matar o Jason invasor no Mundo 29. Porém, **Leighton Vance** já havia se instalado neste mesmo mundo, introduzindo tecnologia avançada (**Velocity Tech**) que ameaça a corporação local **MacNamara Tech** (de **Sheila e Mitchel MacNamara**) e construindo nos túneis subterrâneos **A Pirâmide** (uma Caixa industrial gigante movida a energia nuclear que já mapeou 74 mundos, com ajuda de **Oluko/Leighton 6** e **Jason 2**). No T2:E7, **Charlie 1** e depois **Daniela 1** entram na Caixa na piscina abandonada, enquanto **Jason 2** aparece na porta da casa de **Jason 1**.',
+      'Conhecido como **"World X" / Mundo Low-Tech**, é o cenário central da 2ª temporada — onde acontecem TANTO o refúgio da família Dessen QUANTO a construção da **Pirâmide**! Neste universo, Nixon venceu JFK em 1960 e cancelou a Corrida Espacial da NASA, impedindo a invenção do microprocessador. **Jason 1, Daniela 1 e Charlie 1** fogem para cá no T2:E2 após Daniela matar o Jason invasor no Mundo 29. Porém, **Leighton Vance** já havia se instalado neste mesmo mundo com a **Velocity Tech** e construído nos túneis subterrâneos **A Pirâmide** (com ajuda de **Oluko/Leighton 6** e **Jason 2**). No T2:E7, **Charlie 1** e **Daniela 1** entram na Caixa, enquanto **Jason 2** bate à porta de **Jason 1**. No **T2:E9 ("How to Build the Box")**, Leighton testemunha o horror e colapso causados pelas portas da Pirâmide, enquanto **Blair 2** arquiteta o plano do Kill Switch mestre para neutralizar todas as Caixas.',
     visitors: [
       'jason-1',
       'daniela-1',
@@ -585,6 +586,30 @@ export const WORLDS: World[] = [
       'No Podcast Oficial, Blake Crouch confirma as designações de Jason 34 e Amanda 7 como o coração emocional deste santuário.',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: The Basic Oneness of Everything (S2E08)', detail: 'Imagem oficial de Jason 34 e Amanda 7 no Episódio 8.' }
+    ]
+  },
+  {
+    id: 'world-meteor-apocalypse',
+    code: 'WORLD 33',
+    numberLabel: '33',
+    name: 'Mundo do Impacto de Meteoro ("How to Build the Box")',
+    shortHook: 'Realidade condenada à beira de um impacto celestial onde Jason 13 e Daniela 1 trancam e eliminam o Agente Mitchel MacNamara.',
+    officialOrFanName: 'Meteor Impact World / MacNamara Downfall (S2E09 How to Build the Box)',
+    season: 2,
+    episodes: ['T2:E9'],
+    category: 'Hostile',
+    habitability: 'Letal / Extremo',
+    imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/a/a2/Dark_Matter_S2E09.jpg/revision/latest?cb=20261023145520',
+    themeColor: '#ef4444',
+    atmosphere: 'Céu incandescente com meteoro em trajetória de colisão iminente contra Chicago; sirenes de emergência e caos pré-apocalíptico.',
+    boxLocation: 'Hangar industrial com visão aberta para o céu em chamas e a baía de Chicago.',
+    description:
+      'Cenário clímax do **T2:E9 ("How to Build the Box")**. O Agente Federal **Mitchel MacNamara (Reality 01)** acreditava ter dominado a física da Caixa e decifrado seu entrelaçamento quântico após interrogar **Jason 13** em sua cela DARPA por dois anos. Quando **Daniela 1** é capturada ao regressar à Reality 01 procurando por Charlie, ela e Jason 13 armam uma cilada para MacNamara: prometem entregar as instruções operacionais secretas e o atraem para dentro da Caixa. Lá dentro, Jason 13 e Daniela o imobilizam, injetam-lhe à força a substância psicotrópica (*Lilac Wings* / Lavanda) e o empurram para fora da porta deste mundo condenado — segundos antes de um meteoro colossal devastar a superfície de Chicago. A porta da Caixa é imediatamente trancada por Jason 13 e Daniela, sentenciando MacNamara à morte definitiva e permitindo a fuga da dupla pelo Corredor.',
+    visitors: ['mitchel-1', 'jason-13', 'daniela-1'],
+    residents: [],
+    sources: [
+      { type: 'EPISODE_CANON', label: 'T2:E9 "How to Build the Box"', detail: 'Armadilha na Caixa, expulsão e morte do Agente MacNamara no mundo sob impacto de meteoro.' },
+      { type: 'FANDOM_WIKI', label: 'Wiki: How to Build the Box (S2E09)', detail: 'Queda de MacNamara e fuga de Jason 13 e Daniela 1.' }
     ]
   }
 ];
@@ -658,12 +683,12 @@ export const VARIANTS: CharacterVariant[] = [
     visualTraits: 'Cabelo penteado para trás, ternos escuros alinhados; não sabia da alergia de Charlie a nozes.',
     psychologicalProfile: 'Gênio da física quântica vencedor do Prêmio Pavia; busca redenção na 2ª temporada.',
     storyArc:
-      'Constrói a Caixa no Mundo 2, sequestra Jason 1 e assume o lugar dele no Mundo 1. No final da 1ª temporada, arrependido, ajuda a família Dessen a fugir. Na 2ª temporada, no **Mundo Low-Tech ("World X")**, ajuda Leighton e Oluko a construir **A Pirâmide** e, nos segundos finais do T2:E7, aparece inesperadamente na porta da casa de **Jason 1**.',
+      'Constrói a Caixa no Mundo 2, sequestra Jason 1 e assume o lugar dele no Mundo 1. No final da 1ª temporada, arrependido, ajuda a família Dessen a fugir. Na 2ª temporada, no **Mundo Low-Tech ("World X")**, ajuda Leighton e Oluko a construir **A Pirâmide** e bate à porta de Jason 1. No **T2:E9 ("How to Build the Box")**, Jason 2 revisita a dura gênese da Caixa original na Velocity Labs, confessando o custo desumano e a obsessão cega que destruíram suas relações e trouxeram caos existencial a incontáveis mundos.',
     branchOriginExplanation:
       'Divergiu de Jason 1 há 15 anos quando decidiu não se casar com Daniela.',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Jason Dessen 2', detail: 'Retrato oficial de Jason 2.' },
-      { type: 'EPISODE_CANON', label: 'T2:E7 "The Pyramid"', detail: 'Participação na Pirâmide e aparição na porta de Jason 1.' }
+      { type: 'EPISODE_CANON', label: 'T2:E7 & T2:E9 "How to Build the Box"', detail: 'Participação na Pirâmide e revelação da gênese da Caixa original.' }
     ]
   },
   {
@@ -830,27 +855,34 @@ export const VARIANTS: CharacterVariant[] = [
     id: 'jason-13',
     baseCharacter: 'Jason Dessen',
     badgeNumber: 'J13',
-    designation: 'Jason 13 ("Scar Jason" — Prisioneiro DARPA)',
+    designation: 'Jason 13 ("Scar Jason" — Liberto com Daniela)',
     alias: 'Jason da Cicatriz na Testa',
-    shortRole: 'Sua Amanda morreu empalada pelo galho; cheio de ódio, acaba capturado pela DARPA na T2.',
+    shortRole: 'Sua Amanda morreu no galho; preso pela DARPA na T2, une forças com Daniela 1 no T2:E9, elimina MacNamara e escapa pelo Corredor.',
     actor: 'Joel Edgerton',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/9/99/Dark_Matter_S2E03.jpg/revision/latest?cb=20260918144957',
     accentColor: 'rose',
     originWorldId: 'world-prime-1',
     currentWorldId: 'world-prime-1',
-    worldsVisited: ['world-prime-1', 'world-velocity-2', 'world-tree-branch-accident', 'world-sanctuary-refuge'],
+    worldsVisited: [
+      'world-prime-1',
+      'world-velocity-2',
+      'world-tree-branch-accident',
+      'world-sanctuary-refuge',
+      'world-meteor-apocalypse'
+    ],
     parentVariantId: 'jason-1',
     branchEventLabel: 'Morte de Amanda no Acidente do Galho (oposto de Jason 34)',
-    status: 'Preso (DARPA)',
+    status: 'Ativo / Em Jornada',
     seasonIntroduced: 2,
-    visualTraits: 'Cicatriz profunda na testa ("Scar Jason"), expressão furiosa.',
-    psychologicalProfile: 'Consumido pela culpa e raiva após ver sua versão de Amanda morrer empalada por um galho na Caixa.',
+    visualTraits: 'Cicatriz profunda na testa ("Scar Jason"), olhar obstinado de sobrevivência.',
+    psychologicalProfile: 'Consumido pela culpa e raiva após ver sua Amanda morrer, canalizou sua fúria ao lado de Daniela 1 para se libertar da DARPA.',
     storyArc:
-      'Na 2ª temporada, encontra nosso Jason em um bar e mais tarde cai nas mãos da DARPA / Agente Mitchel MacNamara. Sua trajetória é o espelho sombrio de **Jason 34** (que conseguiu salvar Amanda 7 do mesmo acidente).',
+      'Na 2ª temporada, é mantido em uma cela transparente na DARPA pelo Agente Mitchel MacNamara (Reality 01). No **T2:E9 ("How to Build the Box")**, quando **Daniela 1** é capturada ao regressar à Reality 01 procurando por Charlie, eles se unem: fingem aceitar as exigências de MacNamara e o atraem para dentro da Caixa. Lá dentro, imobilizam o agente, injetam-lhe Lilac Wings e o jogam em uma Chicago apocalíptica (Mundo 33) sob impacto terminal de meteoro. Com MacNamara eliminado e a porta trancada, Jason 13 e Daniela escapam juntos pelo Corredor Quântico.',
     branchOriginExplanation:
       'Bifurcação direta do acidente da árvore (Mundo 28) onde Amanda não sobreviveu.',
     sources: [
-      { type: 'OFFICIAL_PODCAST', label: 'Podcast Oficial T2', detail: 'Blake Crouch detalha o trauma de Jason 13 vs. Jason 34.' }
+      { type: 'OFFICIAL_PODCAST', label: 'Podcast Oficial T2', detail: 'Blake Crouch detalha o trauma de Jason 13 vs. Jason 34.' },
+      { type: 'EPISODE_CANON', label: 'T2:E9 "How to Build the Box"', detail: 'Fuga da cela DARPA com Daniela e eliminação do Agente MacNamara na Caixa.' }
     ]
   },
   {
@@ -1248,12 +1280,12 @@ export const VARIANTS: CharacterVariant[] = [
     visualTraits: 'Cicatrizes de batalha do Corredor; líder da Velocity Tech no Mundo Low-Tech.',
     psychologicalProfile: 'Ambicioso; aproveita a ausência de tecnologia digital no Mundo Low-Tech para dominar o mercado e construir A Pirâmide.',
     storyArc:
-      'Após perseguir Jason 1 na 1ª temporada, estabelece sua base no **Mundo Low-Tech ("World X")** com a empresa **Velocity Tech**, superando a corporação local **MacNamara Tech**. Nos túneis subterrâneos de carga sob Chicago, constrói **A Pirâmide** (uma versão gigantesca da Caixa movida a energia nuclear que já mapeou 74 mundos para rotas comerciais, mas que só aguenta ficar ligada por 20 minutos).',
+      'Após perseguir Jason 1 na 1ª temporada, estabelece sua base no **Mundo Low-Tech ("World X")** com a empresa **Velocity Tech**, superando a corporação local **MacNamara Tech**. Nos túneis subterrâneos de carga sob Chicago, constrói **A Pirâmide** (uma versão gigantesca da Caixa movida a energia nuclear que já mapeou 74 mundos para exploração). No **T2:E9 ("How to Build the Box")**, seu complexo de deus começa a ruir quando ele confronta as consequências horríveis da exploração descontrolada — realidades colapsadas, pragas e sofrimento disseminados pela ambição transdimensional.',
     branchOriginExplanation:
       'Nativo do Mundo 2 (Velocity Labs).',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Leighton Vance', detail: 'Retrato oficial de Dayo Okeniyi como Leighton Vance.' },
-      { type: 'EPISODE_CANON', label: 'T2:E6 & T2:E7 "The Pyramid"', detail: 'Revelação da Pirâmide nos túneis do Mundo Low-Tech.' }
+      { type: 'EPISODE_CANON', label: 'T2:E6, T2:E7 & T2:E9 "How to Build the Box"', detail: 'Construção da Pirâmide e crise moral diante do colapso multiversal.' }
     ]
   },
   {
@@ -1321,7 +1353,7 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'B2',
     designation: 'Blair 2 (Sobrevivente do Mundo das Vespas)',
     alias: 'Blair Caplan (Reality 2)',
-    shortRole: 'Escapou do Mundo das Vespas, passou pelo Santuário de Laurel e descobre A Pirâmide no Mundo Low-Tech.',
+    shortRole: 'Escapou do Mundo das Vespas, descobriu a Pirâmide e no T2:E9 formula o plano do Kill Switch mestre para selar a rede.',
     actor: 'Amanda Brugel',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/a/a9/Blair_Caplan_Alternate.png/revision/latest?cb=20240531165547',
     accentColor: 'amber',
@@ -1337,13 +1369,14 @@ export const VARIANTS: CharacterVariant[] = [
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 1,
     visualTraits: 'Postura de sobrevivente hipervigilante.',
-    psychologicalProfile: 'Conhece na pele o horror do multiverso e alerta Leighton de que A Pirâmide causará uma catástrofe.',
+    psychologicalProfile: 'Conhece na pele o horror do multiverso e traça uma estratégia científica implacável para desligar a rede de Caixas.',
     storyArc:
-      'Após ficar presa no Mundo das Vespas na 1ª temporada, consegue escapar passando pela casa de Laurel. No **Mundo Low-Tech ("World X")**, é levada por Leighton aos túneis subterrâneos de Chicago (T2:E6 & E7), onde fica horrorizada ao ver **A Pirâmide**.',
+      'Após ficar presa no Mundo das Vespas na 1ª temporada, consegue escapar passando pela casa de Laurel. No **Mundo Low-Tech ("World X")**, é levada por Leighton aos túneis subterrâneos de Chicago (T2:E6 & E7), onde fica horrorizada ao ver **A Pirâmide**. No **T2:E9 ("How to Build the Box")**, Blair descobre que todas as Caixas do multiverso continuam entrelaçadas à Caixa original da Velocity Labs (Reality 02). Ela arquiteta então o plano de invadir a Caixa matriz e inserir um código de desligamento ("Kill Switch") para selar as portas interdimensionais em definitivo antes da catástrofe final.',
     branchOriginExplanation:
       'Nativa do Mundo 2 (Velocity Labs).',
     sources: [
-      { type: 'FANDOM_WIKI', label: 'Wiki: Blair Caplan (Reality 2)', detail: 'Retrato oficial de Blair 2.' }
+      { type: 'FANDOM_WIKI', label: 'Wiki: Blair Caplan (Reality 2)', detail: 'Retrato oficial de Blair 2.' },
+      { type: 'EPISODE_CANON', label: 'T2:E6, T2:E7 & T2:E9 "How to Build the Box"', detail: 'Descoberta do entrelaçamento mestre e plano do Kill Switch.' }
     ]
   },
   {
@@ -1404,24 +1437,29 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'D1',
     designation: 'Daniela 1 (Esposa de Jason 1)',
     alias: 'Daniela Dessen / Vargas',
-    shortRole: 'Matou o Jason invasor no Mundo 29, fugiu para o Mundo Low-Tech e no T2:E7 entrou na Caixa atrás de Charlie!',
+    shortRole: 'Matou o Jason invasor no Mundo 29, viajou para a Reality 01 atrás de Charlie, libertou Jason 13 e eliminou MacNamara no T2:E9!',
     actor: 'Jennifer Connelly',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/f/fb/Daniela_Dessen.png/revision/latest?cb=20240531101339',
     accentColor: 'rose',
     originWorldId: 'world-prime-1',
-    currentWorldId: 'world-lowtech-analog',
-    worldsVisited: ['world-prime-1', 'world-sanctuary-refuge', 'world-lowtech-analog'],
+    currentWorldId: 'world-prime-1',
+    worldsVisited: [
+      'world-prime-1',
+      'world-sanctuary-refuge',
+      'world-lowtech-analog',
+      'world-meteor-apocalypse'
+    ],
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 1,
     visualTraits: 'Artista plástica; na 2ª temporada, mantém armas escondidas em casa por precaução.',
     psychologicalProfile: 'Exausta pela paranoia do multiverso, mas capaz de tudo para proteger e resgatar o filho Charlie.',
     storyArc:
-      'Após 7 meses no Mundo 29 (T2:E1), o **Jason Invasor do Mundo 29** invade a casa e **Daniela o mata com um tiro**. Foge com Jason 1 e Charlie para o **Mundo Low-Tech ("World X")** no T2:E2. No T2:E6 ("What the Universe Is Made Of") e T2:E7 ("The Pyramid"), após passar um tempo na cabana da família e conversar com seu padrasto **Gabriel**, ela volta para casa, descobre que **Charlie entrou sozinho na Caixa** atrás de Max, deixa um bilhete para Jason 1 e **entra sozinha na Caixa** para resgatar o filho!',
+      'Após 7 meses no Mundo 29 (T2:E1), o **Jason Invasor do Mundo 29** invade a casa e **Daniela o mata com um tiro**. Foge com Jason 1 e Charlie para o **Mundo Low-Tech ("World X")** no T2:E2. No T2:E7 ("The Pyramid"), descobre que Charlie entrou na Caixa e parte sozinha atrás dele. No **T2:E9 ("How to Build the Box")**, emerge na Reality 01 e é presa na cela da DARPA com **Jason 13**. Juntos, Daniela e Jason 13 ludibriam o Agente Mitchel MacNamara, atraem-no para dentro da Caixa, injetam-lhe a droga psicotrópica Lilac Wings e o banem para um mundo apocalíptico sob impacto iminente de meteoro (Mundo 33), trancando a porta e escapando pelo Corredor.',
     branchOriginExplanation:
       'Nativa do Mundo 1.',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Daniela Dessen', detail: 'Retrato oficial de Jennifer Connelly como Daniela.' },
-      { type: 'EPISODE_CANON', label: 'T2:E1, E2, E6 & E7', detail: 'Mata o Jason invasor, foge para o Mundo Low-Tech e entra na Caixa atrás de Charlie.' }
+      { type: 'EPISODE_CANON', label: 'T2:E1, E2, E6, E7 & T2:E9 "How to Build the Box"', detail: 'Mata o invasor, entra na Caixa atrás de Charlie, liberta Jason 13 e elimina MacNamara.' }
     ]
   },
   {
@@ -1430,28 +1468,30 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'C1',
     designation: 'Charlie 1 (Em Busca do Irmão Gêmeo Max)',
     alias: 'Filho de Jason 1 e Daniela 1',
-    shortRole: 'Fugiu do Mundo 29 para o Mundo Low-Tech com os pais e depois entrou na Caixa atrás do irmão Max.',
+    shortRole: 'Viajou pelo Corredor a partir do Santuário de Laurel e finalmente reencontrou o irmão gêmeo Max no Mundo 27 no T2:E9!',
     actor: 'Oakes Fegley',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/0/0b/Charlie_Dessen.png/revision/latest?cb=20240418155111',
     accentColor: 'amber',
     originWorldId: 'world-prime-1',
-    currentWorldId: 'world-laurel-sanctuary',
+    currentWorldId: 'world-max-alive',
     worldsVisited: [
       'world-prime-1',
       'world-sanctuary-refuge',
       'world-lowtech-analog',
-      'world-laurel-sanctuary'
+      'world-laurel-sanctuary',
+      'world-max-alive'
     ],
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 1,
     visualTraits: 'Adolescente, alérgico a nozes.',
-    psychologicalProfile: 'Frustrado por ter que abandonar sua escola novamente após a fuga do Mundo 29; obcecado em encontrar o irmão gêmeo Max.',
+    psychologicalProfile: 'Frustrado por ter que abandonar sua escola novamente após a fuga do Mundo 29; determinado em reencontrar seu irmão gêmeo Max.',
     storyArc:
-      'Após Daniela matar o Jason invasor no Mundo 29 (T2:E1), Charlie é levado para o **Mundo Low-Tech ("World X")** (T2:E2). No T2:E7 ("The Pyramid"), após Jason 1 lhe contar sobre o irmão gêmeo Max, Charlie entra secretamente na Caixa na piscina da escola abandonada e chega ao **Santuário de Laurel** (T2:E8), onde conversa com **Jason 34** e **Amanda 7**.',
+      'Após Daniela matar o Jason invasor no Mundo 29 (T2:E1), Charlie é levado para o **Mundo Low-Tech ("World X")** (T2:E2). No T2:E7 ("The Pyramid"), após Jason 1 lhe contar sobre o irmão gêmeo Max, Charlie entra secretamente na Caixa e chega ao **Santuário de Laurel** (T2:E8). No **T2:E9 ("How to Build the Box")**, encorajado por Jason 34 e Amanda 7, Charlie viaja pela Caixa até o **Mundo Onde Max Vive (Mundo 27)**, onde encontra uma realidade pacífica e vive o emocionante reencontro com seu irmão gêmeo Maximillian!',
     branchOriginExplanation:
       'Nativo do Mundo 1.',
     sources: [
-      { type: 'FANDOM_WIKI', label: 'Wiki: Charlie Dessen', detail: 'Retrato oficial de Oakes Fegley como Charlie.' }
+      { type: 'FANDOM_WIKI', label: 'Wiki: Charlie Dessen', detail: 'Retrato oficial de Oakes Fegley como Charlie.' },
+      { type: 'EPISODE_CANON', label: 'T2:E7, T2:E8 & T2:E9 "How to Build the Box"', detail: 'Chegada ao Santuário de Laurel e reencontro com Max no Mundo 27.' }
     ]
   },
   {
@@ -1483,25 +1523,26 @@ export const VARIANTS: CharacterVariant[] = [
     id: 'mitchel-1',
     baseCharacter: 'Laurel & Agentes',
     badgeNumber: 'MACNAMARA R1',
-    designation: 'Agente Mitchel MacNamara (Reality 1 — Black-Site / DARPA)',
-    alias: 'Agente Federal do Mundo Original (T2:E1)',
-    shortRole: 'Assume a investigação dos Jasons mortos em Chicago na Reality 1 e interroga Jason 13 em um black-site.',
+    designation: 'Agente Mitchel MacNamara (Reality 1 — Morto no T2:E9)',
+    alias: 'Agente Federal do Mundo Original (Eliminado em T2:E9)',
+    shortRole: 'Obcecado pela física da Caixa, interroga Jason 13 na DARPA; é enganado por Daniela 1 e Jason 13 no T2:E9 e morre no Mundo Meteoro.',
     actor: 'Chris Diamantopoulos',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/e/ef/Dark_Matter_S2E01.jpg/revision/latest?cb=20260918144540',
     accentColor: 'cyan',
     originWorldId: 'world-prime-1',
-    currentWorldId: 'world-prime-1',
-    worldsVisited: ['world-prime-1'],
-    status: 'Ativo / Em Jornada',
+    currentWorldId: 'world-meteor-apocalypse',
+    worldsVisited: ['world-prime-1', 'world-meteor-apocalypse'],
+    status: 'Morto',
     seasonIntroduced: 2,
     visualTraits: 'Terno escuro de agente federal, postura fria e calculista em salas de interrogatório.',
-    psychologicalProfile: 'Cético e implacável; acredita inicialmente que as dezenas de Jasons mortos em Chicago são fruto de clonagem humana ilegal.',
+    psychologicalProfile: 'Cético e implacável; sua obsessão arrogante em decifrar a Caixa o levou a cair na armadilha fatal de Daniela e Jason 13.',
     storyArc:
-      'Apresentado logo no **T2:E1 ("A Quiet Life")** no **Mundo Original (Reality 1)**. Quando dezenas de corpos idênticos de Jason Dessen aparecem em Chicago após o final da 1ª temporada, o Agente Federal **Mitchel MacNamara (Reality 1)** assume o caso da Detetive **Jamie Mason** (Kate Eastman). Ele mantém **Jason 13 ("Scar Jason")** acorrentado em uma instalação secreta (black-site governamental/DARPA), ameaçando dissecá-lo em uma autópsia viva caso ele não revele quem é o "mentor da operação de clonagem".',
+      'Apresentado no **T2:E1 ("A Quiet Life")** no **Mundo Original (Reality 1)**. Quando dezenas de corpos de Jason aparecem em Chicago, assume o caso suspeitando de clonagem humana e encarcera **Jason 13 ("Scar Jason")** em um black-site da DARPA. Obcecado durante anos em desvendar a física da Caixa e sua fonte de energia por entrelaçamento quântico, MacNamara acredita estar prestes a dominar a tecnologia. No **T2:E9 ("How to Build the Box")**, quando **Daniela 1** é capturada ao entrar na cela, os dois prisioneiros se unem e armam uma cilada para o agente: fingem concordar em revelar o segredo operacional em troca da liberdade e o fazem entrar na Caixa. Lá dentro, Jason 13 e Daniela o subjugam, injetam-lhe Lilac Wings e o jogam para fora no **Mundo 33**, instantes antes da colisão de um meteoro devastador. A porta é batida e lacrada, aniquilando MacNamara e libertando a dupla.',
     branchOriginExplanation:
       'Nativo da Reality 1 (Mundo Original de Jason 1) — contraparte distinta do Mitchel MacNamara executivo do Mundo Low-Tech.',
     sources: [
-      { type: 'EPISODE_CANON', label: 'T2:E1 "A Quiet Life" & T2:E3', detail: 'Investigação dos corpos no necrotério de Chicago e interrogatório de Jason 13 na Reality 1.' }
+      { type: 'EPISODE_CANON', label: 'T2:E1 "A Quiet Life" & T2:E3', detail: 'Investigação dos corpos no necrotério de Chicago e interrogatório de Jason 13 na Reality 1.' },
+      { type: 'EPISODE_CANON', label: 'T2:E9 "How to Build the Box"', detail: 'Drogado na Caixa e morto no mundo apocalíptico do meteoro.' }
     ]
   },
   {
@@ -1694,6 +1735,28 @@ export const JOURNEYS: BoxJourney[] = [
     travelers: ['jason-34', 'amanda-7'],
     subconsciousTrigger: 'Pedido desesperado de socorro após Amanda 7 ser empalada pelo galho no Mundo 28.',
     outcome: 'Chegam à biblioteca da enfermeira Laurel, que salva Amanda 7 (enquanto na ramificação de Jason 13 sua Amanda morreu).'
+  },
+  {
+    id: 'journey-15',
+    order: 15,
+    season: 2,
+    episode: 'T2:E9 "How to Build the Box"',
+    fromWorldId: 'world-laurel-sanctuary',
+    toWorldId: 'world-max-alive',
+    travelers: ['charlie-1'],
+    subconsciousTrigger: 'Desejo puro e urgente de Charlie de reencontrar e abraçar o irmão gêmeo Max.',
+    outcome: 'Charlie 1 deixa o Santuário de Laurel e viaja até o Mundo 27, vivenciando o emocionante reencontro com seu irmão gêmeo Maximillian vivo.'
+  },
+  {
+    id: 'journey-16',
+    order: 16,
+    season: 2,
+    episode: 'T2:E9 "How to Build the Box"',
+    fromWorldId: 'world-prime-1',
+    toWorldId: 'world-meteor-apocalypse',
+    travelers: ['mitchel-1', 'jason-13', 'daniela-1'],
+    subconsciousTrigger: 'Armadilha orquestrada por Daniela 1 e Jason 13 dentro da Caixa sob falsa capitulação, manifestando uma realidade terminal sob choque cósmico de meteoro.',
+    outcome: 'O Agente Mitchel MacNamara é injetado com Lilac Wings e jogado em Chicago segundos antes da colisão do meteoro; Jason 13 e Daniela trancam a Caixa por dentro, eliminando MacNamara e fugindo livres pelo Corredor.'
   }
 ];
 
@@ -1712,9 +1775,15 @@ export const PODCAST_RULES_AND_LORE = [
   },
   {
     title: 'Memorial de Baixas: Todas as Variantes Mortas (T1 & T2)',
-    speaker: 'Compilação Canônica T1:E4–E9 & T2:E1–E8',
+    speaker: 'Compilação Canônica T1:E4–E9 & T2:E1–E9',
     explanation:
-      'Ao longo das duas temporadas, diversas variantes perderam a vida: (1) Blair Viajante (devorada pelas vespas gigantes na câmera do Mundo 19 em T1:E5); (2) Jason 3, Jason 6 (morto no beco da loja de armas em T1:E8), Jason 8 (invasor da cabana em T1:E9) e as dezenas de Jasons mortos na Convergência cujos corpos lotam o necrotério de Chicago em T2:E1; (3) O Jason Invasor do Mundo 29 (morto com um tiro por Daniela 1 em T2:E1); (4) A Amanda de Jason 13 (morta empalada pelo galho no Mundo 28); (5) Ryan 3 e sua Amanda (mortos pela Praga da Íris Negra no Mundo 26 em T2:E4); e (6) O Jason Nativo do Mundo 31 (que morreu aos 16 anos, permitindo que sua mãe Ellie acolhesse Jason 24, 30 e 31 em T2:E5).'
+      'Ao longo das duas temporadas, diversas variantes perderam a vida: (1) Blair Viajante (devorada pelas vespas gigantes na câmera do Mundo 19 em T1:E5); (2) Jason 3, Jason 6 (morto no beco da loja de armas em T1:E8), Jason 8 (invasor da cabana em T1:E9) e as dezenas de Jasons mortos na Convergência cujos corpos lotam o necrotério de Chicago em T2:E1; (3) O Jason Invasor do Mundo 29 (morto com um tiro por Daniela 1 em T2:E1); (4) A Amanda de Jason 13 (morta empalada pelo galho no Mundo 28); (5) Ryan 3 e sua Amanda (mortos pela Praga da Íris Negra no Mundo 26 em T2:E4); (6) O Jason Nativo do Mundo 31 (que morreu aos 16 anos, permitindo que sua mãe Ellie acolhesse Jason 24, 30 e 31 em T2:E5); e (7) O Agente Federal Mitchel MacNamara da Reality 1 (drogado com Lilac Wings e jogado por Jason 13 e Daniela 1 na Chicago apocalíptica sob impacto terminal de meteoro no T2:E9 "How to Build the Box").'
+  },
+  {
+    title: 'O Kill Switch da Caixa Matriz & O Entrelaçamento Cósmico ("How to Build the Box")',
+    speaker: 'Blake Crouch & Equipe de Roteiro — Episódio 9 da 2ª Temporada',
+    explanation:
+      'No T2:E9, Blair Caplan formula uma descoberta revolucionária: todas as Caixas geradas nas infinitas realidades continuam entrelaçadas quanticamente à Caixa Matriz original da Velocity Labs (Reality 02). Isso abre a possibilidade de injetar um código de desligamento total ("Kill Switch") diretamente no terminal da Caixa original para desativar a superposição e selar todas as portas do Corredor para sempre, evitando a aniquilação multiversal no season finale.'
   },
   {
     title: 'A Sala de Chat dos Jasons (Onde Jason 1 vira "Jason9")',

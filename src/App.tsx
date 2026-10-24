@@ -56,8 +56,8 @@ const INITIAL_EPISODE_GUIDE: EpisodeGuideItem[] = [
   { season: 2, ep: 'T2:E5', title: 'Love and Be Loved', date: '25/09/2026', focus: 'Jason 24, 30 e 31 acolhidos pela mãe Ellie e Maria no Mundo 31', released: true },
   { season: 2, ep: 'T2:E6', title: 'What the Universe Is Made Of', date: '02/10/2026', focus: 'Daniela na cabana com Gabriel; Blair 2 e Leighton 2 diante da Pirâmide', released: true },
   { season: 2, ep: 'T2:E7', title: 'The Pyramid', date: '09/10/2026', focus: 'A Pirâmide (74 mundos); Charlie 1 e Daniela 1 entram na Caixa; J2 bate à porta de J1', released: true },
-  { season: 2, ep: 'T2:E8', title: 'The Basic Oneness of Everything', date: '16/10/2026 (ÚLTIMO LANÇADO)', focus: 'Santuário de Laurel (W32): como Jason 34 salvou Amanda 7 do galho; chegada de Charlie 1', released: true },
-  { season: 2, ep: 'T2:E9', title: 'How to Build the Box (EM BREVE)', date: 'Estreia: 23/10/2026', focus: 'Próximo episódio oficial da 2ª temporada (Apple TV+)', released: false },
+  { season: 2, ep: 'T2:E8', title: 'The Basic Oneness of Everything', date: '16/10/2026', focus: 'Santuário de Laurel (W32): como Jason 34 salvou Amanda 7 do galho; chegada de Charlie 1', released: true },
+  { season: 2, ep: 'T2:E9', title: 'How to Build the Box', date: '23/10/2026 (ÚLTIMO LANÇADO)', focus: 'Origem da Caixa; Daniela e Jason 13 eliminam MacNamara no Mundo Meteoro (W33); Charlie reencontra Max (W27); Blair planeja o Kill Switch', released: true },
   { season: 2, ep: 'T2:E10', title: 'No Quiet Life (SEASON FINALE — EM BREVE)', date: 'Estreia: 30/10/2026', focus: 'Episódio final da 2ª temporada (Apple TV+)', released: false },
 ];
 
@@ -198,7 +198,7 @@ export function App() {
     'jason-morgue-r1': { firstEp: 'T1:E9', deathEp: 'T1:E9' },
     // T2:E1 — A Quiet Life (Season 2 Premiere)
     'jason-13': { firstEp: 'T2:E1' },
-    'mitchel-1': { firstEp: 'T2:E1' },
+    'mitchel-1': { firstEp: 'T2:E1', deathEp: 'T2:E9' },
     'jason-stalker-29': { firstEp: 'T2:E1', deathEp: 'T2:E1' },
     'amanda-j13': { firstEp: 'T2:E1', deathEp: 'T2:E1' },
     // T2:E2 — A Perfect World (Low-Tech World 30)
@@ -277,11 +277,16 @@ export function App() {
         const prog = VARIANT_PROGRESSION[v.id];
         const deathRank = prog?.deathEp ? getEpisodeRank(prog.deathEp) : null;
 
-        // Prevent spoiling future deaths (e.g., ryan-3 is alive in T1:E4..T2:E3 and only dies in T2:E4)
-        const dynamicStatus =
+        // Prevent spoiling future deaths (e.g., ryan-3 is alive in T1:E4..T2:E3 and only dies in T2:E4; mitchel-1 dies in T2:E9)
+        let dynamicStatus =
           v.status === 'Morto' && deathRank !== null && deathRank > maxUnlockedRank
             ? ('Ativo / Em Jornada' as const)
             : v.status;
+
+        // Jason 13 was captive in DARPA cell until T2:E9, when he escaped with Daniela 1
+        if (v.id === 'jason-13' && maxUnlockedRank < getEpisodeRank('T2:E9')) {
+          dynamicStatus = 'Preso (DARPA)';
+        }
 
         // Filter visited worlds to only worlds unlocked up to the selected episode
         const visitedUpToNow = v.worldsVisited.filter((wId) => unlockedWorldIds.has(wId));
@@ -1443,7 +1448,7 @@ export function App() {
 
             <div className="flex flex-wrap gap-2">
               {[
-                { id: 'ALL', label: 'MOSTRAR TUDO (TEMPORADAS 1 & 2 ATÉ T2:E8)' },
+                { id: 'ALL', label: 'MOSTRAR TUDO (TEMPORADAS 1 & 2 ATÉ T2:E9)' },
                 { id: '1', label: 'APENAS TEMPORADA 1 (SEM SPOILERS DA T2)' },
                 { id: '2', label: 'FOCO NA TEMPORADA 2' },
               ].map((s) => (
