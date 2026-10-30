@@ -128,7 +128,7 @@ export const WORLDS: World[] = [
     shortHook: 'Onde Jason 2 trocou a família pela ciência, ganhou o Prêmio Pavia e construiu a Caixa.',
     officialOrFanName: 'Reality 2 / Jason 2 World (R2)',
     season: '1 & 2',
-    episodes: ['T1:E1', 'T1:E2', 'T1:E3', 'T1:E7', 'T2:E9'],
+    episodes: ['T1:E1', 'T1:E2', 'T1:E3', 'T1:E7', 'T2:E9', 'T2:E10'],
     category: 'Industrial',
     habitability: 'Habitável',
     imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/6/6d/Image_2024-08-07_192406104.png/revision/latest?cb=20240808022410',
@@ -136,13 +136,14 @@ export const WORLDS: World[] = [
     atmosphere: 'Chicago hiper-tecnológica dominada pelo complexo corporativo da Velocity Labs.',
     boxLocation: 'Hangar de contenção de alta segurança na sede da Velocity Labs.',
     description:
-      'O universo onde Jason 2 decidiu priorizar a pesquisa quântica em vez de casar com Daniela há 15 anos. Com o financiamento bilionário de Leighton 2, ele construiu a Caixa e a droga Lavanda. É o mundo natal de Amanda 2, Leighton 2 e Blair 2. No **T2:E9 ("How to Build the Box")**, os flashbacks revelam a obsessão cega e os custos humanos de sua construção original, enquanto Blair 2 conclui que a Caixa da Velocity Labs é o nodo-mestre onde deve ser injetado o "Kill Switch" para selar todo o multiverso.',
-    visitors: ['jason-1', 'jason-3', 'jason-4', 'jason-6', 'jason-7', 'jason-8', 'jason-13', 'jason-24', 'jason-30', 'jason-34', 'jason-stalker-29', 'jason-morgue-r1', 'ryan-2'],
+      'O universo onde Jason 2 decidiu priorizar a pesquisa quântica em vez de casar com Daniela há 15 anos. Com o financiamento bilionário de Leighton 2, ele construiu a Caixa e a droga Lavanda. É o mundo natal de Amanda 2, Leighton 2 e Blair 2. No **T2:E9 ("How to Build the Box")**, os flashbacks revelam a obsessão cega de sua construção original, enquanto Blair 2 conclui que a Caixa da Velocity Labs é o nodo-mestre onde deve ser injetado o "Kill Switch" para selar todo o multiverso. No **T2:E10 ("No Quiet Life")**, Jason 1 e Blair retornam a este hangar após vencerem Sandra em gravidade zero; Jason 1 conecta o Kill Switch na Caixa Matriz com um detonador de 10 minutos, aniquilando a superposição quântica e selando todas as portas do Corredor para sempre.',
+    visitors: ['jason-1', 'jason-3', 'jason-4', 'jason-6', 'jason-7', 'jason-8', 'jason-13', 'jason-24', 'jason-30', 'jason-34', 'jason-stalker-29', 'jason-morgue-r1', 'ryan-2', 'blair-2'],
     residents: ['jason-2', 'amanda-2', 'amanda-7', 'amanda-j13', 'leighton-2', 'blair-2', 'blair-19-dead'],
     podcastInsight:
       'A fotografia deste mundo usa tons frios de aço e ciano para contrastar com o calor familiar do Mundo 1.',
     sources: [
       { type: 'EPISODE_CANON', label: 'T1:E2 "Trip of a Lifetime"', detail: 'Jason 1 acorda na Velocity Labs.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Instalação do Kill Switch na Caixa Matriz e destruição definitiva da superposição.' },
       { type: 'FANDOM_WIKI', label: 'Wiki: Velocity Labs', detail: 'Imagem oficial do complexo Velocity Labs.' }
     ]
   },
@@ -412,21 +413,22 @@ export const WORLDS: World[] = [
     shortHook: 'Paraíso onde Amanda 2 e Ryan 1 ficam na T1, mas que sofre quarentena da Praga Íris Negra na T2.',
     officialOrFanName: 'Radical Empathy / World 26 / Utopia World / Forsaken',
     season: '1 & 2',
-    episodes: ['T1:E6', 'T1:E7', 'T1:E9', 'T2:E1', 'T2:E4', 'T2:E7'],
+    episodes: ['T1:E6', 'T1:E7', 'T1:E9', 'T2:E1', 'T2:E4', 'T2:E7', 'T2:E10'],
     category: 'Utopian',
     habitability: 'Quarentena / Crítico',
     imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/7/78/Kinder_more_progressive_place.png/revision/latest?cb=20240822030731',
     themeColor: '#10b981',
-    atmosphere: 'Chicago utópica com auroras boreais verdes; na 2ª temporada, sob quarentena militar do CDC.',
+    atmosphere: 'Chicago utópica com auroras boreais verdes; na 2ª temporada, sob quarentena militar do CDC até a chegada do antídoto de Oluko no T2:E10.',
     boxLocation: 'Galpão tranquilo próximo ao lago.',
     description:
-      'Catalogado oficialmente na Wiki como **"World 26 / Radical Empathy / Kinder More Progressive Place"**. É onde Jason 2 abandona Ryan 1 (T1:E6) e onde Amanda 2 decide morar (T1:E7). Na 2ª temporada, outra dupla de variantes (**Ryan 3** e sua Amanda falecida) contamina este mundo com a **Praga da Íris Negra (Hema Aetho 26)**, fazendo com que Amanda 2 e Ryan 1 sejam detidos pelo CDC em **T2:E4 ("Stars, Hide Your Fires")** até serem resgatados por Leighton 6 em **T2:E7 ("The Pyramid")**.',
+      'Catalogado oficialmente na Wiki como **"World 26 / Radical Empathy / Kinder More Progressive Place"**. É onde Jason 2 abandona Ryan 1 (T1:E6) e onde Amanda 2 decide morar (T1:E7). Na 2ª temporada, outra dupla de variantes (**Ryan 3** e sua Amanda falecida) contamina este mundo com a **Praga da Íris Negra (Hema Aetho 26)**, fazendo com que Amanda 2 e Ryan 1 sejam detidos pelo CDC em **T2:E4 ("Stars, Hide Your Fires")** até serem resgatados por Leighton 6 em **T2:E7 ("The Pyramid")**. No **T2:E10 ("No Quiet Life")**, Amanda 2 e Ryan 1 retornam com urgência trazendo o antídoto sintetizado por Oluko, curando os infectados e salvando a população antes de retornarem pela Caixa no limite do prazo de uma hora.',
     visitors: ['jason-2', 'ryan-1', 'amanda-2', 'jason-1', 'ryan-3', 'leighton-1', 'leighton-6'],
     residents: ['amanda-2', 'ryan-1'],
     podcastInsight:
       'Designado oficialmente nos roteiros e na Wiki como World 26 ("Radical Empathy").',
     sources: [
-      { type: 'FANDOM_WIKI', label: 'Wiki: Radical Empathy (World 26)', detail: 'Frame oficial da Chicago utópica com aurora boreal.' }
+      { type: 'FANDOM_WIKI', label: 'Wiki: Radical Empathy (World 26)', detail: 'Frame oficial da Chicago utópica com aurora boreal.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Entrega do antídoto de Oluko por Amanda 2 e Ryan 1 salvando a cidade da Praga da Íris Negra.' }
     ]
   },
   {
@@ -437,7 +439,7 @@ export const WORLDS: World[] = [
     shortHook: 'Onde o irmão gêmeo Maximillian sobreviveu e o Jason 5 dorme em paz com Daniela.',
     officialOrFanName: 'Massive Disappointment / Max Alive World',
     season: '1 & 2',
-    episodes: ['T1:E7', 'T2:E7', 'T2:E8', 'T2:E9'],
+    episodes: ['T1:E7', 'T2:E7', 'T2:E8', 'T2:E9', 'T2:E10'],
     category: 'Root',
     habitability: 'Habitável',
     imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/8/8c/Max_Dessen_in_season_1_episode_7.jpg/revision/latest?cb=20260921232212',
@@ -445,11 +447,12 @@ export const WORLDS: World[] = [
     atmosphere: 'Chicago quase idêntica ao Mundo 1, onde a família Dessen vive em perfeita estabilidade familiar.',
     boxLocation: 'Hangar de Chicago.',
     description:
-      'Catalogado na Wiki como "Massive Disappointment" (T1:E7). Jason 1 chega achando que voltou para casa, mas encontra outro Jason (**Jason 5**) dormindo com Daniela e se choca ao encontrar **Maximillian (Max)** — o irmão gêmeo de Charlie que havia morrido no nascimento no Mundo 1 — vivo e saudável! No **T2:E9 ("How to Build the Box")**, **Charlie 1** finalmente chega a este mundo através da Caixa após partir do Santuário de Laurel, vivenciando o tão sonhado e emocionante reencontro com seu irmão gêmeo Max.',
-    visitors: ['jason-1', 'amanda-2', 'charlie-1'],
+      'Catalogado na Wiki como "Massive Disappointment" (T1:E7). Jason 1 chega achando que voltou para casa, mas encontra outro Jason (**Jason 5**) dormindo com Daniela e se choca ao encontrar **Maximillian (Max)** — o irmão gêmeo de Charlie que havia morrido no nascimento no Mundo 1 — vivo e saudável! No **T2:E9 ("How to Build the Box")**, **Charlie 1** chega a este mundo através da Caixa, reencontrando o irmão Max. No **T2:E10 ("No Quiet Life")**, **Daniela 1** é guiada até aqui por **Jason 13** ancorando suas memórias afetivas, proporcionando o reencontro comovente entre Daniela, Charlie e o jovem Max vivo. Jason 13 se despede com nobreza e recusa atravessar para não quebrar a paz familiar, enquanto Daniela e Charlie partem novamente pela Caixa em busca de um lar definitivo.',
+    visitors: ['jason-1', 'amanda-2', 'charlie-1', 'daniela-1', 'jason-13'],
     residents: ['jason-5'],
     sources: [
-      { type: 'FANDOM_WIKI', label: 'Wiki: Maximillian Dessen', detail: 'Foto oficial de Max Dessen no Episódio 7.' }
+      { type: 'FANDOM_WIKI', label: 'Wiki: Maximillian Dessen', detail: 'Foto oficial de Max Dessen no Episódio 7.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Reencontro de Daniela 1 com Charlie e Max, guiada com integridade por Jason 13.' }
     ]
   },
   {
@@ -509,7 +512,7 @@ export const WORLDS: World[] = [
     shortHook: 'Chicago sem internet onde a família Dessen se esconde E onde Leighton constrói "A Pirâmide" subterrânea.',
     officialOrFanName: 'World X / Low-Tech Chicago ("A Perfect World" & "The Pyramid")',
     season: 2,
-    episodes: ['T2:E2', 'T2:E3', 'T2:E4', 'T2:E6', 'T2:E7', 'T2:E9'],
+    episodes: ['T2:E2', 'T2:E3', 'T2:E4', 'T2:E6', 'T2:E7', 'T2:E9', 'T2:E10'],
     category: 'Root',
     habitability: 'Habitável',
     imageUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/b/b7/Dark_Matter_S2E07.jpg/revision/latest?cb=20261002143559',
@@ -517,7 +520,7 @@ export const WORLDS: World[] = [
     atmosphere: 'Chicago analógica/retrô (sem internet ou celulares), mas com "A Pirâmide" oculta nos túneis subterrâneos.',
     boxLocation: 'Piscina vazia de uma escola abandonada (e "A Pirâmide" nos túneis de carga sob Chicago).',
     description:
-      'Conhecido como **"World X" / Mundo Low-Tech**, é o cenário central da 2ª temporada — onde acontecem TANTO o refúgio da família Dessen QUANTO a construção da **Pirâmide**! Neste universo, Nixon venceu JFK em 1960 e cancelou a Corrida Espacial da NASA, impedindo a invenção do microprocessador. **Jason 1, Daniela 1 e Charlie 1** fogem para cá no T2:E2 após Daniela matar o Jason invasor no Mundo 29. Porém, **Leighton Vance** já havia se instalado neste mesmo mundo com a **Velocity Tech** e construído nos túneis subterrâneos **A Pirâmide** (com ajuda de **Oluko/Leighton 6** e **Jason 2**). No T2:E7, **Charlie 1** e **Daniela 1** entram na Caixa, enquanto **Jason 2** bate à porta de **Jason 1**. No **T2:E9 ("How to Build the Box")**, Leighton testemunha o horror e colapso causados pelas portas da Pirâmide, enquanto **Blair 2** arquiteta o plano do Kill Switch mestre para neutralizar todas as Caixas.',
+      'Conhecido como **"World X" / Mundo Low-Tech**, é o cenário central da 2ª temporada — onde acontecem TANTO o refúgio da família Dessen QUANTO a construção da **Pirâmide**! Neste universo, Nixon venceu JFK em 1960 e cancelou a Corrida Espacial da NASA, impedindo a invenção do microprocessador. **Jason 1, Daniela 1 e Charlie 1** fogem para cá no T2:E2 após Daniela matar o Jason invasor no Mundo 29. Porém, **Leighton Vance** já havia se instalado neste mesmo mundo com a **Velocity Tech** e construído nos túneis subterrâneos **A Pirâmide** (com ajuda de **Oluko/Leighton 6** e **Jason 2**). No T2:E7, **Charlie 1** e **Daniela 1** entram na Caixa, enquanto **Jason 2** bate à porta de **Jason 1**. No **T2:E9 ("How to Build the Box")**, Leighton testemunha o horror e colapso causados pelas portas da Pirâmide, enquanto **Blair 2** arquiteta o plano do Kill Switch mestre para neutralizar todas as Caixas. No **T2:E10 ("No Quiet Life")**, Jason 2 e Leighton 2 decidem abandonar A Pirâmide para abrir um bar em Kokomo; contudo, Oluko descobre a intenção de desmonte, assassina Leighton 2 por estrangulamento e ativa a Pirâmide, fugindo pelo multiverso antes do apagão geral.',
     visitors: [
       'jason-1',
       'daniela-1',
@@ -528,13 +531,16 @@ export const WORLDS: World[] = [
       'blair-2',
       'amanda-2',
       'ryan-1',
-      'mitchel-2'
+      'mitchel-2',
+      'leighton-oluko',
+      'sandra-1'
     ],
-    residents: ['jason-1', 'leighton-2', 'jason-2', 'mitchel-2'],
+    residents: ['jason-1', 'leighton-2', 'jason-2', 'mitchel-2', 'leighton-oluko'],
     podcastInsight:
       'O Mundo Low-Tech e o Mundo da Pirâmide são a exata mesma realidade ("World X"): Leighton usou a falta de tecnologia digital deste mundo para dominar o mercado com a Velocity Tech e construir a Pirâmide nos túneis de Chicago.',
     sources: [
       { type: 'EPISODE_CANON', label: 'T2:E2, T2:E4, T2:E6 & T2:E7', detail: 'Refúgio dos Dessen, disputa Velocity Tech vs. MacNamara Tech e revelação da Pirâmide.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Assassinato de Leighton 2 por Oluko na Pirâmide e fuga de Oluko.' },
       { type: 'FANDOM_WIKI', label: 'Wiki: S2E02 & S2E07', detail: 'Imagens oficiais do Mundo Low-Tech e da Pirâmide.' }
     ]
   },
@@ -611,6 +617,75 @@ export const WORLDS: World[] = [
       { type: 'EPISODE_CANON', label: 'T2:E9 "How to Build the Box"', detail: 'Armadilha na Caixa, expulsão e morte do Agente MacNamara no mundo sob impacto de meteoro.' },
       { type: 'FANDOM_WIKI', label: 'Wiki: How to Build the Box (S2E09)', detail: 'Queda de MacNamara e fuga de Jason 13 e Daniela 1.' }
     ]
+  },
+  {
+    id: 'world-zero-gravity',
+    code: 'WORLD 34',
+    numberLabel: '34',
+    name: 'Mundo Gravidade Zero ("No Quiet Life")',
+    shortHook: 'Chicago onde as constantes gravitacionais foram anuladas; palco do combate físico em gravidade zero onde Sandra é morta.',
+    officialOrFanName: 'Zero-Gravity Reality / Sandra Battleground (S2E10 Finale)',
+    season: 2,
+    episodes: ['T2:E10'],
+    category: 'Hostile',
+    habitability: 'Letal / Extremo',
+    imageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
+    themeColor: '#06b6d4',
+    atmosphere: 'Ausência total de gravidade; escombros urbanos, vidros e móveis flutuando em suspensão eterna sob o céu de Chicago.',
+    boxLocation: 'A Caixa flutua suspensa no vácuo de um armazém industrial abandonado.',
+    description:
+      'No clímax de **T2:E10 ("No Quiet Life")**, Jason 1 e Blair Caplan 2 são perseguidos através do Corredor pela assassina Sandra (enviada por Oluko). Eles colidem nesta realidade bizarra onde as leis da física foram invertidas e a gravidade é nula. Em um confronto corpo a corpo acrobático e brutal flutuando sem peso, Sandra danifica o dispositivo do Kill Switch, mas é dominada e morta por Jason 1 e Blair. Com o tempo se esgotando, Blair repara os circuitos avariados da máquina antes que saltem para a Caixa Matriz na Reality 02.',
+    visitors: ['jason-1', 'blair-2', 'sandra-1'],
+    residents: [],
+    sources: [
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Confronto em gravidade zero, morte da operativa Sandra e reparo emergencial do Kill Switch.' }
+    ]
+  },
+  {
+    id: 'world-warzone-chicago',
+    code: 'WORLD 35',
+    numberLabel: '35',
+    name: 'Mundo Chicago em Guerra ("No Quiet Life")',
+    shortHook: 'Chicago arrasada por conflito militar bélico e bombardeios pesados; rota de fuga no Corredor sob perseguição armada.',
+    officialOrFanName: 'Warzone Chicago / Sandra Pursuit Reality',
+    season: 2,
+    episodes: ['T2:E10'],
+    category: 'Apocalyptic',
+    habitability: 'Letal / Extremo',
+    imageUrl: 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1200&q=80',
+    themeColor: '#f97316',
+    atmosphere: 'Sirenes de ataque aéreo, colunas de fumaça preta, bombardeios de artilharia e barricadas militares.',
+    boxLocation: 'Cercada por escombros de concreto e trincheiras militares improvisadas.',
+    description:
+      'Uma das realidades perigosas pelas quais Jason 1 e Blair Caplan 2 passam em fuga frenética no **T2:E10 ("No Quiet Life")**. Perseguidos a tiros por Sandra através do Corredor, a dupla emerge brevemente nesta Chicago em plena zona de guerra ativa, escapando por milagre de estilhaços e fogo cruzado militar antes de mergulharem na porta seguinte.',
+    visitors: ['jason-1', 'blair-2', 'sandra-1'],
+    residents: [],
+    sources: [
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Perseguição armada através de Chicago em guerra civil.' }
+    ]
+  },
+  {
+    id: 'world-stranded-cliffhanger',
+    code: 'WORLD 36',
+    numberLabel: '36',
+    name: 'Mundo do Exílio ("No Quiet Life — Cliffhanger T2")',
+    shortHook: 'Realidade desconhecida onde Daniela 1 e Charlie 1 emergem após o Kill Switch colapsar o Corredor; gancho para a 3ª temporada.',
+    officialOrFanName: 'The Stranded Reality / S2 Cliffhanger World',
+    season: 2,
+    episodes: ['T2:E10'],
+    category: 'Root',
+    habitability: 'Habitável',
+    imageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+    themeColor: '#a855f7',
+    atmosphere: 'Chicago com céu sereno e silencioso ao entardecer; atmosfera misteriosa e desprovida de sinais familiares.',
+    boxLocation: 'A Caixa tem suas portas seladas de fora a fora, tornando-se um bloco de metal inerte e impassível.',
+    description:
+      'O cenário do devastador desfecho da 2ª temporada (**T2:E10 "No Quiet Life"**). Daniela 1 e Charlie 1 viajavam juntos pelo Corredor tentando retornar para um lar definitivo após se despedirem de Max no Mundo 27. No instante crucial do trânsito quântico, Jason 1 detona o Kill Switch na Reality 02, desfazendo a superposição e destruindo a rede interdimensional. O Corredor se extingue abruptamente e a porta cospe Daniela e Charlie nesta Chicago desconhecida. As portas da Caixa se fecham de vez, transformando-a em ferro maciço. Daniela e Charlie olham estarrecidos para as ruas desertas, percebendo que estão encalhados para sempre em um universo alternativo — separados eternamente de Jason 1 no cruel cliffhanger que prepara o terreno para a 3ª temporada.',
+    visitors: ['daniela-1', 'charlie-1'],
+    residents: [],
+    sources: [
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Fechamento definitivo das portas da Caixa e exílio de Daniela e Charlie no season finale.' }
+    ]
   }
 ];
 
@@ -622,12 +697,12 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'J1',
     designation: 'Jason 1 (Protagonista / Chat "Jason9")',
     alias: 'O Professor Original',
-    shortRole: 'No Mundo Low-Tech (World X), tenta isolar a Caixa com Emaranhamento Quântico e joga MacNamara no Corredor.',
+    shortRole: 'No Season Finale (T2:E10), enfrenta Sandra no Mundo Gravidade Zero, acopla o Kill Switch na Caixa da Reality 02 e descobre o custo trágico de salvar o multiverso.',
     actor: 'Joel Edgerton',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/7/71/Jason_Dessen.png/revision/latest?cb=20240530135900',
     accentColor: 'amber',
     originWorldId: 'world-prime-1',
-    currentWorldId: 'world-lowtech-analog',
+    currentWorldId: 'world-velocity-2',
     worldsVisited: [
       'world-prime-1',
       'world-velocity-2',
@@ -644,19 +719,22 @@ export const VARIANTS: CharacterVariant[] = [
       'world-aurora-borealis',
       'world-max-alive',
       'world-sanctuary-refuge',
-      'world-lowtech-analog'
+      'world-lowtech-analog',
+      'world-warzone-chicago',
+      'world-zero-gravity'
     ],
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 1,
     visualTraits: 'Aliança de barbante no dedo (depois recupera a original), cicatriz no rosto, colar Polaris dado por Amanda 2.',
-    psychologicalProfile: 'Devotado à família, mas no Mundo Low-Tech fica obcecado em desligar a Caixa matematicamente via Emaranhamento Quântico.',
+    psychologicalProfile: 'Devotado à família; no desfecho da T2 arrisca a vida para selar a tecnologia da Caixa, culminando em uma amarga e trágica vitória.',
     storyArc:
-      'Após Daniela matar um Jason invasor no Mundo 29 (T2:E1), leva a família para o **Mundo Low-Tech ("World X")** no T2:E2. Lá, percebe que destruir a Caixa fisicamente na piscina da escola abandonada não funciona e tenta desconectá-la do multiverso usando Emaranhamento Quântico. Flagra **Mitchel MacNamara** invadindo sua casa, coloca a droga Lavanda na bebida dele e o tranca no Corredor da Caixa. No final do T2:E7 (sem saber que Charlie e Daniela entraram na Caixa), dá de cara com **Jason 2** batendo em sua porta!',
+      'Após Daniela matar um Jason invasor no Mundo 29 (T2:E1), leva a família para o **Mundo Low-Tech ("World X")** no T2:E2. Lá, percebe que destruir a Caixa fisicamente na piscina da escola abandonada não funciona e tenta desconectá-la do multiverso usando Emaranhamento Quântico. Flagra **Mitchel MacNamara** invadindo sua casa, dopa-o com Lavanda e o tranca no Corredor. No final do T2:E7, reencontra **Jason 2**. No season finale (**T2:E10 "No Quiet Life"**), une forças com Blair Caplan 2 para executar o Kill Switch definitivo. Sob perseguição armada de Sandra através de Chicago em Guerra, enfrenta a assassina em gravidade zero e instala o detonador de 10 minutos na Caixa Matriz da Velocity Labs (Reality 02). Ele aniquila a superposição quântica salvando as realidades, mas descobre com desespero que seu ato colapsou o Corredor enquanto Daniela e Charlie estavam em trânsito, selando a perda de sua família para sempre.',
     branchOriginExplanation:
       'A linha-tronco original da série. Cada decisão dele na Caixa gerou as dezenas de outras variantes numeradas.',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Jason Dessen', detail: 'Retrato oficial de Joel Edgerton como Jason 1.' },
-      { type: 'EPISODE_CANON', label: 'T2:E1–E7', detail: 'Fuga para o Mundo Low-Tech, confronto com MacNamara e reencontro com Jason 2.' }
+      { type: 'EPISODE_CANON', label: 'T2:E1–E9', detail: 'Fuga para o Mundo Low-Tech, confronto com MacNamara e aliança com Blair 2.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Combate em gravidade zero, ativação do Kill Switch na Caixa Matriz e separação definitiva da família.' }
     ]
   },
   {
@@ -665,7 +743,7 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'J2',
     designation: 'Jason 2 (Criador da Caixa & Da Pirâmide)',
     alias: 'Dr. Jason Dessen — Velocity Labs',
-    shortRole: 'Criou a Caixa no Mundo 2, ajudou Leighton a projetar A Pirâmide no Mundo Low-Tech e bate à porta de Jason 1 no T2:E7.',
+    shortRole: 'Criou a Caixa no Mundo 2, projetou A Pirâmide no Mundo Low-Tech, perde Leighton 2 e testemunha a ruína do multiverso no T2:E10.',
     actor: 'Joel Edgerton',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/f/fd/Jason_Dessen_2.png/revision/latest?cb=20240817131057',
     accentColor: 'cyan',
@@ -681,14 +759,15 @@ export const VARIANTS: CharacterVariant[] = [
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 1,
     visualTraits: 'Cabelo penteado para trás, ternos escuros alinhados; não sabia da alergia de Charlie a nozes.',
-    psychologicalProfile: 'Gênio da física quântica vencedor do Prêmio Pavia; busca redenção na 2ª temporada.',
+    psychologicalProfile: 'Gênio da física quântica vencedor do Prêmio Pavia; busca redenção, mas é confrontado com a morte brutal do parceiro Leighton 2.',
     storyArc:
-      'Constrói a Caixa no Mundo 2, sequestra Jason 1 e assume o lugar dele no Mundo 1. No final da 1ª temporada, arrependido, ajuda a família Dessen a fugir. Na 2ª temporada, no **Mundo Low-Tech ("World X")**, ajuda Leighton e Oluko a construir **A Pirâmide** e bate à porta de Jason 1. No **T2:E9 ("How to Build the Box")**, Jason 2 revisita a dura gênese da Caixa original na Velocity Labs, confessando o custo desumano e a obsessão cega que destruíram suas relações e trouxeram caos existencial a incontáveis mundos.',
+      'Constrói a Caixa no Mundo 2, sequestra Jason 1 e assume o lugar dele no Mundo 1. No final da 1ª temporada, arrependido, ajuda a família Dessen a fugir. Na 2ª temporada, no **Mundo Low-Tech ("World X")**, ajuda Leighton e Oluko a construir **A Pirâmide** e bate à porta de Jason 1. No **T2:E9 ("How to Build the Box")**, Jason 2 revisita a dura gênese da Caixa original, confessando os custos humanos devastadores. No episódio final (**T2:E10 "No Quiet Life"**), decide abandonar a ambição e propõe a Leighton 2 abrirem um bar em Kokomo. Quando Oluko descobre a intenção de desligar A Pirâmide, estrangula Leighton 2 até a morte. Desolado, Jason 2 crema o corpo de Leighton na beira do rio, tenta impedir a fuga de Oluko com a Pirâmide e termina em luto solitário perante o colapso da tecnologia.',
     branchOriginExplanation:
       'Divergiu de Jason 1 há 15 anos quando decidiu não se casar com Daniela.',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Jason Dessen 2', detail: 'Retrato oficial de Jason 2.' },
-      { type: 'EPISODE_CANON', label: 'T2:E7 & T2:E9 "How to Build the Box"', detail: 'Participação na Pirâmide e revelação da gênese da Caixa original.' }
+      { type: 'EPISODE_CANON', label: 'T2:E7 & T2:E9 "How to Build the Box"', detail: 'Participação na Pirâmide e revelação da gênese da Caixa original.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Proposta do bar em Kokomo, cremação de Leighton 2 assassinado por Oluko e confronto final.' }
     ]
   },
   {
@@ -857,7 +936,7 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'J13',
     designation: 'Jason 13 ("Scar Jason" — Liberto com Daniela)',
     alias: 'Jason da Cicatriz na Testa',
-    shortRole: 'Sua Amanda morreu no galho; preso pela DARPA na T2, une forças com Daniela 1 no T2:E9, elimina MacNamara e escapa pelo Corredor.',
+    shortRole: 'Sua Amanda morreu no galho; preso pela DARPA, foge com Daniela 1 no T2:E9, ajuda-a a reencontrar Charlie e Max no T2:E10 e vaga livre pelo Corredor.',
     actor: 'Joel Edgerton',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/9/99/Dark_Matter_S2E03.jpg/revision/latest?cb=20260918144957',
     accentColor: 'rose',
@@ -868,21 +947,23 @@ export const VARIANTS: CharacterVariant[] = [
       'world-velocity-2',
       'world-tree-branch-accident',
       'world-sanctuary-refuge',
-      'world-meteor-apocalypse'
+      'world-meteor-apocalypse',
+      'world-max-alive'
     ],
     parentVariantId: 'jason-1',
     branchEventLabel: 'Morte de Amanda no Acidente do Galho (oposto de Jason 34)',
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 2,
-    visualTraits: 'Cicatriz profunda na testa ("Scar Jason"), olhar obstinado de sobrevivência.',
-    psychologicalProfile: 'Consumido pela culpa e raiva após ver sua Amanda morrer, canalizou sua fúria ao lado de Daniela 1 para se libertar da DARPA.',
+    visualTraits: 'Cicatriz profunda na testa ("Scar Jason"), olhar obstinado de sobrevivência e compaixão no desfecho.',
+    psychologicalProfile: 'Consumido pela culpa e raiva após ver sua Amanda morrer, encontrou propósito em libertar Daniela e devolvê-la aos filhos Charlie e Max.',
     storyArc:
-      'Na 2ª temporada, é mantido em uma cela transparente na DARPA pelo Agente Mitchel MacNamara (Reality 01). No **T2:E9 ("How to Build the Box")**, quando **Daniela 1** é capturada ao regressar à Reality 01 procurando por Charlie, eles se unem: fingem aceitar as exigências de MacNamara e o atraem para dentro da Caixa. Lá dentro, imobilizam o agente, injetam-lhe Lilac Wings e o jogam em uma Chicago apocalíptica (Mundo 33) sob impacto terminal de meteoro. Com MacNamara eliminado e a porta trancada, Jason 13 e Daniela escapam juntos pelo Corredor Quântico.',
+      'Na 2ª temporada, é mantido em uma cela transparente na DARPA pelo Agente Mitchel MacNamara (Reality 01). No **T2:E9 ("How to Build the Box")**, quando **Daniela 1** é capturada ao regressar à Reality 01 procurando por Charlie, eles se unem: fingem aceitar as exigências de MacNamara, atraem-no para a Caixa, dopam-no e o banem para o Mundo Meteoro (Mundo 33). No finale (**T2:E10 "No Quiet Life"**), viaja com Daniela pelo Corredor. Compreendendo o abismo do luto pela perda da família, orienta Daniela a focar na memória de Charlie e Max brincando na infância. Ele localiza e abre a porta do Mundo 27, possibilitando o abraço de Daniela com Charlie e Max vivo. Em um momento de comovente nobreza, Jason 13 decide não cruzar o limiar para não romper a harmonia daquela família, despedindo-se com carinho e voltando a caminhar pelas infinitas portas do Corredor.',
     branchOriginExplanation:
       'Bifurcação direta do acidente da árvore (Mundo 28) onde Amanda não sobreviveu.',
     sources: [
       { type: 'OFFICIAL_PODCAST', label: 'Podcast Oficial T2', detail: 'Blake Crouch detalha o trauma de Jason 13 vs. Jason 34.' },
-      { type: 'EPISODE_CANON', label: 'T2:E9 "How to Build the Box"', detail: 'Fuga da cela DARPA com Daniela e eliminação do Agente MacNamara na Caixa.' }
+      { type: 'EPISODE_CANON', label: 'T2:E9 "How to Build the Box"', detail: 'Fuga da cela DARPA com Daniela e eliminação do Agente MacNamara na Caixa.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Abre a porta do Mundo 27 para Daniela reencontrar os filhos e despede-se no Corredor.' }
     ]
   },
   {
@@ -1058,7 +1139,7 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'A2',
     designation: 'Amanda 2 (Parceira de Jason 1 e Ryan 1)',
     alias: 'Psiquiatra da Velocity Labs',
-    shortRole: 'Fugiu com Jason 1 na T1, ficou no World 26 e na T2 viaja com Ryan 1 (passando pelo Mundo Low-Tech).',
+    shortRole: 'Fugiu com Jason 1 na T1, viaja com Ryan 1 na T2 e no T2:E10 entrega a cura da Praga no Mundo 26 em uma corrida de 1 hora.',
     actor: 'Alice Braga',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/a/a5/Amanda_Lucas.png/revision/latest?cb=20240418155110',
     accentColor: 'cyan',
@@ -1083,13 +1164,14 @@ export const VARIANTS: CharacterVariant[] = [
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 1,
     visualTraits: 'Deu seu colar da Estrela Polar (Polaris) para Jason 1.',
-    psychologicalProfile: 'Empática e corajosa; ensinou Jason 1 a acalmar a mente para controlar as portas.',
+    psychologicalProfile: 'Empática e corajosa; dedicou-se à missão de salvação humanitária no desfecho da T2.',
     storyArc:
-      'Salva Jason 1 na Velocity Labs (T1:E3) e viaja com ele até decidir ficar no Mundo Utópico da Aurora / World 26 (T1:E7). Lá encontra Ryan 1. Na 2ª temporada, viaja com Ryan 1 passando pelo **Mundo Low-Tech** (hospedando-se no mesmo motel Milshire que a família Dessen e sendo vista por Mitchel MacNamara!) e enfrenta a quarentena da Praga da Íris Negra (T2:E4) até ser resgatada por Leighton 6 (T2:E7).',
+      'Salva Jason 1 na Velocity Labs (T1:E3) e viaja com ele até decidir ficar no Mundo Utópico da Aurora / World 26 (T1:E7). Lá encontra Ryan 1. Na 2ª temporada, viaja com Ryan 1 passando pelo **Mundo Low-Tech** e enfrenta a quarentena da Praga da Íris Negra (T2:E4). No season finale (**T2:E10 "No Quiet Life"**), parte com Ryan em uma missão com prazo improrrogável de uma hora para obter o antídoto da Praga com Oluko e administrá-lo no Mundo 26. Apesar de um impasse armado com tropas locais desarmado por uma variante de Leighton, eles salvam a população e regressam pela Caixa antes do encerramento do prazo.',
     branchOriginExplanation:
       'Nativa do Mundo 2 (Velocity Labs).',
     sources: [
-      { type: 'FANDOM_WIKI', label: 'Wiki: Amanda Lucas', detail: 'Retrato oficial de Alice Braga como Amanda Lucas.' }
+      { type: 'FANDOM_WIKI', label: 'Wiki: Amanda Lucas', detail: 'Retrato oficial de Alice Braga como Amanda Lucas.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Entrega da cura da Praga no Mundo 26 sob contagem regressiva de uma hora.' }
     ]
   },
   {
@@ -1183,7 +1265,7 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'R1',
     designation: 'Ryan 1 (Neuroquímico — Parceiro de Amanda 2)',
     alias: 'Vencedor do Prêmio Pavia na Reality 1',
-    shortRole: 'Abandonado por Jason 2 na Utopia da Aurora, viaja com Amanda 2 pelo Mundo Low-Tech na T2.',
+    shortRole: 'Abandonado por Jason 2 na Utopia, viaja com Amanda 2 e no T2:E10 entrega o antídoto da Praga no Mundo 26 em uma corrida de 1 hora.',
     actor: 'Jimmi Simpson',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/4/49/Ryan_Holder_Reality_1.png/revision/latest?cb=20240816204623',
     accentColor: 'blue',
@@ -1192,14 +1274,15 @@ export const VARIANTS: CharacterVariant[] = [
     worldsVisited: ['world-prime-1', 'world-aurora-borealis', 'world-lowtech-analog'],
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 1,
-    visualTraits: 'Neuroquímico brilhante; aparência tensa e determinada na 2ª temporada.',
-    psychologicalProfile: 'Determinado a entender a mecânica neural da Lavanda para voltar para casa.',
+    visualTraits: 'Neuroquímico brilhante; aparência tensa e focada na 2ª temporada.',
+    psychologicalProfile: 'Determinado a reparar os danos causados por variantes descontroladas como Ryan 3.',
     storyArc:
-      'Amigo de Jason 1 no Mundo 1. Quando descobre a farsa de Jason 2, é sequestrado e largado no Mundo 26 / Utopia da Aurora (T1:E6). Encontra Amanda 2 no final da T1 e viaja com ela na 2ª temporada (passando pelo **Mundo Low-Tech**, onde quase cruzam com Jason 1 no corredor do motel Milshire!), enfrentando depois a quarentena da Praga da Íris Negra (T2:E4) até ser resgatado por Leighton 6 (T2:E7).',
+      'Amigo de Jason 1 no Mundo 1. Quando descobre a farsa de Jason 2, é sequestrado e largado no Mundo 26 / Utopia da Aurora (T1:E6). Encontra Amanda 2 no final da T1 e viaja com ela na 2ª temporada passando pelo **Mundo Low-Tech**, enfrentando depois a quarentena da Praga da Íris Negra (T2:E4). No final da 2ª temporada (**T2:E10 "No Quiet Life"**), atua ao lado de Amanda na missão de reparação humanitária, obtendo a fórmula do antídoto com Oluko e curando os cidadãos infectados no Mundo 26, retornando pela Caixa momentos antes do encerramento do prazo fatal.',
     branchOriginExplanation:
       'Nativo do Mundo 1.',
     sources: [
-      { type: 'FANDOM_WIKI', label: 'Wiki: Ryan Holder (Reality 1)', detail: 'Retrato oficial de Jimmi Simpson como Ryan 1.' }
+      { type: 'FANDOM_WIKI', label: 'Wiki: Ryan Holder (Reality 1)', detail: 'Retrato oficial de Jimmi Simpson como Ryan 1.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Administração da cura da Praga no Mundo 26 sob contagem de uma hora.' }
     ]
   },
   {
@@ -1260,9 +1343,9 @@ export const VARIANTS: CharacterVariant[] = [
     id: 'leighton-2',
     baseCharacter: 'Leighton Vance',
     badgeNumber: 'L2',
-    designation: 'Leighton 2 (CEO da Velocity Tech / Construtor da Pirâmide)',
+    designation: 'Leighton 2 (CEO da Velocity Tech — Morto no T2:E10)',
     alias: 'Arquiteto da Pirâmide no Mundo Low-Tech',
-    shortRole: 'Instalou-se no Mundo Low-Tech (World X), rivalizou com a MacNamara Tech e construiu A Pirâmide subterrânea.',
+    shortRole: 'Construiu A Pirâmide no Mundo Low-Tech; no T2:E10 decide abandonar o multiverso, mas é estrangulado até a morte por Oluko.',
     actor: 'Dayo Okeniyi',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/6/62/Leighton_Vance.png/revision/latest?cb=20240418155112',
     accentColor: 'violet',
@@ -1275,17 +1358,18 @@ export const VARIANTS: CharacterVariant[] = [
       'world-sand-dunes',
       'world-lowtech-analog'
     ],
-    status: 'Ativo / Em Jornada',
+    status: 'Morto',
     seasonIntroduced: 1,
     visualTraits: 'Cicatrizes de batalha do Corredor; líder da Velocity Tech no Mundo Low-Tech.',
-    psychologicalProfile: 'Ambicioso; aproveita a ausência de tecnologia digital no Mundo Low-Tech para dominar o mercado e construir A Pirâmide.',
+    psychologicalProfile: 'Ambicioso, mas no desfecho da T2 é tomado pelo remorso e busca uma vida simples fora do multiverso.',
     storyArc:
-      'Após perseguir Jason 1 na 1ª temporada, estabelece sua base no **Mundo Low-Tech ("World X")** com a empresa **Velocity Tech**, superando a corporação local **MacNamara Tech**. Nos túneis subterrâneos de carga sob Chicago, constrói **A Pirâmide** (uma versão gigantesca da Caixa movida a energia nuclear que já mapeou 74 mundos para exploração). No **T2:E9 ("How to Build the Box")**, seu complexo de deus começa a ruir quando ele confronta as consequências horríveis da exploração descontrolada — realidades colapsadas, pragas e sofrimento disseminados pela ambição transdimensional.',
+      'Após perseguir Jason 1 na 1ª temporada, estabelece sua base no **Mundo Low-Tech ("World X")** com a empresa **Velocity Tech**, superando a corporação local **MacNamara Tech**. Nos túneis subterrâneos de carga sob Chicago, constrói **A Pirâmide** (uma versão gigantesca da Caixa movida a energia nuclear que mapeou 74 mundos para exploração). No **T2:E9 ("How to Build the Box")**, seu complexo de deus desmorona perante o colapso multiversal. No season finale (**T2:E10 "No Quiet Life"**), concorda em desmantelar A Pirâmide junto a Jason 2 e sonha em abrir um bar em Kokomo. Ao descobrir a intenção de desativação, seu parceiro Oluko (Leighton 6) entra em fúria homicida e estrangula Leighton 2 até a morte. Seu corpo é encontrado e cremado às margens do rio por um desolado Jason 2.',
     branchOriginExplanation:
       'Nativo do Mundo 2 (Velocity Labs).',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Leighton Vance', detail: 'Retrato oficial de Dayo Okeniyi como Leighton Vance.' },
-      { type: 'EPISODE_CANON', label: 'T2:E6, T2:E7 & T2:E9 "How to Build the Box"', detail: 'Construção da Pirâmide e crise moral diante do colapso multiversal.' }
+      { type: 'EPISODE_CANON', label: 'T2:E6, T2:E7 & T2:E9 "How to Build the Box"', detail: 'Construção da Pirâmide e crise moral diante do colapso multiversal.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Estrangulado até a morte por Oluko após decidir desmantelar A Pirâmide.' }
     ]
   },
   {
@@ -1318,8 +1402,8 @@ export const VARIANTS: CharacterVariant[] = [
     baseCharacter: 'Leighton Vance',
     badgeNumber: 'L6',
     designation: 'Leighton 6 / "Guru Leighton" (Oluko)',
-    alias: 'O Navegador Meditativo da Pirâmide',
-    shortRole: 'Treina os batedores da Pirâmide no Mundo Low-Tech (World X) e resgata Amanda 2 e Ryan 1.',
+    alias: 'O Navegador Meditativo & Protetor da Pirâmide',
+    shortRole: 'Forneceu a cura da Praga a Amanda e Ryan; ao saber do desmonte da Pirâmide, estrangula Leighton 2 e foge pelo multiverso no T2:E10.',
     actor: 'Dayo Okeniyi',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/c/cd/Dark_Matter_S2E04.jpg/revision/latest?cb=20260918145057',
     accentColor: 'emerald',
@@ -1335,14 +1419,15 @@ export const VARIANTS: CharacterVariant[] = [
     branchEventLabel: 'Domínio meditativo da Caixa (T2:E6/E7)',
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 2,
-    visualTraits: 'Roupas leves estilo guru/hippie, calma profunda.',
-    psychologicalProfile: 'Mestre na navegação mental do Corredor; treina as equipes de exploração da Pirâmide.',
+    visualTraits: 'Roupas leves estilo guru/hippie, calma profunda que esconde fanatismo impiedoso.',
+    psychologicalProfile: 'Mestre na navegação mental do Corredor; obcecado em preservar o propósito divino da superposição quântica.',
     storyArc:
-      'No **Mundo Low-Tech ("World X")**, atua ao lado de Leighton 2 treinando os "scouts" (batedores) que mapearam 74 realidades através da **Pirâmide**, além de resgatar Amanda 2 e Ryan 1 da quarentena da Praga da Íris Negra no T2:E7.',
+      'No **Mundo Low-Tech ("World X")**, atua ao lado de Leighton 2 treinando os batedores que mapearam 74 realidades através da **Pirâmide** e resgata Amanda 2 e Ryan 1 da quarentena da Praga da Íris Negra no T2:E7. No season finale (**T2:E10 "No Quiet Life"**), sintetiza e entrega o antídoto da Praga para Amanda e Ryan. No entanto, desconfiado de sabotagem, envia a operativa armada Sandra para caçar Jason 1 e Blair. Ao descobrir que Leighton 2 e Jason 2 planejavam desmontar A Pirâmide, entra em fúria psicopata, estrangula Leighton 2 até a morte e ativa a Pirâmide, fugindo pelo multiverso instantes antes do Kill Switch selar as portas interdimensionais.',
     branchOriginExplanation:
-      'Ramificação de Leighton que atingiu iluminação espiritual no multiverso.',
+      'Ramificação de Leighton que atingiu iluminação espiritual no multiverso, convertendo-a em fanatismo desmedido.',
     sources: [
-      { type: 'EPISODE_CANON', label: 'T2:E6 & E7', detail: 'Atuação na Pirâmide (Mundo Low-Tech) e resgate de Amanda 2 e Ryan 1.' }
+      { type: 'EPISODE_CANON', label: 'T2:E6 & E7', detail: 'Atuação na Pirâmide (Mundo Low-Tech) e resgate de Amanda 2 e Ryan 1.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Sintetização da cura, envio de Sandra, assassinato de Leighton 2 e fuga pela Pirâmide.' }
     ]
   },
 
@@ -1353,30 +1438,33 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'B2',
     designation: 'Blair 2 (Sobrevivente do Mundo das Vespas)',
     alias: 'Blair Caplan (Reality 2)',
-    shortRole: 'Escapou do Mundo das Vespas, descobriu a Pirâmide e no T2:E9 formula o plano do Kill Switch mestre para selar a rede.',
+    shortRole: 'Luta contra Sandra no Mundo Gravidade Zero, repara o Kill Switch e executa o desligamento total do multiverso no T2:E10.',
     actor: 'Amanda Brugel',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/a/a9/Blair_Caplan_Alternate.png/revision/latest?cb=20240531165547',
     accentColor: 'amber',
     originWorldId: 'world-velocity-2',
-    currentWorldId: 'world-lowtech-analog',
+    currentWorldId: 'world-velocity-2',
     worldsVisited: [
       'world-velocity-2',
       'world-murder-hornets',
       'world-laurel-sanctuary',
       'world-sanctuary-refuge',
-      'world-lowtech-analog'
+      'world-lowtech-analog',
+      'world-warzone-chicago',
+      'world-zero-gravity'
     ],
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 1,
     visualTraits: 'Postura de sobrevivente hipervigilante.',
     psychologicalProfile: 'Conhece na pele o horror do multiverso e traça uma estratégia científica implacável para desligar a rede de Caixas.',
     storyArc:
-      'Após ficar presa no Mundo das Vespas na 1ª temporada, consegue escapar passando pela casa de Laurel. No **Mundo Low-Tech ("World X")**, é levada por Leighton aos túneis subterrâneos de Chicago (T2:E6 & E7), onde fica horrorizada ao ver **A Pirâmide**. No **T2:E9 ("How to Build the Box")**, Blair descobre que todas as Caixas do multiverso continuam entrelaçadas à Caixa original da Velocity Labs (Reality 02). Ela arquiteta então o plano de invadir a Caixa matriz e inserir um código de desligamento ("Kill Switch") para selar as portas interdimensionais em definitivo antes da catástrofe final.',
+      'Após ficar presa no Mundo das Vespas na 1ª temporada, consegue escapar passando pela casa de Laurel. No **Mundo Low-Tech ("World X")**, é levada por Leighton aos túneis subterrâneos de Chicago (T2:E6 & E7), onde fica horrorizada ao ver **A Pirâmide**. No **T2:E9 ("How to Build the Box")**, Blair descobre que todas as Caixas do multiverso continuam entrelaçadas à Caixa original da Velocity Labs (Reality 02). Ela arquiteta então o plano de invadir a Caixa matriz e inserir um código de desligamento ("Kill Switch"). No season finale (**T2:E10 "No Quiet Life"**), atua lado a lado com Jason 1: fogem sob fogo cruzado de Sandra por Chicago em Guerra, enfrentam a atiradora no Mundo Gravidade Zero, e após a morte de Sandra, Blair faz o reparo de emergência no Kill Switch danificado, viabilizando o acoplamento final na Velocity Labs.',
     branchOriginExplanation:
       'Nativa do Mundo 2 (Velocity Labs).',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Blair Caplan (Reality 2)', detail: 'Retrato oficial de Blair 2.' },
-      { type: 'EPISODE_CANON', label: 'T2:E6, T2:E7 & T2:E9 "How to Build the Box"', detail: 'Descoberta do entrelaçamento mestre e plano do Kill Switch.' }
+      { type: 'EPISODE_CANON', label: 'T2:E6, T2:E7 & T2:E9 "How to Build the Box"', detail: 'Descoberta do entrelaçamento mestre e plano do Kill Switch.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Batalha em gravidade zero contra Sandra, conserto do Kill Switch e detonação na Caixa Matriz.' }
     ]
   },
   {
@@ -1437,29 +1525,32 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'D1',
     designation: 'Daniela 1 (Esposa de Jason 1)',
     alias: 'Daniela Dessen / Vargas',
-    shortRole: 'Matou o Jason invasor no Mundo 29, viajou para a Reality 01 atrás de Charlie, libertou Jason 13 e eliminou MacNamara no T2:E9!',
+    shortRole: 'Reencontra Charlie e Max no Mundo 27 com ajuda de Jason 13; no T2:E10, fica exilada com Charlie em um mundo desconhecido.',
     actor: 'Jennifer Connelly',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/f/fb/Daniela_Dessen.png/revision/latest?cb=20240531101339',
     accentColor: 'rose',
     originWorldId: 'world-prime-1',
-    currentWorldId: 'world-prime-1',
+    currentWorldId: 'world-stranded-cliffhanger',
     worldsVisited: [
       'world-prime-1',
       'world-sanctuary-refuge',
       'world-lowtech-analog',
-      'world-meteor-apocalypse'
+      'world-meteor-apocalypse',
+      'world-max-alive',
+      'world-stranded-cliffhanger'
     ],
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 1,
-    visualTraits: 'Artista plástica; na 2ª temporada, mantém armas escondidas em casa por precaução.',
-    psychologicalProfile: 'Exausta pela paranoia do multiverso, mas capaz de tudo para proteger e resgatar o filho Charlie.',
+    visualTraits: 'Artista plástica; olhar marcado pela dor do exílio cósmico no desfecho da temporada.',
+    psychologicalProfile: 'Exausta pela paranoia do multiverso, mas de bravura inabalável na proteção de Charlie.',
     storyArc:
-      'Após 7 meses no Mundo 29 (T2:E1), o **Jason Invasor do Mundo 29** invade a casa e **Daniela o mata com um tiro**. Foge com Jason 1 e Charlie para o **Mundo Low-Tech ("World X")** no T2:E2. No T2:E7 ("The Pyramid"), descobre que Charlie entrou na Caixa e parte sozinha atrás dele. No **T2:E9 ("How to Build the Box")**, emerge na Reality 01 e é presa na cela da DARPA com **Jason 13**. Juntos, Daniela e Jason 13 ludibriam o Agente Mitchel MacNamara, atraem-no para dentro da Caixa, injetam-lhe a droga psicotrópica Lilac Wings e o banem para um mundo apocalíptico sob impacto iminente de meteoro (Mundo 33), trancando a porta e escapando pelo Corredor.',
+      'Após matar o invasor no Mundo 29 e passar pelo Mundo Low-Tech, entra na Caixa atrás de Charlie e chega à Reality 01 (T2:E9), onde é presa na cela da DARPA com Jason 13. Juntos, eliminam o Agente MacNamara no Mundo Meteoro (Mundo 33). No finale (**T2:E10 "No Quiet Life"**), Jason 13 a guia pelo Corredor ancorando a lembrança dos filhos, abrindo a porta do Mundo 27. Daniela chora de alegria ao abraçar Charlie e ver Max vivo. Despedindo-se de Jason 13, entra na Caixa com Charlie buscando uma nova vida. Porém, no meio da travessia, o Kill Switch de Jason 1 desfaz a superposição e lacra o Corredor: Daniela e Charlie são cuspidos no Mundo 36, isolados para sempre de Jason 1.',
     branchOriginExplanation:
       'Nativa do Mundo 1.',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Daniela Dessen', detail: 'Retrato oficial de Jennifer Connelly como Daniela.' },
-      { type: 'EPISODE_CANON', label: 'T2:E1, E2, E6, E7 & T2:E9 "How to Build the Box"', detail: 'Mata o invasor, entra na Caixa atrás de Charlie, liberta Jason 13 e elimina MacNamara.' }
+      { type: 'EPISODE_CANON', label: 'T2:E1, E2, E6, E7 & T2:E9 "How to Build the Box"', detail: 'Mata o invasor, liberta Jason 13 e elimina MacNamara.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Reencontro com Charlie e Max no Mundo 27 e exílio no mundo desconhecido.' }
     ]
   },
   {
@@ -1468,30 +1559,32 @@ export const VARIANTS: CharacterVariant[] = [
     badgeNumber: 'C1',
     designation: 'Charlie 1 (Em Busca do Irmão Gêmeo Max)',
     alias: 'Filho de Jason 1 e Daniela 1',
-    shortRole: 'Viajou pelo Corredor a partir do Santuário de Laurel e finalmente reencontrou o irmão gêmeo Max no Mundo 27 no T2:E9!',
+    shortRole: 'Reencontra o irmão Max e a mãe Daniela no Mundo 27; no T2:E10, fica preso com Daniela em um mundo alternativo desconhecido.',
     actor: 'Oakes Fegley',
     avatarUrl: 'https://static.wikia.nocookie.net/dark-matter-apple-tv/images/0/0b/Charlie_Dessen.png/revision/latest?cb=20240418155111',
     accentColor: 'amber',
     originWorldId: 'world-prime-1',
-    currentWorldId: 'world-max-alive',
+    currentWorldId: 'world-stranded-cliffhanger',
     worldsVisited: [
       'world-prime-1',
       'world-sanctuary-refuge',
       'world-lowtech-analog',
       'world-laurel-sanctuary',
-      'world-max-alive'
+      'world-max-alive',
+      'world-stranded-cliffhanger'
     ],
     status: 'Ativo / Em Jornada',
     seasonIntroduced: 1,
-    visualTraits: 'Adolescente, alérgico a nozes.',
-    psychologicalProfile: 'Frustrado por ter que abandonar sua escola novamente após a fuga do Mundo 29; determinado em reencontrar seu irmão gêmeo Max.',
+    visualTraits: 'Adolescente, alérgico a nozes; carrega a bússola Polaris.',
+    psychologicalProfile: 'Corajoso e sensível; viveu a alegria máxima de rever o irmão gêmeo Max antes da separação trágica do pai.',
     storyArc:
-      'Após Daniela matar o Jason invasor no Mundo 29 (T2:E1), Charlie é levado para o **Mundo Low-Tech ("World X")** (T2:E2). No T2:E7 ("The Pyramid"), após Jason 1 lhe contar sobre o irmão gêmeo Max, Charlie entra secretamente na Caixa e chega ao **Santuário de Laurel** (T2:E8). No **T2:E9 ("How to Build the Box")**, encorajado por Jason 34 e Amanda 7, Charlie viaja pela Caixa até o **Mundo Onde Max Vive (Mundo 27)**, onde encontra uma realidade pacífica e vive o emocionante reencontro com seu irmão gêmeo Maximillian!',
+      'Após fugir para o Mundo Low-Tech, entra na Caixa ao saber de Max e chega ao Santuário de Laurel (T2:E8). No T2:E9, viaja até o Mundo 27 e reencontra seu irmão gêmeo Max vivo. No **T2:E10 ("No Quiet Life")**, vive o reencontro perfeito com a mãe Daniela no Mundo 27. Partindo com ela pela Caixa para reconstruírem o lar, o desligamento repentino da rede corta o trânsito e o joga com Daniela em uma realidade desconhecida, deixando-o eternamente incomunicável com seu pai Jason 1.',
     branchOriginExplanation:
       'Nativo do Mundo 1.',
     sources: [
       { type: 'FANDOM_WIKI', label: 'Wiki: Charlie Dessen', detail: 'Retrato oficial de Oakes Fegley como Charlie.' },
-      { type: 'EPISODE_CANON', label: 'T2:E7, T2:E8 & T2:E9 "How to Build the Box"', detail: 'Chegada ao Santuário de Laurel e reencontro com Max no Mundo 27.' }
+      { type: 'EPISODE_CANON', label: 'T2:E7, T2:E8 & T2:E9 "How to Build the Box"', detail: 'Chegada ao Santuário de Laurel e reencontro com Max no Mundo 27.' },
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Reencontro com Daniela 1 e confinamento no mundo alternativo após o colapso da Caixa.' }
     ]
   },
   {
@@ -1570,6 +1663,31 @@ export const VARIANTS: CharacterVariant[] = [
       'Nativo do Mundo 30 ("World X" / Mundo Low-Tech) — contraparte do Agente Federal Mitchel MacNamara da Reality 1.',
     sources: [
       { type: 'EPISODE_CANON', label: 'T2:E2, T2:E3 & T2:E4 "Stars, Hide Your Fires"', detail: 'Disputa MacNamara Tech vs. Velocity Tech e captura por Jason 1 no Corredor.' }
+    ]
+  },
+  {
+    id: 'sandra-1',
+    baseCharacter: 'Laurel & Agentes',
+    badgeNumber: 'SANDRA',
+    designation: 'Sandra (Operativa da Pirâmide — Morta no T2:E10)',
+    alias: 'A Caçadora Enviada por Oluko',
+    shortRole: 'Enviada por Oluko para interceptar Jason 1 e Blair; persegue-os em Chicago em Guerra e é morta no Mundo Gravidade Zero no T2:E10.',
+    actor: 'Adrienne Lewis',
+    avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+    accentColor: 'rose',
+    originWorldId: 'world-lowtech-analog',
+    currentWorldId: 'world-zero-gravity',
+    worldsVisited: ['world-lowtech-analog', 'world-warzone-chicago', 'world-zero-gravity'],
+    status: 'Morto',
+    seasonIntroduced: 2,
+    visualTraits: 'Indumentária tática militar, armamento pesado e rastreamento implacável pelo Corredor.',
+    psychologicalProfile: 'Lealdade fanática a Oluko; não hesita em atirar para matar qualquer viajante que ameace a tecnologia multiversal.',
+    storyArc:
+      'Apresentada no season finale (**T2:E10 "No Quiet Life"**). Operativa armada enviada por Oluko quando este desconfia do plano de neutralização da Caixa. Ela persegue Jason 1 e Blair Caplan 2 em alta velocidade através de realidades hostis, disparando contra eles em Chicago em Guerra (Mundo 35) e confrontando-os no Mundo Gravidade Zero (Mundo 34). No combate aéreo sem gravidade, Sandra avaria o Kill Switch, mas é dominada e morta pela dupla.',
+    branchOriginExplanation:
+      'Nativa do complexo operacional de Oluko no Mundo Low-Tech.',
+    sources: [
+      { type: 'EPISODE_CANON', label: 'T2:E10 "No Quiet Life"', detail: 'Perseguição através do Corredor e morte em combate corporal no Mundo Gravidade Zero.' }
     ]
   }
 ];
@@ -1757,6 +1875,61 @@ export const JOURNEYS: BoxJourney[] = [
     travelers: ['mitchel-1', 'jason-13', 'daniela-1'],
     subconsciousTrigger: 'Armadilha orquestrada por Daniela 1 e Jason 13 dentro da Caixa sob falsa capitulação, manifestando uma realidade terminal sob choque cósmico de meteoro.',
     outcome: 'O Agente Mitchel MacNamara é injetado com Lilac Wings e jogado em Chicago segundos antes da colisão do meteoro; Jason 13 e Daniela trancam a Caixa por dentro, eliminando MacNamara e fugindo livres pelo Corredor.'
+  },
+  {
+    id: 'journey-17',
+    order: 17,
+    season: 2,
+    episode: 'T2:E10 "No Quiet Life"',
+    fromWorldId: 'world-meteor-apocalypse',
+    toWorldId: 'world-max-alive',
+    travelers: ['daniela-1', 'jason-13'],
+    subconsciousTrigger: 'Conexão mental guiada por Jason 13 através da memória afetuosa dos filhos Charlie e Max na infância.',
+    outcome: 'A porta se abre e Daniela 1 reencontra Charlie 1 e o gêmeo Max vivo. Jason 13 despede-se com nobreza e recusa cruzar o limiar, voltando a vagar pelo Corredor.'
+  },
+  {
+    id: 'journey-18',
+    order: 18,
+    season: 2,
+    episode: 'T2:E10 "No Quiet Life"',
+    fromWorldId: 'world-lowtech-analog',
+    toWorldId: 'world-aurora-borealis',
+    travelers: ['amanda-2', 'ryan-1'],
+    subconsciousTrigger: 'Missão humanitária com prazo limite de 1 hora para entregar o antídoto de Oluko e salvar os infectados da Praga da Íris Negra.',
+    outcome: 'A cura é administrada com sucesso e erradica a praga no Mundo 26; Amanda e Ryan retornam pela Caixa instantes antes do prazo final.'
+  },
+  {
+    id: 'journey-19',
+    order: 19,
+    season: 2,
+    episode: 'T2:E10 "No Quiet Life"',
+    fromWorldId: 'world-lowtech-analog',
+    toWorldId: 'world-zero-gravity',
+    travelers: ['jason-1', 'blair-2', 'sandra-1'],
+    subconsciousTrigger: 'Fuga tática desesperada pelo Corredor sob disparos da assassina Sandra, cruzando Chicago em Guerra até o vácuo de gravidade zero.',
+    outcome: 'Combate corpo a corpo em gravidade zero: Sandra é neutralizada e morta. Blair repara a fiação danificada do Kill Switch e seguem para a Velocity Labs.'
+  },
+  {
+    id: 'journey-20',
+    order: 20,
+    season: 2,
+    episode: 'T2:E10 "No Quiet Life"',
+    fromWorldId: 'world-zero-gravity',
+    toWorldId: 'world-velocity-2',
+    travelers: ['jason-1', 'blair-2'],
+    subconsciousTrigger: 'Foco total em acoplar o Kill Switch na Caixa Matriz original e desativar permanentemente o entrelaçamento de todo o multiverso.',
+    outcome: 'Jason 1 instala o Kill Switch na Caixa da Velocity Labs com temporizador de 10 minutos. O pulso de destruição fecha para sempre todas as portas da Caixa.'
+  },
+  {
+    id: 'journey-21',
+    order: 21,
+    season: 2,
+    episode: 'T2:E10 "No Quiet Life"',
+    fromWorldId: 'world-max-alive',
+    toWorldId: 'world-stranded-cliffhanger',
+    travelers: ['daniela-1', 'charlie-1'],
+    subconsciousTrigger: 'Desejo sincero de mãe e filho de encontrar um novo lar definitivo e viver em paz.',
+    outcome: 'Durante a travessia pelo Corredor, o Kill Switch de Jason 1 implode a superposição; o caminho é truncado e Daniela e Charlie são ejetados no Mundo 36, isolados para sempre de Jason 1 no season finale.'
   }
 ];
 
@@ -1774,16 +1947,22 @@ export const PODCAST_RULES_AND_LORE = [
       'No podcast oficial, Blake Crouch explicou que números como Jason 13, 24, 30, 31, 34 e Amanda 7 NÃO significam que eles vieram do "Mundo 34". Todos esses Jasons nasceram na Reality 1! O número é a identificação oficial dos roteiros para rastrear cada ramificação surgida dentro do Corredor. Exemplo clássico: quando o galho de árvore atinge Amanda no Mundo 28, o caminho se divide entre a linha de Jason 13 (onde sua Amanda morre e ele fica preso no black-site da Reality 1) e a linha de Jason 34 (onde ele salva a vida da Amanda 7 levando-a para a biblioteca de Laurel).'
   },
   {
-    title: 'Memorial de Baixas: Todas as Variantes Mortas (T1 & T2)',
-    speaker: 'Compilação Canônica T1:E4–E9 & T2:E1–E9',
+    title: 'Memorial de Baixas: Todas as Variantes Mortas (T1 & T2 Completas)',
+    speaker: 'Compilação Canônica T1:E4–E9 & T2:E1–E10',
     explanation:
-      'Ao longo das duas temporadas, diversas variantes perderam a vida: (1) Blair Viajante (devorada pelas vespas gigantes na câmera do Mundo 19 em T1:E5); (2) Jason 3, Jason 6 (morto no beco da loja de armas em T1:E8), Jason 8 (invasor da cabana em T1:E9) e as dezenas de Jasons mortos na Convergência cujos corpos lotam o necrotério de Chicago em T2:E1; (3) O Jason Invasor do Mundo 29 (morto com um tiro por Daniela 1 em T2:E1); (4) A Amanda de Jason 13 (morta empalada pelo galho no Mundo 28); (5) Ryan 3 e sua Amanda (mortos pela Praga da Íris Negra no Mundo 26 em T2:E4); (6) O Jason Nativo do Mundo 31 (que morreu aos 16 anos, permitindo que sua mãe Ellie acolhesse Jason 24, 30 e 31 em T2:E5); e (7) O Agente Federal Mitchel MacNamara da Reality 1 (drogado com Lilac Wings e jogado por Jason 13 e Daniela 1 na Chicago apocalíptica sob impacto terminal de meteoro no T2:E9 "How to Build the Box").'
+      'Ao longo das duas temporadas completas da série, as seguintes variantes perderam a vida: (1) Blair Viajante (devorada pelas vespas gigantes na câmera do Mundo 19 em T1:E5); (2) Jason 3, Jason 6 (morto no beco da loja de armas em T1:E8), Jason 8 (invasor da cabana em T1:E9) e as dezenas de Jasons mortos na Convergência cujos corpos lotam o necrotério de Chicago em T2:E1; (3) O Jason Invasor do Mundo 29 (morto com um tiro por Daniela 1 em T2:E1); (4) A Amanda de Jason 13 (morta empalada pelo galho no Mundo 28); (5) Ryan 3 e sua Amanda (mortos pela Praga da Íris Negra no Mundo 26 em T2:E4); (6) O Jason Nativo do Mundo 31 (que morreu aos 16 anos, permitindo que sua mãe Ellie acolhesse Jason 24, 30 e 31 em T2:E5); (7) O Agente Federal Mitchel MacNamara da Reality 1 (drogado com Lilac Wings e jogado por Jason 13 e Daniela 1 na Chicago apocalíptica sob impacto terminal de meteoro no T2:E9 "How to Build the Box"); (8) Leighton 2 / CEO da Velocity Tech (estrangulado até a morte por Oluko na Pirâmide no T2:E10 "No Quiet Life"); e (9) Sandra, a operativa enviada por Oluko (morta durante combate corporal em gravidade zero contra Jason 1 e Blair no T2:E10 "No Quiet Life").'
   },
   {
-    title: 'O Kill Switch da Caixa Matriz & O Entrelaçamento Cósmico ("How to Build the Box")',
-    speaker: 'Blake Crouch & Equipe de Roteiro — Episódio 9 da 2ª Temporada',
+    title: 'O Desfecho Trágico de "No Quiet Life": A Vitória que Destruiu a Família Dessen',
+    speaker: 'Blake Crouch & Jacquelyn Ben-Zekry — Podcast Oficial Season Finale (T2:E10)',
     explanation:
-      'No T2:E9, Blair Caplan formula uma descoberta revolucionária: todas as Caixas geradas nas infinitas realidades continuam entrelaçadas quanticamente à Caixa Matriz original da Velocity Labs (Reality 02). Isso abre a possibilidade de injetar um código de desligamento total ("Kill Switch") diretamente no terminal da Caixa original para desativar a superposição e selar todas as portas do Corredor para sempre, evitando a aniquilação multiversal no season finale.'
+      'No encerramento da 2ª temporada, Jason 1 acredita ter triunfado: conecta o Kill Switch à Caixa Matriz na Reality 02 com um temporizador de 10 minutos, aniquilando a superposição quântica para erradicar o caos dimensional. Porém, a tragédia se consuma de forma devastadora: Daniela 1 e Charlie 1 estavam em trânsito dentro da Caixa tentando voltar para casa após a despedida no Mundo 27. Quando o pulso destrói o Corredor, a passagem é truncada e eles são ejetados no Mundo 36 — uma Chicago alternativa silenciosa e desconhecida. As portas da Caixa se selam como um bloco sólido de ferro, deixando mãe e filho encalhados para sempre, separados de Jason 1 no trágico gancho para a 3ª temporada.'
+  },
+  {
+    title: 'A Queda de Leighton 2 & A Fuga Renegada de Oluko pela Pirâmide',
+    speaker: 'Blake Crouch & Equipe de Roteiro — Episódio 10 da 2ª Temporada',
+    explanation:
+      'Ao confrontar a destruição gerada pela Pirâmide, Leighton 2 decide que a obsessão com o multiverso deve acabar e planeja abrir um bar em Kokomo com Jason 2. Contudo, seu parceiro místico Oluko (Leighton 6) enxerga o desmonte como heresia ao seu propósito cósmico: em um surto de violência, estrangula Leighton 2 até a morte. Oluko aciona a Pirâmide e escapa pelas portas do multiverso antes que Jason 1 destrua a rede, tornando-se a principal ameaça foragida para a 3ª temporada.'
   },
   {
     title: 'A Sala de Chat dos Jasons (Onde Jason 1 vira "Jason9")',

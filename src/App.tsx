@@ -57,8 +57,8 @@ const INITIAL_EPISODE_GUIDE: EpisodeGuideItem[] = [
   { season: 2, ep: 'T2:E6', title: 'What the Universe Is Made Of', date: '02/10/2026', focus: 'Daniela na cabana com Gabriel; Blair 2 e Leighton 2 diante da Pirâmide', released: true },
   { season: 2, ep: 'T2:E7', title: 'The Pyramid', date: '09/10/2026', focus: 'A Pirâmide (74 mundos); Charlie 1 e Daniela 1 entram na Caixa; J2 bate à porta de J1', released: true },
   { season: 2, ep: 'T2:E8', title: 'The Basic Oneness of Everything', date: '16/10/2026', focus: 'Santuário de Laurel (W32): como Jason 34 salvou Amanda 7 do galho; chegada de Charlie 1', released: true },
-  { season: 2, ep: 'T2:E9', title: 'How to Build the Box', date: '23/10/2026 (ÚLTIMO LANÇADO)', focus: 'Origem da Caixa; Daniela e Jason 13 eliminam MacNamara no Mundo Meteoro (W33); Charlie reencontra Max (W27); Blair planeja o Kill Switch', released: true },
-  { season: 2, ep: 'T2:E10', title: 'No Quiet Life (SEASON FINALE — EM BREVE)', date: 'Estreia: 30/10/2026', focus: 'Episódio final da 2ª temporada (Apple TV+)', released: false },
+  { season: 2, ep: 'T2:E9', title: 'How to Build the Box', date: '23/10/2026', focus: 'Origem da Caixa; Daniela e Jason 13 eliminam MacNamara no Mundo Meteoro (W33); Charlie reencontra Max (W27); Blair planeja o Kill Switch', released: true },
+  { season: 2, ep: 'T2:E10', title: 'No Quiet Life (SEASON FINALE)', date: '30/10/2026 (ÚLTIMO LANÇADO)', focus: 'Jason 1 aciona o Kill Switch; Morte de Leighton 2 e Sandra; Daniela e Charlie ficam exilados no Mundo 36', released: true },
 ];
 
 const DarkAtmosphericCanvas: React.FC = () => {
@@ -172,7 +172,7 @@ export function App() {
     'charlie-1': { firstEp: 'T1:E1' },
     'ryan-1': { firstEp: 'T1:E1' },
     'amanda-2': { firstEp: 'T1:E1' },
-    'leighton-2': { firstEp: 'T1:E1' },
+    'leighton-2': { firstEp: 'T1:E1', deathEp: 'T2:E10' },
     // T1:E2 — Trip of a Lifetime (Velocity Labs & Reality 01)
     'ryan-2': { firstEp: 'T1:E2' },
     'blair-2': { firstEp: 'T1:E2' },
@@ -211,6 +211,8 @@ export function App() {
     'laurel-1': { firstEp: 'T2:E7' },
     'jason-34': { firstEp: 'T2:E8' },
     'amanda-7': { firstEp: 'T2:E8' },
+    // T2:E10 — No Quiet Life (Season 2 Finale)
+    'sandra-1': { firstEp: 'T2:E10', deathEp: 'T2:E10' },
   };
 
   // Maximum unlocked episode rank based on user selection
@@ -1448,7 +1450,7 @@ export function App() {
 
             <div className="flex flex-wrap gap-2">
               {[
-                { id: 'ALL', label: 'MOSTRAR TUDO (TEMPORADAS 1 & 2 ATÉ T2:E9)' },
+                { id: 'ALL', label: 'MOSTRAR TUDO (TEMPORADAS 1 & 2 COMPLETAS — ATÉ T2:E10)' },
                 { id: '1', label: 'APENAS TEMPORADA 1 (SEM SPOILERS DA T2)' },
                 { id: '2', label: 'FOCO NA TEMPORADA 2' },
               ].map((s) => (

@@ -1561,7 +1561,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                         Jason 1 no Mundo Low-Tech
                       </div>
                       <p className="text-[10px] text-stone-400 mt-1">
-                        Dopa MacNamara X (T2:E4) e reencontra Jason 2 (T2:E7).
+                        Dopa MacNamara X (T2:E4) e aciona o Kill Switch da Caixa (T2:E10).
                       </p>
                     </button>
 
@@ -1626,7 +1626,7 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                               {v.status === 'Preso (DARPA)' ? 'Sua Amanda Morre' : 'Liberto com Daniela'}
                             </div>
                             <div className="text-[9px] text-stone-400 mt-0.5">
-                              {v.status === 'Preso (DARPA)' ? 'Interrogado por Mitchel 1' : 'Elimina Mitchel 1 (T2:E9)'}
+                              {v.status === 'Preso (DARPA)' ? 'Interrogado por Mitchel 1' : 'Reúne Daniela com os Filhos (T2:E10)'}
                             </div>
                           </button>
                         );
@@ -1770,10 +1770,10 @@ export const QuantumConnectionsMap: React.FC<QuantumConnectionsMapProps> = ({
                     : treeFamily === 'RYAN'
                     ? 'RYAN HOLDER (3 VARIANTES — INCLUINDO RYAN 3 MORTO NA PRAGA)'
                     : treeFamily === 'LEIGHTON'
-                    ? 'LEIGHTON VANCE (3 VARIANTES)'
+                    ? `LEIGHTON VANCE (${variants.filter((v) => v.baseCharacter === 'Leighton Vance').length} VARIANTES${variants.some((v) => v.id === 'leighton-2' && v.status === 'Morto') ? ' — INCLUINDO LEIGHTON 2 MORTO' : ''})`
                     : treeFamily === 'BLAIR'
                     ? 'BLAIR CAPLAN (3 VARIANTES — INCLUINDO A MORTA PELAS VESPAS)'
-                    : 'MITCHEL MACNAMARA (R1 vs. WORLD X), DANIELA, CHARLIE & LAUREL'}
+                    : `MITCHEL MACNAMARA, SANDRA, DANIELA, CHARLIE & LAUREL`}
                 </div>
               </div>
 
